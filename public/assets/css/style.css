@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  background-color: #f0f0f0;
+  font-family: Courier; }
+  body section {
+    margin: 1.25% 0 0 2.5%; }
+    body section a {
+      color: inherit;
+      cursor: pointer; }
+    body section.head {
+      position: relative; }
+      body section.head h1 {
+        margin: 0;
+        font-size: 50px;
+        font-family: inherit; }
+      body section.head #filter {
+        position: absolute;
+        bottom: 10px;
+        right: 2.5%; }
+        body section.head #filter .btn-transparent {
+          background-color: transparent;
+          border: 1px solid #aaaaaa; }
+        body section.head #filter .dropdown-menu {
+          width: 200px; }
+          body section.head #filter .dropdown-menu li a {
+            padding: 3px 8px; }
+            body section.head #filter .dropdown-menu li a.inactive {
+              color: #aaaaaa; }
+              body section.head #filter .dropdown-menu li a.inactive span {
+                background-color: #aaaaaa; }
+          body section.head #filter .dropdown-menu li.about a span {
+            background-color: #fafade;
+            color: inherit; }
+          body section.head #filter .dropdown-menu li.work a span {
+            background-color: black; }
+          body section.head #filter .dropdown-menu li.status a span {
+            background-color: #00acee; }
+          body section.head #filter .dropdown-menu li.music a span {
+            background-color: #c3000d; }
+          body section.head #filter .dropdown-menu li.checkin a span {
+            background-color: #25a0ca; }
+          body section.head #filter .dropdown-menu li.link a span {
+            background-color: #ee4056; }
+          body section.head #filter .dropdown-menu li.photo a span {
+            background-color: #3f729b; }
+          body section.head #filter .dropdown-menu::before {
+            border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            content: "";
+            display: inline-block;
+            right: 9px;
+            position: absolute;
+            top: -7px; }
+          body section.head #filter .dropdown-menu::after {
+            border-bottom: 6px solid white;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            content: "";
+            display: inline-block;
+            right: 10px;
+            position: absolute;
+            top: -6px; }
+    body section article {
+      background-color: white;
+      box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5);
+      margin: 0 2.5% 2.27273% 0;
+      float: left;
+      width: 22.5%; }
+      body section article a {
+        text-decoration: underline; }
+        body section article a:hover {
+          color: #aaaaaa; }
+        body section article a.image {
+          display: block; }
+          body section article a.image img {
+            display: block;
+            width: 100%;
+            height: auto; }
+      body section article p {
+        margin: 8px;
+        overflow: hidden; }
+      body section article header, body section article footer {
+        padding: 3px 8px; }
+      body section article footer {
+        color: #aaaaaa;
+        background-color: #f6f6f6;
+        border-top: 1px solid #eee;
+        font-size: 12px; }
+      body section article.about {
+        background-color: #fafade; }
+      body section article.work header {
+        background-color: black;
+        color: white; }
+      body section article.status header {
+        background-color: #00acee;
+        color: white; }
+      body section article.music header {
+        background-color: #c3000d;
+        color: white; }
+      body section article.checkin header {
+        background-color: #25a0ca;
+        color: white; }
+      body section article.photo header {
+        background-color: #3f729b;
+        color: white; }

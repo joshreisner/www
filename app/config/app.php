@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'YourSecretKey!!!',
+	'key' => '3f3VFlPwgHAGZq2BCywmu0apCDVfYpxZ',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -106,6 +106,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+
+		'Joshreisner\Avalon\AvalonServiceProvider',
 
 	),
 
