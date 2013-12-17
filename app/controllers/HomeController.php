@@ -13,25 +13,25 @@ class HomeController extends BaseController {
 		$songs = Song::all();
 		foreach ($songs as $song) {
 			$time = strtotime($song->date);
-			timeline::add($time, 'music', 'Favorite Music', 'Liked on Last.fm ' . date('M j, Y', $time), 
+			timeline::add($time, 'music', 'Music', 'Liked on Last.fm ' . date('M j, Y', $time), 
 				'<a class="image" href="' . $song->url . '"><img src="' . $song->img . '" width="300" height="300" class="img-responsive"></a>
 				<p>' . $song->artist . ': <a class="track" href="' . $song->url . '">' . $song->song . '</a></p>');
 		}
 		$media[] = array(
-			'title'=>'Favorite Music',
+			'title'=>'Music',
 			'count'=>count($songs),
 			'class'=>'music',
 		);
 
 		//twitter
-		$statuses = DB::table('status')->get();
+		$statuses = Tweet::all();
 		foreach ($statuses as $status) {
-			$time = strtotime($status->updated);
-			timeline::add($time, 'status', 'Status Update', 'Tweeted on ' . date('M j, Y', $time), 
-				'<p>' . $status->status . '</p>');
+			$time = strtotime($status->date);
+			timeline::add($time, 'status', 'Tweet', 'Tweeted on ' . date('M j, Y', $time), 
+				'<p>' . $status->text . '</p>');
 		}
 		$media[] = array(
-			'title'=>'Status Updates',
+			'title'=>'Tweets',
 			'count'=>count($statuses),
 			'class'=>'status',
 		);
@@ -55,12 +55,12 @@ class HomeController extends BaseController {
 		$projects = Project::all();
 		foreach ($projects as $project) {
 			$time = strtotime($project->date);
-			timeline::add($time, 'work', 'Recent Work', 'Launched ' . date('M j, Y', $time), 
+			timeline::add($time, 'work', 'Project', 'Launched ' . date('M j, Y', $time), 
 				'<a class="image" href="' . $project->url . '"><img src="' . $project->img . '" width="640" height="400" class="img-responsive"></a>' . $project->description
 			);
 		}
 		$media[] = array(
-			'title'=>'Recent Work',
+			'title'=>'Projects',
 			'count'=>count($projects),
 			'class'=>'work',
 		);
@@ -83,6 +83,6 @@ class timeline {
 		krsort(self::$timeline);
 		$articles = array();
 		foreach (self::$timeline as $time=>$article) $articles[] = $article;
-		return array_slice($articles, 0, 20);
+		return array_slice($articles, 0, 40);
 	}
 }

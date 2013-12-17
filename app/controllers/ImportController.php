@@ -2,17 +2,64 @@
 
 class ImportController extends BaseController {
 
+	public function getVimeo() {
+		
+	}
+	
 	public function getTwitter() {
 
-		$settings = array(
-			'oauth_access_token' 		=> Config::get('api.twitter.access_token'),
-			'oauth_access_token_secret'	=> Config::get('api.twitter.access_token_secret'),
+		$twitter = new TwitterAPIExchange(array(
 			'consumer_key' 				=> Config::get('api.twitter.consumer_key'),
 			'consumer_secret' 			=> Config::get('api.twitter.consumer_secret'),
-		);
+			'oauth_access_token' 		=> Config::get('api.twitter.access_token'),
+			'oauth_access_token_secret'	=> Config::get('api.twitter.access_token_secret'),
+		));
 
-		echo 'hi';
+		if (!$file = $twitter->setGetfield('?username=joshreisner&exclude_replies=true')
+			->buildOauth('https://api.twitter.com/1.1/statuses/user_timeline.json', 'GET')
+			->performRequest()) {
+			trigger_error('Twitter API call did not work!');
+		}
 
+		DB::table('tweets')->truncate();
+
+		$precedence = 1;
+
+		$tweets = json_decode($file);
+
+		foreach ($tweets as $tweet) {
+			if (!empty($tweet->entities->urls)) {
+				foreach ($tweet->entities->urls as $url) {
+					$tweet->text = str_replace($url->url, '<a href="' . $url->expanded_url . '">' . $url->display_url . '</a>', $tweet->text);
+				}
+			}
+
+			if (!empty($tweet->entities->user_mentions)) {
+				foreach ($tweet->entities->user_mentions as $user) {
+					$tweet->text = str_replace('@' . $user->screen_name, '<a href="https://twitter.com/' . $user->screen_name . '">@' . $user->screen_name . '</a>', $tweet->text);
+				}
+			}
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($tweet->created_at));
+
+			$status 				= new Tweet;
+			$status->text 	 		= $tweet->text;
+			$status->date 			= $date;
+			$status->updated 		= new DateTime;
+			$status->updater 		= 1;
+			$status->active 		= 1;
+			$status->precedence 	= $precedence++;
+			$status->save();
+		}
+
+		DB::table('avalon_objects')->where('id', 6)->update(array(
+			'updated'	=>new DateTime,
+			'updater'	=>1,
+			'count'		=>--$precedence,
+		));
+
+		echo '<pre>', print_r($tweets);
 	}
 
 	public function getReadability() {

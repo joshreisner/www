@@ -20,3 +20,5 @@ Route::get('/import/instagram', 'ImportController@getInstagram');
 Route::get('/import/readability', 'ImportController@getReadability');
 
 Route::get('/import/twitter', 'ImportController@getTwitter');
+
+Route::get('/import/vimeo', 'ImportController@getVimeo');
