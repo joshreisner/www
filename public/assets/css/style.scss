@@ -26,7 +26,9 @@ $lastfm 	: #c3000d;
 $twitter 	: #00acee;
 $foursquare : #25a0ca;
 $instagram	: #3f729b;
-$pocket		: #ee4056;
+$vimeo		: #7b8084;
+
+$black		: #333;
 $about 		: #fafade;
 $gray		: #aaa;
 
@@ -58,11 +60,11 @@ body {
 							}
 						}
 						&.about a span { background-color: $about; color: inherit; }
-						&.work a span { background-color: black; }
+						&.work a span { background-color: $black; }
 						&.status a span { background-color: $twitter; }
 						&.music a span { background-color: $lastfm; }
 						&.checkin a span { background-color: $foursquare; }
-						&.link a span { background-color: $pocket; }
+						&.video a span { background-color: $vimeo; }
 						&.photo a span { background-color: $instagram; }
 					}
 
@@ -89,26 +91,25 @@ body {
 					}
 				}
 
-&.open .dropdown-menu {
-  animation-name: slidenavAnimation;
-  animation-duration:.2s;
-  animation-iteration-count: 1;
-  animation-timing-function: ease;
-  animation-fill-mode: forwards;
+				&.open .dropdown-menu {
+				  animation-name: slidenavAnimation;
+				  animation-duration:.2s;
+				  animation-iteration-count: 1;
+				  animation-timing-function: ease;
+				  animation-fill-mode: forwards;
 
-  -webkit-animation-name: slidenavAnimation;
-  -webkit-animation-duration:.2s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-timing-function: ease;
-  -webkit-animation-fill-mode: forwards;
+				  -webkit-animation-name: slidenavAnimation;
+				  -webkit-animation-duration:.2s;
+				  -webkit-animation-iteration-count: 1;
+				  -webkit-animation-timing-function: ease;
+				  -webkit-animation-fill-mode: forwards;
 
-  -moz-animation-name: slidenavAnimation;
-  -moz-animation-duration:.2s;
-  -moz-animation-iteration-count: 1;
-  -moz-animation-timing-function: ease;
-  -moz-animation-fill-mode: forwards;
-}
-
+				  -moz-animation-name: slidenavAnimation;
+				  -moz-animation-duration:.2s;
+				  -moz-animation-iteration-count: 1;
+				  -moz-animation-timing-function: ease;
+				  -moz-animation-fill-mode: forwards;
+				}
 			}
 		}
 
@@ -122,6 +123,14 @@ body {
 				&.image { 
 					display: block; 
 					img { display: block; width: 100%; height: auto; }
+					i {
+						color: white;
+						position: absolute;
+						left: 106px;
+						top: 62px;
+						font-size: 100px;
+						opacity: .5;
+					}
 				}
 			}
 
@@ -131,11 +140,12 @@ body {
 			footer { color: $gray; background-color: #f6f6f6; border-top: 1px solid #eee; font-size: 12px; }
 
 			&.about 	{ background-color: $about; }
-			&.work		header { background-color: black; color: white; }
+			&.work		header { background-color: $black; color: white; }
 			&.status	header { background-color: $twitter; color: white; }
 			&.music		header { background-color: $lastfm; color: white; }
 			&.checkin	header { background-color: $foursquare; color: white; }
 			&.photo		header { background-color: $instagram; color: white; }
+			&.video		header { background-color: $vimeo; color: white; }
 		}
 	}	
 }

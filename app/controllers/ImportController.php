@@ -3,9 +3,44 @@
 class ImportController extends BaseController {
 
 	public function getVimeo() {
-		
+		if (!$file = file_get_contents('http://vimeo.com/api/v2/joshreisner/likes.json')) {
+			trigger_error('Vimeo API call did not work!');
+		}
+
+		DB::table('videos')->truncate();
+
+		$precedence = 1;
+
+		$vimeos = json_decode($file);
+
+		foreach ($vimeos as $vimeo) {
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($vimeo->liked_on));
+
+			$video 				= new Video;
+			$video->title 	 	= $vimeo->title;
+			$video->url 		= $vimeo->url;
+			$video->date 		= $date;
+			$video->author 		= $vimeo->user_name;
+			$video->img 		= $vimeo->thumbnail_large;
+			$video->height 		= (640 / $vimeo->width) * $vimeo->height; //thumbnail height
+			$video->updated 	= new DateTime;
+			$video->updater 	= 1;
+			$video->active 		= 1;
+			$video->precedence 	= $precedence++;
+			$video->save();
+		}
+
+		DB::table('avalon_objects')->where('id', 7)->update(array(
+			'updated'	=>new DateTime,
+			'updater'	=>1,
+			'count'		=>--$precedence,
+		));
+
+		echo '<pre>', print_r($vimeos);
 	}
-	
+
 	public function getTwitter() {
 
 		$twitter = new TwitterAPIExchange(array(

@@ -50,15 +50,15 @@ body {
             background-color: #fafade;
             color: inherit; }
           body section.head #filter .dropdown-menu li.work a span {
-            background-color: black; }
+            background-color: #333333; }
           body section.head #filter .dropdown-menu li.status a span {
             background-color: #00acee; }
           body section.head #filter .dropdown-menu li.music a span {
             background-color: #c3000d; }
           body section.head #filter .dropdown-menu li.checkin a span {
             background-color: #25a0ca; }
-          body section.head #filter .dropdown-menu li.link a span {
-            background-color: #ee4056; }
+          body section.head #filter .dropdown-menu li.video a span {
+            background-color: #7b8084; }
           body section.head #filter .dropdown-menu li.photo a span {
             background-color: #3f729b; }
           body section.head #filter .dropdown-menu::before {
@@ -111,6 +111,13 @@ body {
             display: block;
             width: 100%;
             height: auto; }
+          body section article a.image i {
+            color: white;
+            position: absolute;
+            left: 106px;
+            top: 62px;
+            font-size: 100px;
+            opacity: .5; }
       body section article p {
         margin: 8px;
         overflow: hidden; }
@@ -124,7 +131,7 @@ body {
       body section article.about {
         background-color: #fafade; }
       body section article.work header {
-        background-color: black;
+        background-color: #333333;
         color: white; }
       body section article.status header {
         background-color: #00acee;
@@ -137,4 +144,7 @@ body {
         color: white; }
       body section article.photo header {
         background-color: #3f729b;
+        color: white; }
+      body section article.video header {
+        background-color: #7b8084;
         color: white; }

@@ -65,6 +65,20 @@ class HomeController extends BaseController {
 			'class'=>'work',
 		);
 
+		//videos
+		$videos = Video::all();
+		foreach ($videos as $video) {
+			$time = strtotime($video->date);
+			timeline::add($time, 'video', 'Video', 'Liked on Vimeo ' . date('M j, Y', $time), 
+				'<a class="image" href="' . $video->url . '"><img src="' . $video->img . '" width="640" height="' . $video->height . '" class="img-responsive"><i class="glyphicon glyphicon-play"></i></a><p>' . $video->title . ' by ' . $video->author . '</p>'
+			);
+		}
+		$media[] = array(
+			'title'=>'Projects',
+			'count'=>count($projects),
+			'class'=>'work',
+		);
+
 		return View::make('home', array(
 			'articles'=>timeline::out(),
 			'media'=>$media,
