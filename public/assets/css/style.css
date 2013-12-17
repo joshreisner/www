@@ -1,3 +1,21 @@
+@keyframes slidenavAnimation {
+  from {
+    opacity: 0;
+    margin-top: -9px; }
+
+  to {
+    opacity: .99;
+    margin-top: 1px; } }
+
+@-webkit-keyframes slidenavAnimation {
+  from {
+    opacity: 0;
+    margin-top: -9px; }
+
+  to {
+    opacity: .99;
+    margin-top: 1px; } }
+
 body {
   margin: 0;
   background-color: #f0f0f0;
@@ -61,6 +79,22 @@ body {
             right: 10px;
             position: absolute;
             top: -6px; }
+        body section.head #filter.open .dropdown-menu {
+          animation-name: slidenavAnimation;
+          animation-duration: .2s;
+          animation-iteration-count: 1;
+          animation-timing-function: ease;
+          animation-fill-mode: forwards;
+          -webkit-animation-name: slidenavAnimation;
+          -webkit-animation-duration: .2s;
+          -webkit-animation-iteration-count: 1;
+          -webkit-animation-timing-function: ease;
+          -webkit-animation-fill-mode: forwards;
+          -moz-animation-name: slidenavAnimation;
+          -moz-animation-duration: .2s;
+          -moz-animation-iteration-count: 1;
+          -moz-animation-timing-function: ease;
+          -moz-animation-fill-mode: forwards; }
     body section article {
       background-color: white;
       box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5);

@@ -1,3 +1,24 @@
+@keyframes slidenavAnimation {
+  from {
+    opacity: 0;
+    margin-top: -9px;
+  }
+  to {
+    opacity: .99;
+    margin-top: 1px;
+  }
+}
+@-webkit-keyframes slidenavAnimation {
+  from {
+    opacity: 0;
+    margin-top: -9px;
+  }
+  to {
+    opacity: .99;
+    margin-top: 1px;
+  }
+}
+
 $margin 	: 2.5%;
 $padding	: 3px 8px;
 
@@ -27,7 +48,7 @@ body {
 				.btn-transparent { background-color: transparent; border: 1px solid $gray; }
 
 				.dropdown-menu { 
-					width: 200px; 
+					width: 200px;
 					li {
 						a { 
 							padding: $padding; 
@@ -67,6 +88,27 @@ body {
 					    top: -6px;
 					}
 				}
+
+&.open .dropdown-menu {
+  animation-name: slidenavAnimation;
+  animation-duration:.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+
+  -webkit-animation-name: slidenavAnimation;
+  -webkit-animation-duration:.2s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
+
+  -moz-animation-name: slidenavAnimation;
+  -moz-animation-duration:.2s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-timing-function: ease;
+  -moz-animation-fill-mode: forwards;
+}
+
 			}
 		}
 

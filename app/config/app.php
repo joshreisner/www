@@ -111,6 +111,8 @@ return array(
 
 		'Joshreisner\Avalon\AvalonServiceProvider',
 
+		'Artdarek\OAuth\OAuthServiceProvider',
+
 	),
 
 	/*
@@ -178,6 +180,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 
 		'Former' => 'Former\Facades\Former',
+		'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
 	),
 
 );

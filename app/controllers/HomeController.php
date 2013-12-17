@@ -2,22 +2,87 @@
 
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
+	public function getIndex() {
+		$media = array(array(
+			'title'=>'About',
+			'count'=>1,
+			'class'=>'about',
+		));
 
-	public function showWelcome()
-	{
-		return View::make('hello');
+		//music
+		$songs = Song::all();
+		foreach ($songs as $song) {
+			$time = strtotime($song->date);
+			timeline::add($time, 'music', 'Favorite Music', 'Liked on Last.fm ' . date('M j, Y', $time), 
+				'<a class="image" href="' . $song->url . '"><img src="' . $song->img . '" width="300" height="300" class="img-responsive"></a>
+				<p>' . $song->artist . ': <a class="track" href="' . $song->url . '">' . $song->song . '</a></p>');
+		}
+		$media[] = array(
+			'title'=>'Favorite Music',
+			'count'=>count($songs),
+			'class'=>'music',
+		);
+
+		//twitter
+		$statuses = DB::table('status')->get();
+		foreach ($statuses as $status) {
+			$time = strtotime($status->updated);
+			timeline::add($time, 'status', 'Status Update', 'Tweeted on ' . date('M j, Y', $time), 
+				'<p>' . $status->status . '</p>');
+		}
+		$media[] = array(
+			'title'=>'Status Updates',
+			'count'=>count($statuses),
+			'class'=>'status',
+		);
+
+		//instagram
+		$photos = Photo::all();
+		foreach ($photos as $photo) {
+			$time = strtotime($photo->date);
+			timeline::add($time, 'photo', 'Photo', 'Added to Instagram on ' . date('M j, Y', $time), 
+				'<a class="image" href="' . $photo->url . '"><img src="' . $photo->img . '" width="' . $photo->width . '" height="' . $photo->height . '" class="img-responsive"></a>
+				<p>' . $photo->location . '</p>'
+			);
+		}
+		$media[] = array(
+			'title'=>'Photos',
+			'count'=>count($photos),
+			'class'=>'photo',
+		);
+
+		//work
+		$projects = Project::all();
+		foreach ($projects as $project) {
+			$time = strtotime($project->date);
+			timeline::add($time, 'work', 'Recent Work', 'Launched ' . date('M j, Y', $time), 
+				'<a class="image" href="' . $project->url . '"><img src="' . $project->img . '" width="640" height="400" class="img-responsive"></a>' . $project->description
+			);
+		}
+		$media[] = array(
+			'title'=>'Recent Work',
+			'count'=>count($projects),
+			'class'=>'work',
+		);
+
+		return View::make('home', array(
+			'articles'=>timeline::out(),
+			'media'=>$media,
+		));
+	}
+}
+
+class timeline {
+	private static $timeline = array();
+
+	static function add($time, $type, $header, $footer, $content) {
+		self::$timeline[$time] = array('type'=>$type, 'header'=>$header, 'content'=>$content, 'footer'=>$footer);
 	}
 
+	static function out() {
+		krsort(self::$timeline);
+		$articles = array();
+		foreach (self::$timeline as $time=>$article) $articles[] = $article;
+		return array_slice($articles, 0, 20);
+	}
 }
