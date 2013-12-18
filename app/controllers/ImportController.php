@@ -2,6 +2,83 @@
 
 class ImportController extends BaseController {
 
+	public function getReadability() {
+		if (!$file = file_get_contents('https://www.readability.com/joshreisner/favorites/feed')) {
+			trigger_error('Readability API call did not work!');
+		}
+
+		DB::table('articles')->truncate();
+
+		$precedence = 1;
+
+		$readability = simplexml_load_string($file);
+
+		foreach ($readability->channel->item as $rdbl) {
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($rdbl->pubDate));
+
+			$article 				= new Article;
+			$article->title 		= $rdbl->title;
+			$article->date 			= $date;
+			$article->excerpt 		= $rdbl->description;
+			$article->url 		 	= substr($rdbl->link, 36);
+			$article->updated 		= new DateTime;
+			$article->updater 		= 1;
+			$article->active 		= 1;
+			$article->precedence 	= $precedence++;
+			$article->save();
+		}
+
+		DB::table('avalon_objects')->where('id', 9)->update(array(
+			'updated'	=>new DateTime,
+			'updater'	=>1,
+			'count'		=>--$precedence,
+		));
+
+		echo '<pre>', print_r($readability);
+	}
+
+	public function getFoursquare() {
+
+		if (!$file = file_get_contents('https://feeds.foursquare.com/history/' . Config::get('api.foursquare') . '.kml')) {
+			trigger_error('Foursquare API call did not work!');
+		}
+
+		DB::table('checkins')->truncate();
+
+		$precedence = 1;
+
+		$checkins = simplexml_load_string($file);
+
+		foreach ($checkins->Folder->Placemark as $placemark) {
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($placemark->published));
+			
+			list($latitude, $longitude) = explode(',', $placemark->Point->coordinates);
+
+			$checkin 				= new Checkin;
+			$checkin->name 	 		= $placemark->name;
+			$checkin->date 			= $date;
+			$checkin->latitude 		= $latitude;
+			$checkin->longitude 	= $longitude;
+			$checkin->updated 		= new DateTime;
+			$checkin->updater 		= 1;
+			$checkin->active 		= 1;
+			$checkin->precedence 	= $precedence++;
+			$checkin->save();
+		}
+
+		DB::table('avalon_objects')->where('id', 8)->update(array(
+			'updated'	=>new DateTime,
+			'updater'	=>1,
+			'count'		=>--$precedence,
+		));
+
+		echo '<pre>', print_r($checkins);
+	}
+
 	public function getVimeo() {
 		if (!$file = file_get_contents('http://vimeo.com/api/v2/joshreisner/likes.json')) {
 			trigger_error('Vimeo API call did not work!');
@@ -95,10 +172,6 @@ class ImportController extends BaseController {
 		));
 
 		echo '<pre>', print_r($tweets);
-	}
-
-	public function getReadability() {
-		//phpinfo();
 	}
 
 	public function getInstagram() {

@@ -111,8 +111,6 @@ return array(
 
 		'Joshreisner\Avalon\AvalonServiceProvider',
 
-		'Artdarek\OAuth\OAuthServiceProvider',
-
 	),
 
 	/*
@@ -179,8 +177,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
-		'Former' => 'Former\Facades\Former',
-		'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
+		'Former' 		  => 'Former\Facades\Former',
 	),
 
 );

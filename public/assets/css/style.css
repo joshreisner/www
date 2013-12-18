@@ -42,13 +42,22 @@ body {
           width: 200px; }
           body section.head #filter .dropdown-menu li a {
             padding: 3px 8px; }
+            body section.head #filter .dropdown-menu li a i.glyphicon-unchecked {
+              display: none; }
             body section.head #filter .dropdown-menu li a.inactive {
               color: #aaaaaa; }
+              body section.head #filter .dropdown-menu li a.inactive i.glyphicon-check {
+                display: none; }
+              body section.head #filter .dropdown-menu li a.inactive i.glyphicon-unchecked {
+                display: inline; }
               body section.head #filter .dropdown-menu li a.inactive span {
                 background-color: #aaaaaa; }
           body section.head #filter .dropdown-menu li.about a span {
             background-color: #fafade;
             color: inherit; }
+          body section.head #filter .dropdown-menu li.article a span {
+            background-color: #f6f6f6;
+            color: #333333; }
           body section.head #filter .dropdown-menu li.work a span {
             background-color: #333333; }
           body section.head #filter .dropdown-menu li.status a span {
@@ -121,6 +130,11 @@ body {
       body section article p {
         margin: 8px;
         overflow: hidden; }
+      body section article h4 {
+        margin: 8px;
+        font-family: inherit;
+        line-height: 1.2;
+        font-size: 16px; }
       body section article header, body section article footer {
         padding: 3px 8px; }
       body section article footer {
@@ -130,6 +144,11 @@ body {
         font-size: 12px; }
       body section article.about {
         background-color: #fafade; }
+        body section article.about header, body section article.about footer {
+          display: none; }
+      body section article.article header {
+        background-color: #eee;
+        color: #333333; }
       body section article.work header {
         background-color: #333333;
         color: white; }
@@ -148,3 +167,8 @@ body {
       body section article.video header {
         background-color: #7b8084;
         color: white; }
+  body div#more {
+    text-align: center;
+    margin: 0 2.5% 2.5% 2.5%;
+    padding-top: 2.5%;
+    border-top: 1px solid #ccc; }

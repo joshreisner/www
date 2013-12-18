@@ -6,7 +6,6 @@
 	"require": {
 		"laravel/framework": "4.1.*",
         "doctrine/dbal": "2.4",
-		"artdarek/oauth-4-laravel": "dev-master",
         "anahkiasen/former": "dev-master",
         "j7mbo/twitter-api-php": "dev-master"
 	},

@@ -22,3 +22,5 @@ Route::get('/import/readability', 'ImportController@getReadability');
 Route::get('/import/twitter', 'ImportController@getTwitter');
 
 Route::get('/import/vimeo', 'ImportController@getVimeo');
+
+Route::get('/import/foursquare', 'ImportController@getFoursquare');

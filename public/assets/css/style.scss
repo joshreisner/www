@@ -31,6 +31,7 @@ $vimeo		: #7b8084;
 $black		: #333;
 $about 		: #fafade;
 $gray		: #aaa;
+$smoke		: #f6f6f6;
 
 body {
 	margin: 0; background-color: #f0f0f0; font-family: Courier;
@@ -54,12 +55,16 @@ body {
 					li {
 						a { 
 							padding: $padding; 
+							i.glyphicon-unchecked { display: none; }
 							&.inactive { 
+								i.glyphicon-check { display: none; }
+								i.glyphicon-unchecked { display: inline; }
 								color: $gray; 
 								span { background-color: $gray; }
 							}
 						}
 						&.about a span { background-color: $about; color: inherit; }
+						&.article a span { background-color: $smoke; color: $black; }
 						&.work a span { background-color: $black; }
 						&.status a span { background-color: $twitter; }
 						&.music a span { background-color: $lastfm; }
@@ -136,10 +141,17 @@ body {
 
 			p { margin: 8px; overflow: hidden; }
 
+			h4 { margin: 8px; font-family: inherit; line-height: 1.2; font-size: 16px; }
+
 			header, footer { padding: $padding; }
+
 			footer { color: $gray; background-color: #f6f6f6; border-top: 1px solid #eee; font-size: 12px; }
 
-			&.about 	{ background-color: $about; }
+			&.about 	{ 
+				background-color: $about; 
+				header, footer { display: none; }
+			}
+			&.article	header { background-color: #eee; color: $black; }
 			&.work		header { background-color: $black; color: white; }
 			&.status	header { background-color: $twitter; color: white; }
 			&.music		header { background-color: $lastfm; color: white; }
@@ -147,5 +159,10 @@ body {
 			&.photo		header { background-color: $instagram; color: white; }
 			&.video		header { background-color: $vimeo; color: white; }
 		}
-	}	
+	}
+
+	div#more { 
+		text-align: center; margin: 0 $margin $margin $margin; padding-top: $margin; border-top: 1px solid #ccc;
+	}
+
 }
