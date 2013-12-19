@@ -1,16 +1,16 @@
 $(function(){
-	$("section.articles a[href^='http://']").attr("target","_blank");
+	$("section#articles a[href^='http://']").attr("target","_blank");
 	//width = Math.round($("section.articles article").first().outerWidth(true));
 });
 
 $(window).load(function() {
 
-	var $container = $('section.articles');
+	$container = $('section#articles');
 
 	$container.isotope({
-	  itemSelector: 'article',
-	  layoutMode: 'masonry'
-	});
+		itemSelector: 'article',
+		layoutMode: 'masonry'
+	}).addClass("loaded");
 
 	$("#filter a").click(function(e) {
 
@@ -31,7 +31,25 @@ $(window).load(function() {
 		$("#filter a:not(.inactive)").each(function(){
 			filtr[filtr.length] = "." + $(this).parent().attr("class");
 		});
+
 		$container.isotope({filter:filtr.join(",")});
 	});
 
+	$("#more button").click(function() {
+		$.getJSON("/more/" + $("#articles article").size(), function(data) {
+			$.each(data, function(time, article) {
+				time = moment.unix(time);
+				item =
+		            $('<article class="' + article.type + '">' +
+		                '<header>' + article.header + '</header>' +
+		                article.content +
+		                '<footer>' +
+		                    article.source + '&nbsp;' +
+		                    '<time datetime="' + time.format() + '">' + time.format("MMM D, YYYY") + '</time>' +
+		                '</footer>' +
+		            '</article>');
+				$container.append(item).isotope('appended', item);
+			});
+		});
+	});
 });

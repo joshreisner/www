@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@getIndex');
 
+Route::get('/more/{offset}', 'HomeController@getMore');
+
 Route::get('/import/lastfm', 'ImportController@getLastFm');
 
 Route::get('/import/instagram', 'ImportController@getInstagram');

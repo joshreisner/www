@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="/assets/css/style.css">
     </head>
     <body>
-        <section class="head">
+        <section id="head">
             <h1>Josh Reisner</h1>
             <div id="filter" class="btn-group pull-right">
                 <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown">
@@ -27,22 +27,26 @@
                 </ul>                
             </div>
         </section>
-        <section class="articles">
-            @foreach ($articles as $article)
+        <section id="articles" class="unready">
+            @foreach ($articles as $time=>$article)
             <article class="{{ $article['type'] }}">
                 <header>{{ $article['header'] }}</header>
                 {{ $article['content'] }}
-                <footer>{{ $article['footer'] }}</footer>
+                <footer>
+                    {{ $article['source'] }}&nbsp;
+                    <time datetime="{{ date(DATE_W3C, $time) }}">{{ date('M j, Y', $time) }}</time>
+                </footer>
             </article>
             @endforeach
         </section>
-        <div id="more">
+        <section id="more">
             <button type="button" class="btn btn-default">
                 Load More
             </button>
-        </div>
+        </section>
         <script src="/assets/js/jquery-1.10.2.min.js"></script>
         <script src="/assets/js/jquery.cookie.js"></script>
+        <script src="/assets/js/moment.min.js"></script>
         <script src="/assets/js/bootstrap.min.js"></script>
         <script src="/assets/js/isotope.pkgd.min.js"></script>
         <script src="/assets/js/javascript.js"></script>

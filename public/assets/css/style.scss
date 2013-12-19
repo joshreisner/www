@@ -1,3 +1,17 @@
+$margin 	: 2.5%;
+$padding	: 3px 8px;
+
+$lastfm 	: #c3000d;
+$twitter 	: #00acee;
+$foursquare : #25a0ca;
+$instagram	: #3f729b;
+$vimeo		: #7b8084;
+
+$black		: #333;
+$about 		: #fafade;
+$gray		: #aaa;
+$smoke		: #f6f6f6;
+
 @keyframes slidenavAnimation {
   from {
     opacity: 0;
@@ -19,19 +33,26 @@
   }
 }
 
-$margin 	: 2.5%;
-$padding	: 3px 8px;
-
-$lastfm 	: #c3000d;
-$twitter 	: #00acee;
-$foursquare : #25a0ca;
-$instagram	: #3f729b;
-$vimeo		: #7b8084;
-
-$black		: #333;
-$about 		: #fafade;
-$gray		: #aaa;
-$smoke		: #f6f6f6;
+@keyframes articleAnimation {
+  from {
+    opacity: 0;
+    margin-top: $margin;
+  }
+  to {
+    opacity: 1;
+    margin-top: $margin / 2;
+  }
+}
+@-webkit-keyframes articleAnimation {
+  from {
+    opacity: 0;
+    margin-top: $margin;
+  }
+  to {
+    opacity: 1;
+    margin-top: $margin / 2;
+  }
+}
 
 body {
 	margin: 0; background-color: #f0f0f0; font-family: Courier;
@@ -40,7 +61,7 @@ body {
 
 		a { color: inherit; cursor: pointer; }
 
-		&.head {
+		&#head {
 			position: relative; 
 
 			h1 { margin: 0; font-size: 50px; font-family: inherit; }
@@ -118,51 +139,78 @@ body {
 			}
 		}
 
-		article {
-			background-color: white; box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5);
-			margin: 0 $margin $margin / 1.1 0; float: left; width: 22.5%;
+		&#articles {
+			opacity: 0;
 
-			a {
-				text-decoration: underline; 
-				&:hover { color: $gray; }
-				&.image { 
-					display: block; 
-					img { display: block; width: 100%; height: auto; }
-					i {
-						color: white;
-						position: absolute;
-						left: 106px;
-						top: 62px;
-						font-size: 100px;
-						opacity: .5;
+			article {
+				background-color: white; box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5);
+				margin: 0 $margin $margin / 1.1 0; float: left; width: 22.5%;
+
+				a {
+					text-decoration: underline; 
+					&:hover { color: $gray; }
+					&.image { 
+						display: block; 
+						img { display: block; width: 100%; height: auto; }
+						i {
+							color: white;
+							position: absolute;
+							left: 106px;
+							top: 62px;
+							font-size: 100px;
+							opacity: .5;
+						}
 					}
 				}
+
+				p { margin: 8px; overflow: hidden; }
+
+				h4 { margin: 8px; font-family: inherit; line-height: 1.2; font-size: 16px; }
+
+				header, footer { padding: $padding; }
+
+				footer { 
+					color: $gray; background-color: #f6f6f6; border-top: 1px solid #eee; font-size: 12px; 
+					position: relative;
+					time { position: absolute; right: 8px; }
+				}
+
+				&.about 	{ 
+					background-color: $about; 
+					header, footer { display: none; }
+				}
+				&.article	header { background-color: #eee; color: $black; }
+				&.work		header { background-color: $black; color: white; }
+				&.status	header { background-color: $twitter; color: white; }
+				&.music		header { background-color: $lastfm; color: white; }
+				&.checkin	header { background-color: $foursquare; color: white; }
+				&.photo		header { background-color: $instagram; color: white; }
+				&.video		header { background-color: $vimeo; color: white; }
 			}
 
-			p { margin: 8px; overflow: hidden; }
+			&.loaded {
+				  animation-name: articleAnimation;
+				  animation-duration:.2s;
+				  animation-iteration-count: 1;
+				  animation-timing-function: ease;
+				  animation-fill-mode: forwards;
 
-			h4 { margin: 8px; font-family: inherit; line-height: 1.2; font-size: 16px; }
+				  -webkit-animation-name: articleAnimation;
+				  -webkit-animation-duration:.2s;
+				  -webkit-animation-iteration-count: 1;
+				  -webkit-animation-timing-function: ease;
+				  -webkit-animation-fill-mode: forwards;
 
-			header, footer { padding: $padding; }
-
-			footer { color: $gray; background-color: #f6f6f6; border-top: 1px solid #eee; font-size: 12px; }
-
-			&.about 	{ 
-				background-color: $about; 
-				header, footer { display: none; }
+				  -moz-animation-name: articleAnimation;
+				  -moz-animation-duration:.2s;
+				  -moz-animation-iteration-count: 1;
+				  -moz-animation-timing-function: ease;
+				  -moz-animation-fill-mode: forwards;
 			}
-			&.article	header { background-color: #eee; color: $black; }
-			&.work		header { background-color: $black; color: white; }
-			&.status	header { background-color: $twitter; color: white; }
-			&.music		header { background-color: $lastfm; color: white; }
-			&.checkin	header { background-color: $foursquare; color: white; }
-			&.photo		header { background-color: $instagram; color: white; }
-			&.video		header { background-color: $vimeo; color: white; }
+		}
+
+		&#more { 
+			text-align: center; margin: 0 $margin $margin;
 		}
 	}
-
-	div#more { 
-		text-align: center; margin: 0 $margin $margin $margin; padding-top: $margin; border-top: 1px solid #ccc;
-	}
-
 }
