@@ -151,7 +151,7 @@ body {
 					&:hover { color: $gray; }
 					&.image { 
 						display: block; 
-						img { display: block; width: 100%; height: auto; }
+						img { width: 100%; }
 						i {
 							color: white;
 							position: absolute;
@@ -186,6 +186,8 @@ body {
 				&.checkin	header { background-color: $foursquare; color: white; }
 				&.photo		header { background-color: $instagram; color: white; }
 				&.video		header { background-color: $vimeo; color: white; }
+
+				&.unadded { opacity: 0; }
 			}
 
 			&.loaded {

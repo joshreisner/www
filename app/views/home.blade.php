@@ -48,7 +48,8 @@
         <script src="/assets/js/jquery.cookie.js"></script>
         <script src="/assets/js/moment.min.js"></script>
         <script src="/assets/js/bootstrap.min.js"></script>
-        <script src="/assets/js/isotope.pkgd.min.js"></script>
+        <script src="/assets/js/imagesloaded.pkgd.min.js"></script>
+        <script src="/assets/js/isotope.pkgd.js"></script>
         <script src="/assets/js/javascript.js"></script>
     </body>
 </html>

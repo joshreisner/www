@@ -137,9 +137,7 @@ body {
           body section#articles article a.image {
             display: block; }
             body section#articles article a.image img {
-              display: block;
-              width: 100%;
-              height: auto; }
+              width: 100%; }
             body section#articles article a.image i {
               color: white;
               position: absolute;
@@ -191,6 +189,8 @@ body {
         body section#articles article.video header {
           background-color: #7b8084;
           color: white; }
+        body section#articles article.unadded {
+          opacity: 0; }
       body section#articles.loaded {
         animation-name: articleAnimation;
         animation-duration: .2s;

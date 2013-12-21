@@ -1,15 +1,17 @@
 $(function(){
+	//open in new win
 	$("section#articles a[href^='http://']").attr("target","_blank");
-	//width = Math.round($("section.articles article").first().outerWidth(true));
 });
 
 $(window).load(function() {
 
+	limit = 25;
 	$container = $('section#articles');
 
 	$container.isotope({
 		itemSelector: 'article',
-		layoutMode: 'masonry'
+		layoutMode: 'masonry',
+		columnWidth: $('section#articles article').first().width()
 	}).addClass("loaded");
 
 	$("#filter a").click(function(e) {
@@ -32,15 +34,19 @@ $(window).load(function() {
 			filtr[filtr.length] = "." + $(this).parent().attr("class");
 		});
 
-		$container.isotope({filter:filtr.join(",")});
+		//rebuild isotope after filtering
+
+		$container.isotope({
+			filter:filtr.join(",")
+		})
+
 	});
 
 	$("#more button").click(function() {
 		$.getJSON("/more/" + $("#articles article").size(), function(data) {
 			$.each(data, function(time, article) {
-				time = moment.unix(time);
-				item =
-		            $('<article class="' + article.type + '">' +
+				var time = moment.unix(article.time);
+				$container.append('<article class="' + article.type + ' unadded">' +
 		                '<header>' + article.header + '</header>' +
 		                article.content +
 		                '<footer>' +
@@ -48,7 +54,25 @@ $(window).load(function() {
 		                    '<time datetime="' + time.format() + '">' + time.format("MMM D, YYYY") + '</time>' +
 		                '</footer>' +
 		            '</article>');
-				$container.append(item).isotope('appended', item);
+			});
+
+			//open in new win (again, ajax)
+			$("section#articles a[href^='http://']").attr("target","_blank");
+
+			//wait until images are loaded to add to isotope
+			$("article.unadded").imagesLoaded(function(){
+
+				//have to add them one by one?
+				$("article.unadded").each(function(){
+					$container.isotope('appended', $(this));
+					$(this).removeClass("unadded");
+				});
+
+				//re-initialize isotope because added articles were frozen
+				$container.isotope({
+					itemSelector: 'article',
+					layoutMode: 'masonry'
+				});
 			});
 		});
 	});

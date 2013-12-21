@@ -14,7 +14,14 @@ class HomeController extends BaseController {
 	}
 
 	public function getMore($offset) {
-		return json_encode(self::timeline($offset));
+		//remove time keys for javascript
+		$articles = self::timeline($offset);
+		$output = array();
+		foreach ($articles as $time=>$article) {
+			$article['time'] = $time;
+			$output[] = $article;
+		}
+		return json_encode($output);
 	}
 
 	private static function timeline($offset=0) {

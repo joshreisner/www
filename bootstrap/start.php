@@ -23,10 +23,10 @@ $app = new Illuminate\Foundation\Application;
 | given environment, then we will automatically detect it for you.
 |
 */
-
+//die(gethostname());
 $env = $app->detectEnvironment(array(
 
-	'local' => array('Joshs-Laptop.local'),
+	'local' => array('Joshs-Laptop.local', 'joshs-laptop.home'),
 
 ));
 
