@@ -36,7 +36,7 @@ class ImportController extends BaseController {
 			'count'		=>--$precedence,
 		));
 
-		echo '<pre>', print_r($readability);
+		return @Kint::dump($readability);
 	}
 
 	public function getFoursquare() {
@@ -76,7 +76,7 @@ class ImportController extends BaseController {
 			'count'		=>--$precedence,
 		));
 
-		echo '<pre>', print_r($checkins);
+		return @Kint::dump($checkins);
 	}
 
 	public function getVimeo() {
@@ -115,7 +115,7 @@ class ImportController extends BaseController {
 			'count'		=>--$precedence,
 		));
 
-		echo '<pre>', print_r($vimeos);
+		return @Kint::dump($vimeos);
 	}
 
 	public function getTwitter() {
@@ -171,7 +171,7 @@ class ImportController extends BaseController {
 			'count'		=>--$precedence,
 		));
 
-		echo '<pre>', print_r($tweets);
+		return @Kint::dump($tweets);
 	}
 
 	public function getInstagram() {
@@ -208,7 +208,7 @@ class ImportController extends BaseController {
 			'count'		=>--$precedence,
 		));
 
-		echo '<pre>', print_r($photos);
+		return @Kint::dump($photos);
 	}
 
 	public function getLastFm() {
@@ -252,7 +252,6 @@ class ImportController extends BaseController {
 			'count'=>--$precedence,
 		));
 
-		echo '<pre>', print_r($tracks);
-
+		return @Kint::dump($tracks);
 	}
 }

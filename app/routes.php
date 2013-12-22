@@ -15,14 +15,31 @@ Route::get('/', 'HomeController@getIndex');
 
 Route::get('/more/{offset}', 'HomeController@getMore');
 
-Route::get('/import/lastfm', 'ImportController@getLastFm');
+Route::group(array('prefix' => 'import'), function()
+{
 
-Route::get('/import/instagram', 'ImportController@getInstagram');
+	Route::get('/lastfm', 'ImportController@getLastFm');
 
-Route::get('/import/readability', 'ImportController@getReadability');
+	Route::get('/instagram', 'ImportController@getInstagram');
 
-Route::get('/import/twitter', 'ImportController@getTwitter');
+	Route::get('/readability', 'ImportController@getReadability');
 
-Route::get('/import/vimeo', 'ImportController@getVimeo');
+	Route::get('/twitter', 'ImportController@getTwitter');
 
-Route::get('/import/foursquare', 'ImportController@getFoursquare');
+	Route::get('/vimeo', 'ImportController@getVimeo');
+
+	Route::get('/foursquare', 'ImportController@getFoursquare');
+
+	Route::get('/', function(){
+		$importer = new ImportController;
+		$importer->getLastFm();
+		$importer->getInstagram();
+		$importer->getReadability();
+		$importer->getTwitter();
+		$importer->getVimeo();
+		$importer->getFoursquare();
+	});
+
+});
+
+
