@@ -1,17 +1,29 @@
 $(function(){
 	//open in new win
 	$("section#articles a[href^='http://']").attr("target","_blank");
+
+	if ($.cookie('filter') !== undefined) {
+		console.log($.cookie('filter'));
+
+		//load filter, deactivate filter items
+		filter = $.cookie('filter').split(",");
+		$("#filter li a").each(function(){
+			if (filter.indexOf("." + $(this).parent().attr("class")) == -1) {
+				$(this).addClass("inactive");
+			}
+		});
+	}
 });
 
 $(window).load(function() {
 
-	limit = 25;
-	$container = $('section#articles');
+	limit 		= 25;
+	$container  = $('section#articles');
 
 	$container.isotope({
 		itemSelector: 'article',
 		layoutMode: 'masonry',
-		columnWidth: $('section#articles article').first().width()
+		filter: filter.join(",")
 	}).addClass("loaded");
 
 	$("#filter a").click(function(e) {
@@ -23,22 +35,24 @@ $(window).load(function() {
 		} else {
 			$(this).toggleClass("inactive");
 
-			//check to make sure one is clicked
+			//check to make sure there are any still active
 			if (!$("#filter a:not(.inactive)").size()) {
 				$("#filter a").removeClass("inactive");
 			}
 		}
 
-		var filtr = new Array;
+		//build filter string
+		var filter = new Array;
 		$("#filter a:not(.inactive)").each(function(){
-			filtr[filtr.length] = "." + $(this).parent().attr("class");
+			filter[filter.length] = "." + $(this).parent().attr("class");
 		});
+		filter = filter.join(",");
 
-		//rebuild isotope after filtering
+		//run filter on isotope
+		$container.isotope({ filter:filter });
 
-		$container.isotope({
-			filter:filtr.join(",")
-		})
+		//save filter to query
+		$.cookie('filter', filter, { expires: 365 });
 
 	});
 
@@ -69,10 +83,7 @@ $(window).load(function() {
 				});
 
 				//re-initialize isotope because added articles were frozen
-				$container.isotope({
-					itemSelector: 'article',
-					layoutMode: 'masonry'
-				});
+				$container.isotope();
 			});
 		});
 	});
