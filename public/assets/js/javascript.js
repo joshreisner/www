@@ -2,16 +2,21 @@ $(function(){
 	//open in new win
 	$("section#articles a[href^='http://']").attr("target","_blank");
 
+	//get filter from cookie if possible
+	filter = "*"; //default string
 	if ($.cookie('filter') !== undefined) {
 		console.log($.cookie('filter'));
 
-		//load filter, deactivate filter items
+		//deactivate filter items
 		filter = $.cookie('filter').split(",");
 		$("#filter li a").each(function(){
 			if (filter.indexOf("." + $(this).parent().attr("class")) == -1) {
 				$(this).addClass("inactive");
 			}
 		});
+
+		//save filter string
+		filter = filter.join(",");
 	}
 });
 
@@ -23,7 +28,7 @@ $(window).load(function() {
 	$container.isotope({
 		itemSelector: 'article',
 		layoutMode: 'masonry',
-		filter: filter.join(",")
+		filter: filter
 	}).addClass("loaded");
 
 	$("#filter a").click(function(e) {

@@ -210,3 +210,20 @@ body {
     body section#more {
       text-align: center;
       margin: 0 2.5% 2.5%; }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
+  body section#head h1 {
+    font-size: 30px;
+    line-height: 50px; }
+  body section#articles article {
+    width: 97.5%;
+    margin-bottom: 5%; } }
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: landscape) {
+  body section#articles article {
+    width: 47.5%; } }
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  body section#articles article {
+    width: 47.5%; } }
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  body section#articles article {
+    width: 30.8333%; } }
