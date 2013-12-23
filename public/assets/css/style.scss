@@ -6,6 +6,8 @@ $twitter 	: #00acee;
 $foursquare : #25a0ca;
 $instagram	: #3f729b;
 $vimeo		: #7b8084;
+$book_dark	: #725333;
+$book_light : #f2e5d7;
 
 $black		: #333;
 $about 		: #fafade;
@@ -67,6 +69,7 @@ body {
 						&.checkin a span { background-color: $foursquare; }
 						&.video a span { background-color: $vimeo; }
 						&.photo a span { background-color: $instagram; }
+						&.book a span { background-color: $book_dark; }
 					}
 
 					&::before {
@@ -161,6 +164,12 @@ body {
 				&.checkin	header { background-color: $foursquare; color: white; }
 				&.photo		header { background-color: $instagram; color: white; }
 				&.video		header { background-color: $vimeo; color: white; }
+				&.book		{
+					background-color: $book_light; overflow: auto; 
+					header { background-color: $book_dark; color: white; }
+					img { float: left; margin: 8px 12px 8px 8px; box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5); }
+					footer { clear: left; background-color: $book_light; color: $book_dark; border-top: 0; }
+				}
 
 				&.unadded { opacity: 0; }
 			}

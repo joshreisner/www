@@ -1,23 +1,38 @@
 $(function(){
 	//open in new win
-	$("section#articles a[href^='http://']").attr("target","_blank");
+	$("section#articles a[href^='http']").attr("target","_blank");
 
-	//get filter from cookie if possible
 	filter = "*"; //default string
-	if ($.cookie('filter') !== undefined) {
-		console.log($.cookie('filter'));
+	$("li.all").hide();
+	$("li.divider").hide();			
+	if (window.location.hash.length) {
+		filter = "." + window.location.hash.substr(1);
+		$.cookie('filter', filter, { expires: 365 });
+		$("#filter li:not(.all) a").addClass("inactive");
+		$("#filter a" + filter).removeClass("inactive");
+	} else if ($.cookie('filter') !== undefined) {
+		//console.log($.cookie('filter'));
 
 		//deactivate filter items
 		filter = $.cookie('filter').split(",");
-		$("#filter li a").each(function(){
+		$("#filter li:not(.all) a").each(function(){
 			if (filter.indexOf("." + $(this).parent().attr("class")) == -1) {
 				$(this).addClass("inactive");
 			}
 		});
 
+		if (filter.length == 1) window.location.hash = filter[0].substr(1);
+
 		//save filter string
 		filter = filter.join(",");
 	}
+
+	if ($("#filter a.inactive").size()) {
+		$("li.all").show();
+		$("li.divider").show();			
+	}
+
+
 });
 
 $(window).load(function() {
@@ -33,31 +48,50 @@ $(window).load(function() {
 
 	$("#filter a").click(function(e) {
 
-		if (e.altKey) {
-			//option is down, show this one only
-			$("#filter a").addClass("inactive");
-			$(this).removeClass("inactive");
+		if ($(this).parent().hasClass("all")) {
+			filter = "*";
+			$.removeCookie('filter');
+			$("#filter a.inactive").removeClass("inactive");
 		} else {
-			$(this).toggleClass("inactive");
+			if (e.altKey) {
+				//option is down, show this one only
+				$("#filter a").addClass("inactive");
+				$(this).removeClass("inactive");
+			} else {
+				$(this).toggleClass("inactive");
 
-			//check to make sure there are any still active
-			if (!$("#filter a:not(.inactive)").size()) {
-				$("#filter a").removeClass("inactive");
+				//check to make sure there are any still active
+				if (!$("#filter a:not(.inactive)").size()) {
+					$("#filter a").removeClass("inactive");
+				}
 			}
+
+			//build filter string
+			filter = new Array;
+			$("#filter a:not(.inactive)").each(function(){
+				filter[filter.length] = "." + $(this).parent().attr("class");
+			});
+			if (filter.length == 1) {
+				window.location.hash = filter[0].substr(1);
+			} else if (window.location.hash.length) {
+				window.location.hash = "";
+			}
+			filter = filter.join(",");
+
+			//save filter to query
+			$.cookie('filter', filter, { expires: 365 });
 		}
 
-		//build filter string
-		var filter = new Array;
-		$("#filter a:not(.inactive)").each(function(){
-			filter[filter.length] = "." + $(this).parent().attr("class");
-		});
-		filter = filter.join(",");
+		if ($("#filter a.inactive").size()) {
+			$("li.all").show();
+			$("li.divider").show();			
+		} else {
+			$("li.all").hide();
+			$("li.divider").hide();			
+		}
 
-		//run filter on isotope
+		//run filter
 		$container.isotope({ filter:filter });
-
-		//save filter to query
-		$.cookie('filter', filter, { expires: 365 });
 
 	});
 

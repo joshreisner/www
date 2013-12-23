@@ -88,6 +88,8 @@ body {
             background-color: #7b8084; }
           body section#head #filter .dropdown-menu li.photo a span {
             background-color: #3f729b; }
+          body section#head #filter .dropdown-menu li.book a span {
+            background-color: #725333; }
           body section#head #filter .dropdown-menu::before {
             border-bottom: 7px solid rgba(0, 0, 0, 0.2);
             border-left: 7px solid transparent;
@@ -189,6 +191,21 @@ body {
         body section#articles article.video header {
           background-color: #7b8084;
           color: white; }
+        body section#articles article.book {
+          background-color: #f2e5d7;
+          overflow: auto; }
+          body section#articles article.book header {
+            background-color: #725333;
+            color: white; }
+          body section#articles article.book img {
+            float: left;
+            margin: 8px 12px 8px 8px;
+            box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5); }
+          body section#articles article.book footer {
+            clear: left;
+            background-color: #f2e5d7;
+            color: #725333;
+            border-top: 0; }
         body section#articles article.unadded {
           opacity: 0; }
       body section#articles.loaded {

@@ -44,6 +44,7 @@ class import extends Command {
 		$importer->getTwitter();
 		$importer->getVimeo();
 		$importer->getFoursquare();
+		$importer->getGoodreads();
 		print "done\n";
 	}
 

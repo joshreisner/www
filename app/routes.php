@@ -30,6 +30,8 @@ Route::group(array('prefix' => 'import'), function()
 
 	Route::get('/foursquare', 'ImportController@getFoursquare');
 
+	Route::get('/goodreads', 'ImportController@getGoodreads');
+
 	Route::get('/', function(){
 		$importer = new ImportController;
 		$importer->getLastFm();
@@ -38,6 +40,7 @@ Route::group(array('prefix' => 'import'), function()
 		$importer->getTwitter();
 		$importer->getVimeo();
 		$importer->getFoursquare();
+		$importer->getGoodreads();
 	});
 
 });

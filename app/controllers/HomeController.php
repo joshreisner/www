@@ -50,6 +50,22 @@ class HomeController extends BaseController {
 		);
 
 
+		//books
+		$books = Book::all();
+		foreach ($books as $book) {
+			$time = strtotime($book->date);
+			self::timelineAdd($time, 'book', 'Book', 'Goodreads', 
+				'<a href="' . $book->url . '"><img src="' . $book->img . '"></a>
+				<p>' . $book->author . '<br><a href="' . $book->url . '">' . $book->title . '</a><br>' . $book->published . '</p>'
+			);
+		}
+		self::$media[] = array(
+			'title'=>'Books',
+			'count'=>count($books),
+			'class'=>'book',
+		);
+
+
 		//check-ins
 		$checkins = Checkin::all();
 		foreach ($checkins as $checkin) {

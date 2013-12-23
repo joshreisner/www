@@ -2,6 +2,46 @@
 
 class ImportController extends BaseController {
 
+	public function getGoodreads() {
+		if (!$file = file_get_contents('https://www.goodreads.com/review/list_rss/9112494?key=a9d74013bd7f71963fa627b54e49f3a3856b1108&shelf=%23READ%23')) {
+			trigger_error('Goodreads API call did not work!');
+		}
+
+		DB::table('books')->truncate();
+
+		$precedence = 1;
+
+		$goodreads = simplexml_load_string($file);
+
+		foreach ($goodreads->channel->item as $goodread) {
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($goodread->user_read_at));
+
+			$book 				= new Book;
+			$book->title 		= $goodread->title;
+			$book->author 	 	= $goodread->author_name;
+			$book->published 	= $goodread->book_published;
+			$book->img 			= $goodread->book_medium_image_url;
+			$book->url 			= $goodread->link;
+			$book->date 		= $date;
+			$book->updated 		= new DateTime;
+			$book->updater 		= 1;
+			$book->active 		= 1;
+			$book->precedence 	= $precedence++;
+			$book->save();
+		}
+
+		DB::table('avalon_objects')->where('id', 10)->update(array(
+			'updated'	=>new DateTime,
+			'updater'	=>1,
+			'count'		=>--$precedence,
+		));
+
+		echo '<pre>', print_r($goodreads);
+		//return @Kint::dump($goodreads);
+	}
+
 	public function getReadability() {
 		if (!$file = file_get_contents('https://www.readability.com/joshreisner/favorites/feed')) {
 			trigger_error('Readability API call did not work!');
