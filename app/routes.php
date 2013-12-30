@@ -13,7 +13,15 @@
 
 Route::get('/', 'HomeController@getIndex');
 
-Route::get('/more/{offset}', 'HomeController@getMore');
+Route::get('/data', 'HomeController@getData');
+
+Route::get('/category/work', function() {
+	return Redirect::to('/#project');
+});
+
+Route::get('/work', function() {
+	return Redirect::to('/#project');
+});
 
 Route::group(array('prefix' => 'import'), function()
 {

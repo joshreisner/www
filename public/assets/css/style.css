@@ -16,24 +16,6 @@
     opacity: .99;
     margin-top: 1px; } }
 
-@keyframes articleAnimation {
-  from {
-    opacity: 0;
-    margin-top: 2.5%; }
-
-  to {
-    opacity: 1;
-    margin-top: 1.25%; } }
-
-@-webkit-keyframes articleAnimation {
-  from {
-    opacity: 0;
-    margin-top: 2.5%; }
-
-  to {
-    opacity: 1;
-    margin-top: 1.25%; } }
-
 body {
   margin: 0;
   background-color: #f0f0f0;
@@ -42,7 +24,8 @@ body {
     margin: 1.25% 0 0 2.5%; }
     body section a {
       color: inherit;
-      cursor: pointer; }
+      cursor: pointer;
+      outline: 0; }
     body section#head {
       position: relative; }
       body section#head h1 {
@@ -76,7 +59,7 @@ body {
           body section#head #filter .dropdown-menu li.article a span {
             background-color: #f6f6f6;
             color: #333333; }
-          body section#head #filter .dropdown-menu li.work a span {
+          body section#head #filter .dropdown-menu li.project a span {
             background-color: #333333; }
           body section#head #filter .dropdown-menu li.status a span {
             background-color: #00acee; }
@@ -125,7 +108,7 @@ body {
           -moz-animation-timing-function: ease;
           -moz-animation-fill-mode: forwards; }
     body section#articles {
-      opacity: 0; }
+      visibility: hidden; }
       body section#articles article {
         background-color: white;
         box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5);
@@ -168,12 +151,10 @@ body {
             right: 8px; }
         body section#articles article.about {
           background-color: #fafade; }
-          body section#articles article.about header, body section#articles article.about footer {
-            display: none; }
         body section#articles article.article header {
           background-color: #eee;
           color: #333333; }
-        body section#articles article.work header {
+        body section#articles article.project header {
           background-color: #333333;
           color: white; }
         body section#articles article.status header {
@@ -209,24 +190,11 @@ body {
         body section#articles article.unadded {
           opacity: 0; }
       body section#articles.loaded {
-        animation-name: articleAnimation;
-        animation-duration: .2s;
-        animation-iteration-count: 1;
-        animation-timing-function: ease;
-        animation-fill-mode: forwards;
-        -webkit-animation-name: articleAnimation;
-        -webkit-animation-duration: .2s;
-        -webkit-animation-iteration-count: 1;
-        -webkit-animation-timing-function: ease;
-        -webkit-animation-fill-mode: forwards;
-        -moz-animation-name: articleAnimation;
-        -moz-animation-duration: .2s;
-        -moz-animation-iteration-count: 1;
-        -moz-animation-timing-function: ease;
-        -moz-animation-fill-mode: forwards; }
+        visibility: visible; }
     body section#more {
       text-align: center;
-      margin: 0 2.5% 2.5%; }
+      margin: 0 2.5% 2.5%;
+      display: none; }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
   body section#head h1 {

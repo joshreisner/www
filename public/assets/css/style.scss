@@ -22,21 +22,13 @@ $smoke		: #f6f6f6;
 	from { opacity: 0;   margin-top: -9px; }
 	to   { opacity: .99; margin-top: 1px;  }
 }
-@keyframes articleAnimation {
-	from { opacity: 0; margin-top: $margin; }
-	to   { opacity: 1; margin-top: $margin / 2; }
-}
-@-webkit-keyframes articleAnimation {
-	from { opacity: 0; margin-top: $margin; }
-	to   { opacity: 1; margin-top: $margin / 2; }
-}
 
 body {
 	margin: 0; background-color: #f0f0f0; font-family: Courier;
 	section {
 		margin: $margin / 2 0 0 $margin;
 
-		a { color: inherit; cursor: pointer; }
+		a { color: inherit; cursor: pointer; outline: 0; }
 
 		&#head {
 			position: relative; 
@@ -63,7 +55,7 @@ body {
 						}
 						&.about a span { background-color: $about; color: inherit; }
 						&.article a span { background-color: $smoke; color: $black; }
-						&.work a span { background-color: $black; }
+						&.project a span { background-color: $black; }
 						&.status a span { background-color: $twitter; }
 						&.music a span { background-color: $lastfm; }
 						&.checkin a span { background-color: $foursquare; }
@@ -118,8 +110,8 @@ body {
 		}
 
 		&#articles {
-			opacity: 0;
-
+			visibility: hidden;
+			
 			article {
 				background-color: white; box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5);
 				margin: 0 $margin $margin / 1.1 0; float: left; width: 22.5%;
@@ -153,12 +145,9 @@ body {
 					time { position: absolute; right: 8px; }
 				}
 
-				&.about 	{ 
-					background-color: $about; 
-					header, footer { display: none; }
-				}
+				&.about 	{ background-color: $about; }
 				&.article	header { background-color: #eee; color: $black; }
-				&.work		header { background-color: $black; color: white; }
+				&.project	header { background-color: $black; color: white; }
 				&.status	header { background-color: $twitter; color: white; }
 				&.music		header { background-color: $lastfm; color: white; }
 				&.checkin	header { background-color: $foursquare; color: white; }
@@ -175,28 +164,12 @@ body {
 			}
 
 			&.loaded {
-				  animation-name: articleAnimation;
-				  animation-duration:.2s;
-				  animation-iteration-count: 1;
-				  animation-timing-function: ease;
-				  animation-fill-mode: forwards;
-
-				  -webkit-animation-name: articleAnimation;
-				  -webkit-animation-duration:.2s;
-				  -webkit-animation-iteration-count: 1;
-				  -webkit-animation-timing-function: ease;
-				  -webkit-animation-fill-mode: forwards;
-
-				  -moz-animation-name: articleAnimation;
-				  -moz-animation-duration:.2s;
-				  -moz-animation-iteration-count: 1;
-				  -moz-animation-timing-function: ease;
-				  -moz-animation-fill-mode: forwards;
+				visibility: visible;
 			}
 		}
 
 		&#more { 
-			text-align: center; margin: 0 $margin $margin;
+			text-align: center; margin: 0 $margin $margin; display: none;
 		}
 	}
 }

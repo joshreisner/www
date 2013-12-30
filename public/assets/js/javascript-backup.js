@@ -1,20 +1,17 @@
 $(function(){
+	//open in new win
+	$("section#articles a[href^='http']").attr("target","_blank");
 
-	//set up some vars
-	limit 		= 25;
-	$container  = $('section#articles');
-	filter		= "*"; //default
-
-	//get current filter and set up dropdown filter menu
+	filter = "*"; //default string
 	$("li.all").hide();
-	$("li.divider").hide();
-
-	if (window.location.hash.length > 1) {
+	$("li.divider").hide();			
+	if (window.location.hash.length) {
 		filter = "." + window.location.hash.substr(1);
 		$.cookie('filter', filter, { expires: 365 });
 		$("#filter li:not(.all) a").addClass("inactive");
 		$("#filter li" + filter).find("a").removeClass("inactive");
 	} else if ($.cookie('filter') !== undefined) {
+		//console.log($.cookie('filter'));
 
 		//deactivate filter items
 		filter = $.cookie('filter').split(",");
@@ -35,47 +32,19 @@ $(function(){
 		$("li.divider").show();			
 	}
 
-	//init isotope on the container with just one article
+
+});
+
+$(window).load(function() {
+
+	limit 		= 25;
+	$container  = $('section#articles');
+
 	$container.isotope({
 		itemSelector: 'article',
 		layoutMode: 'masonry',
-		filter: filter,
-		masonry: {
-			columnWidth: $container.width() / 4,
-		}
+		filter: filter
 	}).addClass("loaded");
-
-	//load articles
-	$.getJSON("/data", function(data) {
-		$.each(data, function(time, article) {
-			var time = moment.unix(article.time);
-			$container.append('<article class="' + article.type + ' unadded">' +
-	                '<header>' + article.header + '</header>' +
-	                article.content +
-	                '<footer>' +
-	                    article.source + '&nbsp;' +
-	                    '<time datetime="' + time.format() + '">' + time.format("MMM D, YYYY") + '</time>' +
-	                '</footer>' +
-	            '</article>');
-		});
-
-		//open in new win
-		$("section#articles a").attr("target","_blank");
-
-		//wait until images are loaded to add to isotope
-		$("article.unadded").imagesLoaded(function(){
-
-			//have to add them one by one?
-			$("article.unadded").each(function(){
-				$container.isotope('appended', $(this));
-				$(this).removeClass("unadded");
-			});
-
-			//re-initialize isotope because added articles were frozen
-			$container.isotope();
-		});
-	});
-
 
 	$("#filter a").click(function(e) {
 
@@ -128,6 +97,34 @@ $(function(){
 	});
 
 	$("#more button").click(function() {
-		alert('more');
+		$.getJSON("/more/" + $("#articles article").size(), function(data) {
+			$.each(data, function(time, article) {
+				var time = moment.unix(article.time);
+				$container.append('<article class="' + article.type + ' unadded">' +
+		                '<header>' + article.header + '</header>' +
+		                article.content +
+		                '<footer>' +
+		                    article.source + '&nbsp;' +
+		                    '<time datetime="' + time.format() + '">' + time.format("MMM D, YYYY") + '</time>' +
+		                '</footer>' +
+		            '</article>');
+			});
+
+			//open in new win (again, ajax)
+			$("section#articles a[href^='http://']").attr("target","_blank");
+
+			//wait until images are loaded to add to isotope
+			$("article.unadded").imagesLoaded(function(){
+
+				//have to add them one by one?
+				$("article.unadded").each(function(){
+					$container.isotope('appended', $(this));
+					$(this).removeClass("unadded");
+				});
+
+				//re-initialize isotope because added articles were frozen
+				$container.isotope();
+			});
+		});
 	});
 });

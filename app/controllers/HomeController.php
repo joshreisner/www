@@ -3,19 +3,18 @@
 class HomeController extends BaseController {
 
 	private static $timeline 	= array();
-	private static $media 		= array();
-	private static $count 		= 25; //# articles per page
+	private static $types 		= array();
 
 	public function getIndex() {
+		self::timeline();
 		return View::make('home', array(
-			'articles'=>self::timeline(),
-			'media'=>self::$media,
+			'types'=>self::$types,
 		));
 	}
 
-	public function getMore($offset) {
+	public function getData() {
 		//remove time keys for javascript
-		$articles = self::timeline($offset);
+		$articles = self::timeline();
 		$output = array();
 		foreach ($articles as $time=>$article) {
 			$article['time'] = $time;
@@ -24,26 +23,10 @@ class HomeController extends BaseController {
 		return json_encode($output);
 	}
 
-	private static function timeline($offset=0) {
+	private static function timeline() {
 
 		//about
-		self::timelineAdd(time(), 'about', 'About', '', '
-			<p>I build websites. With <a href="http://katehowemakesthings.com/">Kate Howe</a>, I formed <a href="http://left-right.co/">Left&ndash;Right</a>, a web-development practice serving social-purpose clients. Formerly I was Director of Web Development at <a href="http://www.bureaublank.com/">Bureau Blank</a>, a branding agency in New York City, where I supervised work for clients such as Living Cities, the Harvard Kennedy School of Government, and PolicyLink.</p>
-          	<p>This site merges information from 
-                <a href="https://twitter.com/joshreisner">Twitter</a>, 
-                <a href="http://instagram.com/joshreisner">Instagram</a>, 
-                <a href="https://foursquare.com/user/44810174">Foursquare</a>, 
-                <a href="https://vimeo.com/joshreisner">Vimeo</a>, 
-                <a href="http://last.fm/user/joshreisner">Last.fm</a> and
-                <a href="https://www.readability.com/joshreisner/">Readability</a>
-                with some info I enter into a custom CMS. I made it in PHP using Laravel, Isotope, and Bootstrap. <a href="http://github.com/joshreisner/www">View source on Github</a>.
-            </p>
-            <p>
-                <button type="button" class="btn btn-default"><a href="tel:9172848483"><i class="glyphicon glyphicon-earphone"></i></a></button>
-                <button type="button" class="btn btn-default"><a href="mailto:josh@joshreisner.com"><i class="glyphicon glyphicon-send"></i></a></button>
-            </p>'
-		);
-		self::$media[] = array(
+		self::$types[] = array(
 			'title'=>'About',
 			'count'=>1,
 			'class'=>'about',
@@ -54,31 +37,15 @@ class HomeController extends BaseController {
 		$books = Book::all();
 		foreach ($books as $book) {
 			$time = strtotime($book->date);
-			self::timelineAdd($time, 'book', 'Book', 'Goodreads', 
+			self::timelineAdd($time, 'book', 'Book I Read', 'Goodreads', 
 				'<a href="' . $book->url . '"><img src="' . $book->img . '"></a>
 				<p>' . $book->author . '<br><a href="' . $book->url . '">' . $book->title . '</a><br>' . $book->published . '</p>'
 			);
 		}
-		self::$media[] = array(
+		self::$types[] = array(
 			'title'=>'Books',
 			'count'=>count($books),
 			'class'=>'book',
-		);
-
-
-		//check-ins
-		$checkins = Checkin::all();
-		foreach ($checkins as $checkin) {
-			$time = strtotime($checkin->date);
-			self::timelineAdd($time, 'checkin', 'Check-in', 'Foursquare', 
-				'<a class="image" href="#"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $checkin->longitude . ',' . $checkin->latitude . '&zoom=13&maptype=terrain&size=640x380&sensor=false" width="640" height="380" class="img-responsive"></a>
-				<p>' . $checkin->name . '</p>'
-			);
-		}
-		self::$media[] = array(
-			'title'=>'Check-ins',
-			'count'=>count($checkins),
-			'class'=>'checkin',
 		);
 
 
@@ -90,7 +57,7 @@ class HomeController extends BaseController {
 				'<a class="image" href="' . $song->url . '"><img src="' . $song->img . '" width="300" height="300" class="img-responsive"></a>
 				<p>' . $song->artist . ': <a class="track" href="' . $song->url . '">' . $song->song . '</a></p>');
 		}
-		self::$media[] = array(
+		self::$types[] = array(
 			'title'=>'Music',
 			'count'=>count($songs),
 			'class'=>'music',
@@ -106,10 +73,26 @@ class HomeController extends BaseController {
 				<p>' . $photo->location . '</p>'
 			);
 		}
-		self::$media[] = array(
+		self::$types[] = array(
 			'title'=>'Photos',
 			'count'=>count($photos),
 			'class'=>'photo',
+		);
+
+
+		//places visited
+		$checkins = Checkin::all();
+		foreach ($checkins as $checkin) {
+			$time = strtotime($checkin->date);
+			self::timelineAdd($time, 'checkin', 'Place Visited', 'Foursquare', 
+				'<a class="image" href="#"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $checkin->longitude . ',' . $checkin->latitude . '&zoom=13&maptype=terrain&size=640x380&sensor=false" width="640" height="380" class="img-responsive"></a>
+				<p>' . $checkin->name . '</p>'
+			);
+		}
+		self::$types[] = array(
+			'title'=>'Places Visited',
+			'count'=>count($checkins),
+			'class'=>'checkin',
 		);
 
 
@@ -117,14 +100,14 @@ class HomeController extends BaseController {
 		$projects = Project::all();
 		foreach ($projects as $project) {
 			$time = strtotime($project->date);
-			self::timelineAdd($time, 'work', 'Project', self::domain($project->url), 
+			self::timelineAdd($time, 'project', 'Project', self::domain($project->url), 
 				'<a class="image" href="' . $project->url . '"><img src="' . $project->img . '" width="640" height="400" class="img-responsive"></a>' . $project->description
 			);
 		}
-		self::$media[] = array(
+		self::$types[] = array(
 			'title'=>'Projects',
 			'count'=>count($projects),
-			'class'=>'work',
+			'class'=>'project',
 		);
 
 
@@ -137,7 +120,7 @@ class HomeController extends BaseController {
 				'<p>' . $article->excerpt . '</p>'
 			);
 		}
-		self::$media[] = array(
+		self::$types[] = array(
 			'title'=>'Rec. Reading',
 			'count'=>count($articles),
 			'class'=>'article',
@@ -148,11 +131,11 @@ class HomeController extends BaseController {
 		$statuses = Tweet::all();
 		foreach ($statuses as $status) {
 			$time = strtotime($status->date);
-			self::timelineAdd($time, 'status', 'Tweet', 'Twitter', 
+			self::timelineAdd($time, 'status', 'Status Update', 'Twitter', 
 				'<p>' . $status->text . '</p>');
 		}
-		self::$media[] = array(
-			'title'=>'Tweets',
+		self::$types[] = array(
+			'title'=>'Status Updates',
 			'count'=>count($statuses),
 			'class'=>'status',
 		);
@@ -167,15 +150,14 @@ class HomeController extends BaseController {
 				<p><a href="' . $video->url . '">' . $video->title . '</a> by ' . $video->author . '</p>'
 			);
 		}
-		self::$media[] = array(
+		self::$types[] = array(
 			'title'=>'Videos',
 			'count'=>count($videos),
 			'class'=>'video',
 		);
 
 		krsort(self::$timeline);
-		$keys = array_slice(array_keys(self::$timeline), $offset, self::$count);
-		return array_intersect_key(self::$timeline, array_flip($keys));
+		return self::$timeline;
 	}
 
 	private static function domain($url) {

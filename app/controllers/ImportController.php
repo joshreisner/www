@@ -38,8 +38,8 @@ class ImportController extends BaseController {
 			'count'		=>--$precedence,
 		));
 
-		echo '<pre>', print_r($goodreads);
-		//return @Kint::dump($goodreads);
+		//echo '<pre>', print_r($goodreads);
+		return @Kint::dump($goodreads);
 	}
 
 	public function getReadability() {

@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="/assets/css/style.css">
     </head>
     <body>
-        <section id="head">
+        <section id="head" role="banner">
             <h1>Josh Reisner</h1>
             <div id="filter" class="btn-group pull-right">
                 <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown">
@@ -21,35 +21,38 @@
                         <a><i class="glyphicon glyphicon-check"></i> Show All</a>
                     </li>
                     <li class="divider"></li>
-                    @foreach ($media as $medium)
-                    <li class="{{ $medium['class'] }}">
+                    @foreach ($types as $type)
+                    <li class="{{ $type['class'] }}">
                         <a>
                             <i class="glyphicon glyphicon-check"></i> 
                             <i class="glyphicon glyphicon-unchecked"></i> 
-                            {{ $medium['title'] }}
-                            <span class="badge pull-right">{{ $medium['count'] }}</span>
+                            {{ $type['title'] }}
+                            <span class="badge pull-right">{{ $type['count'] }}</span>
                         </a>
                     </li>
                     @endforeach
                 </ul>                
             </div>
         </section>
-        <section id="articles" class="unready">
-            @foreach ($articles as $time=>$article)
-            <article class="{{ $article['type'] }}">
-                <header>{{ $article['header'] }}</header>
-                {{ $article['content'] }}
-                <footer>
-                    {{ $article['source'] }}&nbsp;
-                    <time datetime="{{ date(DATE_W3C, $time) }}">{{ date('M j, Y', $time) }}</time>
-                </footer>
+        <section id="articles">
+            <article class="about">
+                <p>I build websites. With <a href="http://katehowemakesthings.com/">Kate Howe</a>, I formed <a href="http://left-right.co/">Left&ndash;Right</a>, a web-development practice serving social-purpose clients. Formerly I was Director of Web Development at <a href="http://www.bureaublank.com/">Bureau Blank</a>, a branding agency in New York City, where I supervised work for clients such as Living Cities, the Harvard Kennedy School of Government, and PolicyLink.</p>
+                <p>This site merges my info from sites like 
+                    <a href="https://twitter.com/joshreisner">Twitter</a> and
+                    <a href="http://instagram.com/joshreisner">Instagram</a>
+                    with info I enter into <a href="https://github.com/joshreisner/avalon">a custom CMS</a>. 
+                    I made it in PHP using <a href="http://laravel.com/">Laravel</a>, 
+                    <a href="http://isotope.metafizzy.co/">Isotope</a>, and 
+                    <a href="http://getbootstrap.com/">Bootstrap</a>.
+                </p>
+                <p>
+                    <a class="btn btn-default" href="tel:9172848483"><i class="glyphicon glyphicon-earphone"></i></a>
+                    <a class="btn btn-default" href="mailto:josh@joshreisner.com"><i class="glyphicon glyphicon-send"></i></a>
+                </p>
             </article>
-            @endforeach
         </section>
         <section id="more">
-            <button type="button" class="btn btn-default">
-                Load More
-            </button>
+            <a class="btn btn-default">Load More</a>
         </section>
         <script src="/assets/js/jquery-1.10.2.min.js"></script>
         <script src="/assets/js/jquery.cookie.js"></script>

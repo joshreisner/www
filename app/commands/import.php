@@ -37,15 +37,24 @@ class import extends Command {
 	 */
 	public function fire()
 	{
+		echo 'Running importer for ';
 		$importer = new ImportController;
 		$importer->getLastFm();
+		print 'LastFm, ';
 		$importer->getInstagram();
+		print 'Instagram, ';
 		$importer->getReadability();
+		print 'Readability, ';
 		$importer->getTwitter();
+		print 'Twitter, ';
 		$importer->getVimeo();
+		print 'Vimeo, ';
 		$importer->getFoursquare();
+		print 'Foursquare, ';
 		$importer->getGoodreads();
-		print "done\n";
+		print 'Goodreads';
+
+		print '... done.' . "\n";
 	}
 
 }
