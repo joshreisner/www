@@ -40,6 +40,8 @@ Route::group(array('prefix' => 'import'), function()
 
 	Route::get('/goodreads', 'ImportController@getGoodreads');
 
+	Route::get('/youtube', 'ImportController@getYouTube');
+
 	Route::get('/', function(){
 		$importer = new ImportController;
 		$importer->getLastFm();
@@ -52,5 +54,10 @@ Route::group(array('prefix' => 'import'), function()
 	});
 
 });
+
+App::missing(function($exception) {
+	return Redirect::to('/', 301); 
+});
+
 
 

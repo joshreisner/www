@@ -2,6 +2,27 @@
 
 class ImportController extends BaseController {
 
+	public function getYouTube() {
+		if (!$file = file_get_contents('http://gdata.youtube.com/feeds/api/users/joshreisner/favorites?max-results=50&alt=json')) {
+			trigger_error('YouTube API call did not work!');
+		}
+
+		$file = str_replace('$', '', $file);
+
+		$youtube = json_decode($file);
+
+		foreach ($youtube->feed->entry as $video) {
+			if (!isset($video->mediagroup->mediathumbnail)) continue;
+			echo $video->title->t . '<br>';
+			echo $video->link[0]->href . '<br>';
+			echo $video->published->t . '<br>';
+			echo $video->mediagroup->mediathumbnail[0]->url . '<br>';
+			echo '<br>';
+		}
+
+		echo '<pre>', print_r($youtube);
+	}
+
 	public function getGoodreads() {
 		if (!$file = file_get_contents('https://www.goodreads.com/review/list_rss/9112494?key=a9d74013bd7f71963fa627b54e49f3a3856b1108&shelf=%23READ%23')) {
 			trigger_error('Goodreads API call did not work!');
