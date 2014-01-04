@@ -5,9 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-        "doctrine/dbal": "2.4",
-        "anahkiasen/former": "dev-master",
-        "j7mbo/twitter-api-php": "dev-master",
+		"j7mbo/twitter-api-php": "dev-master",
 		"raveren/kint": "dev-master"
 	},
 	"autoload": {
