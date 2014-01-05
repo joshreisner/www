@@ -5,13 +5,44 @@ class ImportController extends BaseController {
 	public function getFacebook() {
 
 		if (Session::has('facebook.access_token')) {
-			//echo Session::get('facebook.access_token');
-			if (!$file = file_get_contents('https://graph.facebook.com/me/feed?status_type=mobile_status_update&access_token=' . Session::get('facebook.access_token'))) {
+
+			if (!$file = file_get_contents('https://graph.facebook.com/me/posts?with=location&limit=25&access_token=' . Session::get('facebook.access_token'))) {
 				trigger_error('Facebook API call did not work!');
 			}
+
 			$facebook = json_decode($file);
 
+			foreach ($facebook->data as $fbcheckin) {
+
+				//echo $fbcheckin->id . '<br>';
+
+				$date = new DateTime;
+				$date->setTimestamp(strtotime($fbcheckin->created_time));
+
+				if (Checkin::where('date', '=', $date)->count()) continue;
+				
+				$checkin 				= new Checkin;
+				$checkin->name 	 		= $fbcheckin->message . ' at ' . $fbcheckin->place->name;
+				$checkin->date 			= $date;
+				$checkin->latitude 		= $fbcheckin->place->location->latitude;
+				$checkin->longitude 	= $fbcheckin->place->location->longitude;
+				$checkin->updated 		= new DateTime;
+				$checkin->source 		= 'Facebook';
+				$checkin->updater 		= 1;
+				$checkin->active 		= 1;
+				$checkin->precedence 	= Checkin::max('precedence') + 1;
+				$checkin->save();
+			}
+
+			DB::table('avalon_objects')->where('id', 8)->update(array(
+				'updated'	=>new DateTime,
+				'updater'	=>1,
+				'count'		=>Checkin::active()->count(),
+			));
+
 			echo '<pre>', print_r($facebook);
+			return @Kint::dump($facebook);
+
 
 		} elseif (Input::has('code')) {
 
@@ -41,29 +72,48 @@ class ImportController extends BaseController {
 				'&state=' . md5(uniqid(mt_rand(), true)) . 
 				'&scope=read_stream');
 		}
-
-
 	}
 
-	public function getYouTube() {
-		if (!$file = file_get_contents('http://gdata.youtube.com/feeds/api/users/joshreisner/favorites?max-results=50&alt=json')) {
-			trigger_error('YouTube API call did not work!');
+	public function getFoursquare() {
+
+		if (!$file = file_get_contents('https://feeds.foursquare.com/history/' . Config::get('api.foursquare') . '.kml')) {
+			trigger_error('Foursquare API call did not work!');
 		}
 
-		$file = str_replace('$', '', $file);
+		$checkins = simplexml_load_string($file);
 
-		$youtube = json_decode($file);
+		DB::table('checkins')->truncate();
 
-		foreach ($youtube->feed->entry as $video) {
-			if (!isset($video->mediagroup->mediathumbnail)) continue;
-			echo $video->title->t . '<br>';
-			echo $video->link[0]->href . '<br>';
-			echo $video->published->t . '<br>';
-			echo $video->mediagroup->mediathumbnail[0]->url . '<br>';
-			echo '<br>';
+		foreach ($checkins->Folder->Placemark as $placemark) {
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($placemark->published));
+
+			if (Checkin::where('date', '=', $date)->count()) continue;
+			
+			list($longitude, $latitude) = explode(',', $placemark->Point->coordinates);
+
+			$checkin 				= new Checkin;
+			$checkin->name 	 		= $placemark->name;
+			$checkin->date 			= $date;
+			$checkin->latitude 		= $latitude;
+			$checkin->longitude 	= $longitude;
+			$checkin->updated 		= new DateTime;
+			$checkin->source 		= 'Foursquare';
+			$checkin->updater 		= 1;
+			$checkin->active 		= 1;
+			$checkin->precedence 	= Checkin::max('precedence') + 1;
+			$checkin->save();
 		}
 
-		echo '<pre>', print_r($youtube);
+		DB::table('avalon_objects')->where('id', 8)->update(array(
+			'updated'	=>new DateTime,
+			'updater'	=>1,
+			'count'		=>Checkin::active()->count(),
+		));
+
+		//echo '<pre>', print_r($checkins);
+		return @Kint::dump($checkins);
 	}
 
 	public function getGoodreads() {
@@ -143,44 +193,25 @@ class ImportController extends BaseController {
 		return @Kint::dump($readability);
 	}
 
-	public function getFoursquare() {
-
-		if (!$file = file_get_contents('https://feeds.foursquare.com/history/' . Config::get('api.foursquare') . '.kml')) {
-			trigger_error('Foursquare API call did not work!');
+	public function getYouTube() {
+		if (!$file = file_get_contents('http://gdata.youtube.com/feeds/api/users/joshreisner/favorites?max-results=50&alt=json')) {
+			trigger_error('YouTube API call did not work!');
 		}
 
-		DB::table('checkins')->truncate();
+		$file = str_replace('$', '', $file);
 
-		$precedence = 1;
+		$youtube = json_decode($file);
 
-		$checkins = simplexml_load_string($file);
-
-		foreach ($checkins->Folder->Placemark as $placemark) {
-
-			$date = new DateTime;
-			$date->setTimestamp(strtotime($placemark->published));
-			
-			list($latitude, $longitude) = explode(',', $placemark->Point->coordinates);
-
-			$checkin 				= new Checkin;
-			$checkin->name 	 		= $placemark->name;
-			$checkin->date 			= $date;
-			$checkin->latitude 		= $latitude;
-			$checkin->longitude 	= $longitude;
-			$checkin->updated 		= new DateTime;
-			$checkin->updater 		= 1;
-			$checkin->active 		= 1;
-			$checkin->precedence 	= $precedence++;
-			$checkin->save();
+		foreach ($youtube->feed->entry as $video) {
+			if (!isset($video->mediagroup->mediathumbnail)) continue;
+			echo $video->title->t . '<br>';
+			echo $video->link[0]->href . '<br>';
+			echo $video->published->t . '<br>';
+			echo $video->mediagroup->mediathumbnail[0]->url . '<br>';
+			echo '<br>';
 		}
 
-		DB::table('avalon_objects')->where('id', 8)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
-			'count'		=>--$precedence,
-		));
-
-		return @Kint::dump($checkins);
+		echo '<pre>', print_r($youtube);
 	}
 
 	public function getVimeo() {

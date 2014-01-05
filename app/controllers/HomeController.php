@@ -84,8 +84,8 @@ class HomeController extends BaseController {
 		$checkins = Checkin::all();
 		foreach ($checkins as $checkin) {
 			$time = strtotime($checkin->date);
-			self::timelineAdd($time, 'checkin', 'Place Visited', 'Foursquare', 
-				'<a class="image" href="#"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $checkin->longitude . ',' . $checkin->latitude . '&zoom=13&maptype=terrain&size=640x380&sensor=false" width="640" height="380" class="img-responsive"></a>
+			self::timelineAdd($time, 'checkin', 'Place Visited', $checkin->source, 
+				'<a class="image" href="#"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $checkin->latitude . ',' . $checkin->longitude . '&zoom=13&maptype=terrain&size=640x380&sensor=false" width="640" height="380" class="img-responsive"></a>
 				<p>' . $checkin->name . '</p>'
 			);
 		}
