@@ -2,6 +2,49 @@
 
 class ImportController extends BaseController {
 
+	public function getFacebook() {
+
+		if (Session::has('facebook.access_token')) {
+			//echo Session::get('facebook.access_token');
+			if (!$file = file_get_contents('https://graph.facebook.com/me/feed?status_type=mobile_status_update&access_token=' . Session::get('facebook.access_token'))) {
+				trigger_error('Facebook API call did not work!');
+			}
+			$facebook = json_decode($file);
+
+			echo '<pre>', print_r($facebook);
+
+		} elseif (Input::has('code')) {
+
+			//curl exchange the code for an access token
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/oauth/access_token' .
+				'?client_id=' . Config::get('api.facebook.key') . 
+				'&redirect_uri=' . urlencode(Request::url()) . 
+				'&client_secret=' . Config::get('api.facebook.secret') . 
+				'&code=' . Input::get('code'));
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			$result = curl_exec($ch);
+			curl_close($ch);
+
+			if (strstr($result, 'error')) {
+				echo $result;
+				exit;
+			} else {
+				parse_str($result, $parts);
+				Session::put('facebook.access_token', $parts['access_token']);
+				return Redirect::to(Request::url());
+			}
+		} else {
+			return Redirect::to('https://www.facebook.com/dialog/oauth' . 
+				'?client_id=' . Config::get('api.facebook.key') . 
+				'&redirect_uri=' . urlencode(Request::url()) . 
+				'&state=' . md5(uniqid(mt_rand(), true)) . 
+				'&scope=read_stream');
+		}
+
+
+	}
+
 	public function getYouTube() {
 		if (!$file = file_get_contents('http://gdata.youtube.com/feeds/api/users/joshreisner/favorites?max-results=50&alt=json')) {
 			trigger_error('YouTube API call did not work!');

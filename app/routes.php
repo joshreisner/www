@@ -40,7 +40,9 @@ Route::group(array('prefix' => 'import'), function()
 
 	Route::get('/goodreads', 'ImportController@getGoodreads');
 
-	Route::get('/youtube', 'ImportController@getYouTube');
+	Route::get('/youtube', 'ImportController@getYouTube'); //under const
+
+	Route::get('/facebook', 'ImportController@getFacebook'); //under const
 
 	Route::get('/', function(){
 		$importer = new ImportController;
