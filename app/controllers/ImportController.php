@@ -82,7 +82,7 @@ class ImportController extends BaseController {
 
 		$checkins = simplexml_load_string($file);
 
-		DB::table('checkins')->truncate();
+		//DB::table('checkins')->truncate();
 
 		foreach ($checkins->Folder->Placemark as $placemark) {
 

@@ -6,21 +6,10 @@ class HomeController extends BaseController {
 	private static $types 		= array();
 
 	public function getIndex() {
-		self::timeline();
 		return View::make('home', array(
+			'articles'=>self::timeline(),
 			'types'=>self::$types,
 		));
-	}
-
-	public function getData() {
-		//remove time keys for javascript
-		$articles = self::timeline();
-		$output = array();
-		foreach ($articles as $time=>$article) {
-			$article['time'] = $time;
-			$output[] = $article;
-		}
-		return json_encode($output);
 	}
 
 	private static function timeline() {
@@ -37,7 +26,7 @@ class HomeController extends BaseController {
 		$books = Book::all();
 		foreach ($books as $book) {
 			$time = strtotime($book->date);
-			self::timelineAdd($time, 'book', 'Book I Read', 'Goodreads', 
+			self::timelineAdd($time, 'book', 'Book I Recently Read', 'Goodreads', 
 				'<a href="' . $book->url . '"><img src="' . $book->img . '"></a>
 				<p>' . $book->author . '<br><a href="' . $book->url . '">' . $book->title . '</a><br>' . $book->published . '</p>'
 			);

@@ -107,94 +107,87 @@ body {
           -moz-animation-iteration-count: 1;
           -moz-animation-timing-function: ease;
           -moz-animation-fill-mode: forwards; }
-    body section#articles {
-      visibility: hidden; }
-      body section#articles article {
-        background-color: white;
-        box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5);
-        margin: 0 2.5% 2.27273% 0;
-        float: left;
-        width: 22.5%; }
-        body section#articles article a {
-          text-decoration: underline; }
-          body section#articles article a:hover {
-            color: #aaaaaa; }
-          body section#articles article a.image {
-            display: block; }
-            body section#articles article a.image img {
-              width: 100%; }
-            body section#articles article a.image i {
-              color: white;
-              position: absolute;
-              left: 106px;
-              top: 62px;
-              font-size: 100px;
-              opacity: .5; }
-        body section#articles article p {
-          margin: 8px;
-          overflow: hidden; }
-        body section#articles article h4 {
-          margin: 8px;
-          font-family: inherit;
-          line-height: 1.2;
-          font-size: 16px; }
-        body section#articles article header, body section#articles article footer {
-          padding: 3px 8px; }
-        body section#articles article footer {
-          color: #aaaaaa;
-          background-color: #f6f6f6;
-          border-top: 1px solid #eee;
-          font-size: 12px;
-          position: relative; }
-          body section#articles article footer time {
+    body section#articles article {
+      background-color: white;
+      box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5);
+      margin: 0 2.5% 2.27273% 0;
+      float: left;
+      width: 22.5%;
+      position: relative; }
+      body section#articles article a {
+        text-decoration: underline; }
+        body section#articles article a:hover {
+          color: #aaaaaa; }
+        body section#articles article a.image {
+          display: block; }
+          body section#articles article a.image img {
+            width: 100%; }
+          body section#articles article a.image i {
+            color: white;
             position: absolute;
-            right: 8px; }
-        body section#articles article.about {
-          background-color: #fafade; }
-        body section#articles article.article header {
-          background-color: #eee;
-          color: #333333; }
-        body section#articles article.project header {
-          background-color: #333333;
+            left: 106px;
+            top: 62px;
+            font-size: 100px;
+            opacity: .5; }
+      body section#articles article p {
+        margin: 8px;
+        overflow: hidden; }
+      body section#articles article h4 {
+        margin: 8px;
+        font-family: inherit;
+        line-height: 1.2;
+        font-size: 16px; }
+      body section#articles article header, body section#articles article footer {
+        padding: 3px 8px; }
+      body section#articles article footer {
+        color: #aaaaaa;
+        background-color: #f6f6f6;
+        border-top: 1px solid #eee;
+        font-size: 12px;
+        position: relative; }
+        body section#articles article footer time {
+          position: absolute;
+          right: 8px; }
+      body section#articles article.about {
+        background-color: #fafade; }
+      body section#articles article.article header {
+        background-color: #eee;
+        color: #333333; }
+      body section#articles article.project header {
+        background-color: #333333;
+        color: white; }
+      body section#articles article.status header {
+        background-color: #00acee;
+        color: white; }
+      body section#articles article.music header {
+        background-color: #c3000d;
+        color: white; }
+      body section#articles article.checkin header {
+        background-color: #25a0ca;
+        color: white; }
+      body section#articles article.photo header {
+        background-color: #3f729b;
+        color: white; }
+      body section#articles article.video header {
+        background-color: #7b8084;
+        color: white; }
+      body section#articles article.book {
+        background-color: #f2e5d7;
+        overflow: auto; }
+        body section#articles article.book header {
+          background-color: #725333;
           color: white; }
-        body section#articles article.status header {
-          background-color: #00acee;
-          color: white; }
-        body section#articles article.music header {
-          background-color: #c3000d;
-          color: white; }
-        body section#articles article.checkin header {
-          background-color: #25a0ca;
-          color: white; }
-        body section#articles article.photo header {
-          background-color: #3f729b;
-          color: white; }
-        body section#articles article.video header {
-          background-color: #7b8084;
-          color: white; }
-        body section#articles article.book {
+        body section#articles article.book img {
+          float: left;
+          margin: 8px 12px 8px 8px;
+          box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5); }
+        body section#articles article.book footer {
+          clear: left;
           background-color: #f2e5d7;
-          overflow: auto; }
-          body section#articles article.book header {
-            background-color: #725333;
-            color: white; }
-          body section#articles article.book img {
-            float: left;
-            margin: 8px 12px 8px 8px;
-            box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5); }
-          body section#articles article.book footer {
-            clear: left;
-            background-color: #f2e5d7;
-            color: #725333;
-            border-top: 0; }
-        body section#articles article.unadded {
-          opacity: 0; }
-      body section#articles.loaded {
-        visibility: visible; }
-    body section#more {
-      text-align: center;
-      margin: 0 2.5% 2.5%;
-      display: none; }
+          color: #725333;
+          border-top: 0; }
+    body section#articles.loading {
+      visibility: hidden; }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
   body section#head h1 {

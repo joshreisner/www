@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <meta name="description" content="Sporadically updated since 2005">
+        <meta name="description" content="I make websites.">
         <title>Josh Reisner</title>
         <link rel="canonical" href="http://joshreisner.com/">
         <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -36,8 +36,9 @@
         </section>
         <section id="articles">
             <article class="about">
-                <p>I build websites. With <a href="http://katehowemakesthings.com/">Kate Howe</a>, I formed <a href="http://left-right.co/">Left&ndash;Right</a>, a web-development practice serving social-purpose clients. Formerly I was Director of Web Development at <a href="http://www.bureaublank.com/">Bureau Blank</a>, a branding agency in New York City, where I supervised work for clients such as Living Cities, the Harvard Kennedy School of Government, and PolicyLink.</p>
+                <p>I make websites. With <a href="http://katehowemakesthings.com/">Kate Howe</a>, I formed <a href="http://left-right.co/">Left&ndash;Right</a>, a web-development practice serving social-purpose clients. Formerly I was Director of Web Development at <a href="http://www.bureaublank.com/">Bureau Blank</a>, a branding agency in New York City, where I supervised work for clients such as Living Cities, the Harvard Kennedy School of Government, and PolicyLink.</p>
                 <p>This site merges my info from sites like 
+                    <a href="https://www.facebook.com/joshreisner">Facebook</a>,
                     <a href="https://twitter.com/joshreisner">Twitter</a> and
                     <a href="http://instagram.com/joshreisner">Instagram</a>
                     with info I enter into <a href="https://github.com/joshreisner/avalon">a custom CMS</a>. 
@@ -50,15 +51,20 @@
                     <a class="btn btn-default" href="mailto:josh@joshreisner.com"><i class="glyphicon glyphicon-send"></i></a>
                 </p>
             </article>
-        </section>
-        <section id="more">
-            <a class="btn btn-default">Load More</a>
+            @foreach ($articles as $time=>$article)
+                <article class="{{ $article['type'] }}">
+                    <header>{{ $article['header'] }}</header>
+                    {{ $article['content'] }}
+                    <footer>
+                        {{ $article['source'] }}
+                        <time datetime=" {{ date(DATE_W3C, $time) }}">{{ date('M d, Y', $time) }}</time>
+                    </footer>
+                </article>
+            @endforeach
         </section>
         <script src="/assets/js/jquery-1.10.2.min.js"></script>
         <script src="/assets/js/jquery.cookie.js"></script>
-        <script src="/assets/js/moment.min.js"></script>
         <script src="/assets/js/bootstrap.min.js"></script>
-        <script src="/assets/js/imagesloaded.pkgd.min.js"></script>
         <script src="/assets/js/isotope.pkgd.js"></script>
         <script src="/assets/js/javascript.js"></script>
         <script>

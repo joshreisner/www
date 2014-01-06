@@ -110,11 +110,10 @@ body {
 		}
 
 		&#articles {
-			visibility: hidden;
 			
 			article {
 				background-color: white; box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5);
-				margin: 0 $margin $margin / 1.1 0; float: left; width: 22.5%;
+				margin: 0 $margin $margin / 1.1 0; float: left; width: 22.5%; position: relative;
 
 				a {
 					text-decoration: underline; 
@@ -159,17 +158,11 @@ body {
 					img { float: left; margin: 8px 12px 8px 8px; box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5); }
 					footer { clear: left; background-color: $book_light; color: $book_dark; border-top: 0; }
 				}
-
-				&.unadded { opacity: 0; }
 			}
 
-			&.loaded {
-				visibility: visible;
+			&.loading {
+				visibility: hidden;
 			}
-		}
-
-		&#more { 
-			text-align: center; margin: 0 $margin $margin; display: none;
 		}
 	}
 }
