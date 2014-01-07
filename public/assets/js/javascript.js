@@ -32,7 +32,7 @@ $(document).ready(function(){
 	}
 
 	//open in new win
-	$("section#articles a").attr("target","_blank");
+	$("section#articles a:not(.btn)").attr("target","_blank");
 
 	//filter
 	if ($("#filter a.inactive").size()) {
