@@ -3,7 +3,6 @@
 class ImportController extends BaseController {
 
 	public function getFacebook() {
-
 		if (Session::has('facebook.access_token')) {
 
 			if (!$file = file_get_contents('https://graph.facebook.com/me/posts?with=location&limit=25&access_token=' . Session::get('facebook.access_token'))) {
@@ -40,9 +39,9 @@ class ImportController extends BaseController {
 				'count'		=>Checkin::active()->count(),
 			));
 
-			echo '<pre>', print_r($facebook);
-			return @Kint::dump($facebook);
+			//dd($facebook);
 
+			return 'facebook imported';
 
 		} elseif (Input::has('code')) {
 
@@ -112,8 +111,7 @@ class ImportController extends BaseController {
 			'count'		=>Checkin::active()->count(),
 		));
 
-		//echo '<pre>', print_r($checkins);
-		return @Kint::dump($checkins);
+		return 'foursquare imported';
 	}
 
 	public function getGoodreads() {
@@ -152,162 +150,9 @@ class ImportController extends BaseController {
 			'count'		=>--$precedence,
 		));
 
-		//echo '<pre>', print_r($goodreads);
-		return @Kint::dump($goodreads);
+		return 'goodreads imported';
 	}
 
-	public function getReadability() {
-		if (!$file = file_get_contents('https://www.readability.com/joshreisner/favorites/feed')) {
-			trigger_error('Readability API call did not work!');
-		}
-
-		DB::table('articles')->truncate();
-
-		$precedence = 1;
-
-		$readability = simplexml_load_string($file);
-
-		foreach ($readability->channel->item as $rdbl) {
-
-			$date = new DateTime;
-			$date->setTimestamp(strtotime($rdbl->pubDate));
-
-			$article 				= new Article;
-			$article->title 		= $rdbl->title;
-			$article->date 			= $date;
-			$article->excerpt 		= $rdbl->description;
-			$article->url 		 	= substr($rdbl->link, 36);
-			$article->updated 		= new DateTime;
-			$article->updater 		= 1;
-			$article->active 		= 1;
-			$article->precedence 	= $precedence++;
-			$article->save();
-		}
-
-		DB::table('avalon_objects')->where('id', 9)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
-			'count'		=>--$precedence,
-		));
-
-		return @Kint::dump($readability);
-	}
-
-	public function getYouTube() {
-		if (!$file = file_get_contents('http://gdata.youtube.com/feeds/api/users/joshreisner/favorites?max-results=50&alt=json')) {
-			trigger_error('YouTube API call did not work!');
-		}
-
-		$file = str_replace('$', '', $file);
-
-		$youtube = json_decode($file);
-
-		foreach ($youtube->feed->entry as $video) {
-			if (!isset($video->mediagroup->mediathumbnail)) continue;
-			echo $video->title->t . '<br>';
-			echo $video->link[0]->href . '<br>';
-			echo $video->published->t . '<br>';
-			echo $video->mediagroup->mediathumbnail[0]->url . '<br>';
-			echo '<br>';
-		}
-
-		echo '<pre>', print_r($youtube);
-	}
-
-	public function getVimeo() {
-		if (!$file = file_get_contents('http://vimeo.com/api/v2/joshreisner/likes.json')) {
-			trigger_error('Vimeo API call did not work!');
-		}
-
-		DB::table('videos')->truncate();
-
-		$precedence = 1;
-
-		$vimeos = json_decode($file);
-
-		foreach ($vimeos as $vimeo) {
-
-			$date = new DateTime;
-			$date->setTimestamp(strtotime($vimeo->liked_on));
-
-			$video 				= new Video;
-			$video->title 	 	= $vimeo->title;
-			$video->url 		= $vimeo->url;
-			$video->date 		= $date;
-			$video->author 		= $vimeo->user_name;
-			$video->img 		= $vimeo->thumbnail_large;
-			$video->height 		= (640 / $vimeo->width) * $vimeo->height; //thumbnail height
-			$video->updated 	= new DateTime;
-			$video->updater 	= 1;
-			$video->active 		= 1;
-			$video->precedence 	= $precedence++;
-			$video->save();
-		}
-
-		DB::table('avalon_objects')->where('id', 7)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
-			'count'		=>--$precedence,
-		));
-
-		return @Kint::dump($vimeos);
-	}
-
-	public function getTwitter() {
-
-		$twitter = new TwitterAPIExchange(array(
-			'consumer_key' 				=> Config::get('api.twitter.consumer_key'),
-			'consumer_secret' 			=> Config::get('api.twitter.consumer_secret'),
-			'oauth_access_token' 		=> Config::get('api.twitter.access_token'),
-			'oauth_access_token_secret'	=> Config::get('api.twitter.access_token_secret'),
-		));
-
-		if (!$file = $twitter->setGetfield('?username=joshreisner&exclude_replies=true')
-			->buildOauth('https://api.twitter.com/1.1/statuses/user_timeline.json', 'GET')
-			->performRequest()) {
-			trigger_error('Twitter API call did not work!');
-		}
-
-		DB::table('tweets')->truncate();
-
-		$precedence = 1;
-
-		$tweets = json_decode($file);
-
-		foreach ($tweets as $tweet) {
-			if (!empty($tweet->entities->urls)) {
-				foreach ($tweet->entities->urls as $url) {
-					$tweet->text = str_replace($url->url, '<a href="' . $url->expanded_url . '">' . $url->display_url . '</a>', $tweet->text);
-				}
-			}
-
-			if (!empty($tweet->entities->user_mentions)) {
-				foreach ($tweet->entities->user_mentions as $user) {
-					$tweet->text = str_replace('@' . $user->screen_name, '<a href="https://twitter.com/' . $user->screen_name . '">@' . $user->screen_name . '</a>', $tweet->text);
-				}
-			}
-
-			$date = new DateTime;
-			$date->setTimestamp(strtotime($tweet->created_at));
-
-			$status 				= new Tweet;
-			$status->text 	 		= $tweet->text;
-			$status->date 			= $date;
-			$status->updated 		= new DateTime;
-			$status->updater 		= 1;
-			$status->active 		= 1;
-			$status->precedence 	= $precedence++;
-			$status->save();
-		}
-
-		DB::table('avalon_objects')->where('id', 6)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
-			'count'		=>--$precedence,
-		));
-
-		return @Kint::dump($tweets);
-	}
 
 	public function getInstagram() {
 
@@ -343,7 +188,7 @@ class ImportController extends BaseController {
 			'count'		=>--$precedence,
 		));
 
-		return @Kint::dump($photos);
+		return 'instagram imported';
 	}
 
 	public function getLastFm() {
@@ -387,6 +232,164 @@ class ImportController extends BaseController {
 			'count'=>--$precedence,
 		));
 
-		return @Kint::dump($tracks);
+		return 'lastfm imported';
 	}
+
+	public function getReadability() {
+		if (!$file = file_get_contents('https://www.readability.com/joshreisner/favorites/feed')) {
+			trigger_error('Readability API call did not work!');
+		}
+
+		DB::table('articles')->truncate();
+
+		$precedence = 1;
+
+		$readability = simplexml_load_string($file);
+
+		foreach ($readability->channel->item as $rdbl) {
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($rdbl->pubDate));
+
+			$article 				= new Article;
+			$article->title 		= $rdbl->title;
+			$article->date 			= $date;
+			$article->excerpt 		= $rdbl->description;
+			$article->url 		 	= substr($rdbl->link, 36);
+			$article->updated 		= new DateTime;
+			$article->updater 		= 1;
+			$article->active 		= 1;
+			$article->precedence 	= $precedence++;
+			$article->save();
+		}
+
+		DB::table('avalon_objects')->where('id', 9)->update(array(
+			'updated'	=>new DateTime,
+			'updater'	=>1,
+			'count'		=>--$precedence,
+		));
+
+		return 'readability imported';
+	}
+
+	public function getTwitter() {
+
+		$client = new \Guzzle\Service\Client('https://api.twitter.com/1.1');
+
+		$auth = new \Guzzle\Plugin\Oauth\OauthPlugin([
+			'consumer_key' 		=> Config::get('api.twitter.consumer_key'),
+			'consumer_secret' 	=> Config::get('api.twitter.consumer_secret'),
+			'token' 			=> Config::get('api.twitter.access_token'),
+			'token_secret'		=> Config::get('api.twitter.access_token_secret'),
+		]);
+
+		$client->addSubscriber($auth);
+
+		$response = $client->get('statuses/user_timeline.json?username=joshreisner&exclude_replies=true')->send();
+
+		$tweets = $response->json();
+		
+		//dd($tweets);
+
+		DB::table('tweets')->truncate();
+
+		$precedence = 1;
+
+		foreach ($tweets as $tweet) {
+			$tweet = (object)$tweet;
+
+			if (!empty($tweet->entities->urls)) {
+				foreach ($tweet->entities->urls as $url) {
+					$tweet->text = str_replace($url->url, '<a href="' . $url->expanded_url . '">' . $url->display_url . '</a>', $tweet->text);
+				}
+			}
+
+			if (!empty($tweet->entities->user_mentions)) {
+				foreach ($tweet->entities->user_mentions as $user) {
+					$tweet->text = str_replace('@' . $user->screen_name, '<a href="https://twitter.com/' . $user->screen_name . '">@' . $user->screen_name . '</a>', $tweet->text);
+				}
+			}
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($tweet->created_at));
+
+			$status 				= new Tweet;
+			$status->text 	 		= $tweet->text;
+			$status->date 			= $date;
+			$status->updated 		= new DateTime;
+			$status->updater 		= 1;
+			$status->active 		= 1;
+			$status->precedence 	= $precedence++;
+			$status->save();
+		}
+
+		DB::table('avalon_objects')->where('id', 6)->update(array(
+			'updated'	=>new DateTime,
+			'updater'	=>1,
+			'count'		=>--$precedence,
+		));
+
+		return 'twitter imported';
+	}
+
+	public function getVimeo() {
+		if (!$file = file_get_contents('http://vimeo.com/api/v2/joshreisner/likes.json')) {
+			trigger_error('Vimeo API call did not work!');
+		}
+
+		DB::table('videos')->truncate();
+
+		$precedence = 1;
+
+		$vimeos = json_decode($file);
+
+		foreach ($vimeos as $vimeo) {
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($vimeo->liked_on));
+
+			$video 				= new Video;
+			$video->title 	 	= $vimeo->title;
+			$video->url 		= $vimeo->url;
+			$video->date 		= $date;
+			$video->author 		= $vimeo->user_name;
+			$video->img 		= $vimeo->thumbnail_large;
+			$video->height 		= (640 / $vimeo->width) * $vimeo->height; //thumbnail height
+			$video->updated 	= new DateTime;
+			$video->updater 	= 1;
+			$video->active 		= 1;
+			$video->precedence 	= $precedence++;
+			$video->save();
+		}
+
+		DB::table('avalon_objects')->where('id', 7)->update(array(
+			'updated'	=>new DateTime,
+			'updater'	=>1,
+			'count'		=>--$precedence,
+		));
+
+		return 'vimeo imported';
+	}
+
+	public function getYouTube() {
+		if (!$file = file_get_contents('http://gdata.youtube.com/feeds/api/users/joshreisner/favorites?max-results=50&alt=json')) {
+			trigger_error('YouTube API call did not work!');
+		}
+
+		$file = str_replace('$', '', $file);
+
+		$youtube = json_decode($file);
+
+		foreach ($youtube->feed->entry as $video) {
+			if (!isset($video->mediagroup->mediathumbnail)) continue;
+			echo $video->title->t . '<br>';
+			echo $video->link[0]->href . '<br>';
+			echo $video->published->t . '<br>';
+			echo $video->mediagroup->mediathumbnail[0]->url . '<br>';
+			echo '<br>';
+		}
+
+		return 'youtube imported';
+	}
+
 }

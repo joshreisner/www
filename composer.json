@@ -5,8 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"j7mbo/twitter-api-php": "dev-master",
-		"raveren/kint": "dev-master"
+		"guzzle/guzzle": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
