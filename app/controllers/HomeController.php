@@ -23,7 +23,7 @@ class HomeController extends BaseController {
 
 
 		//books
-		$books = Book::all();
+		$books = Book::active()->get();
 		foreach ($books as $book) {
 			$time = strtotime($book->date);
 			self::timelineAdd($time, 'book', 'Book I Recently Read', 'Goodreads', 
@@ -39,7 +39,7 @@ class HomeController extends BaseController {
 
 
 		//music
-		$songs = Song::all();
+		$songs = Song::active()->get();
 		foreach ($songs as $song) {
 			$time = strtotime($song->date);
 			self::timelineAdd($time, 'music', 'Music', 'Last.fm', 
@@ -54,7 +54,7 @@ class HomeController extends BaseController {
 
 
 		//photos
-		$photos = Photo::all();
+		$photos = Photo::active()->get();
 		foreach ($photos as $photo) {
 			$time = strtotime($photo->date);
 			self::timelineAdd($time, 'photo', 'Photo', 'Instagram', 
@@ -70,7 +70,7 @@ class HomeController extends BaseController {
 
 
 		//places visited
-		$checkins = Checkin::all();
+		$checkins = Checkin::active()->get();
 		foreach ($checkins as $checkin) {
 			$time = strtotime($checkin->date);
 			self::timelineAdd($time, 'checkin', 'Place Visited', $checkin->source, 
@@ -86,7 +86,7 @@ class HomeController extends BaseController {
 
 
 		//projects
-		$projects = Project::all();
+		$projects = Project::active()->get();
 		foreach ($projects as $project) {
 			$time = strtotime($project->date);
 			self::timelineAdd($time, 'project', 'Project', self::domain($project->url), 
@@ -101,7 +101,7 @@ class HomeController extends BaseController {
 
 
 		//recommended reading
-		$articles = Article::all();
+		$articles = Article::active()->get();
 		foreach ($articles as $article) {
 			$time = strtotime($article->date);
 			self::timelineAdd($time, 'article', 'Recommended Reading', self::domain($article->url), 
@@ -117,7 +117,7 @@ class HomeController extends BaseController {
 
 
 		//tweets
-		$statuses = Tweet::all();
+		$statuses = Tweet::active()->get();
 		foreach ($statuses as $status) {
 			$time = strtotime($status->date);
 			self::timelineAdd($time, 'status', 'Status Update', 'Twitter', 
@@ -131,7 +131,7 @@ class HomeController extends BaseController {
 
 
 		//videos
-		$videos = Video::all();
+		$videos = Video::active()->get();
 		foreach ($videos as $video) {
 			$time = strtotime($video->date);
 			self::timelineAdd($time, 'video', 'Video', 'Vimeo', 
