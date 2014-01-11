@@ -26,27 +26,17 @@ Route::get('/work', function() {
 Route::group(array('prefix' => 'import'), function()
 {
 
-	Route::get('/lastfm', 'ImportController@getLastFm');
-
-	Route::get('/instagram', 'ImportController@getInstagram');
-
-	Route::get('/readability', 'ImportController@getReadability');
-
-	Route::get('/twitter', 'ImportController@getTwitter');
-
-	Route::get('/vimeo', 'ImportController@getVimeo');
-
-	Route::get('/foursquare', 'ImportController@getFoursquare');
-
-	Route::get('/goodreads', 'ImportController@getGoodreads');
-
-	Route::get('/youtube', 'ImportController@getYouTube'); //under const
-
 	Route::get('/facebook', 'ImportController@getFacebook'); //under const, oauth2
-
+	Route::get('/foursquare', 'ImportController@getFoursquare');
+	Route::get('/goodreads', 'ImportController@getGoodreads');
+	Route::get('/instagram', 'ImportController@getInstagram');
 	Route::get('/instapaper', 'ImportController@getInstapaper'); //under const
-
+	Route::get('/lastfm', 'ImportController@getLastFm');
+	Route::get('/readability', 'ImportController@getReadability');
 	Route::get('/soundcloud', 'ImportController@getSoundCloud'); //under const, oauth2
+	Route::get('/twitter', 'ImportController@getTwitter');
+	Route::get('/vimeo', 'ImportController@getVimeo');
+	Route::get('/youtube', 'ImportController@getYouTube'); //under const
 
 	Route::get('/', function(){
 		$importer = new ImportController;
