@@ -42,11 +42,11 @@ Route::group(array('prefix' => 'import'), function()
 
 	Route::get('/youtube', 'ImportController@getYouTube'); //under const
 
-	Route::get('/facebook', 'ImportController@getFacebook'); //oauth2
+	Route::get('/facebook', 'ImportController@getFacebook'); //under const, oauth2
 
 	Route::get('/instapaper', 'ImportController@getInstapaper'); //under const
 
-	Route::get('/soundcloud', 'ImportController@getSoundCloud'); //under const
+	Route::get('/soundcloud', 'ImportController@getSoundCloud'); //under const, oauth2
 
 	Route::get('/', function(){
 		$importer = new ImportController;
@@ -62,7 +62,6 @@ Route::group(array('prefix' => 'import'), function()
 });
 
 App::missing(function($exception) {
-	die();
 	return Redirect::to('/', 301); 
 });
 
