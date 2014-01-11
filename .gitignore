@@ -9,6 +9,7 @@ composer.lock
 Thumbs.db
 
 /app/config/local
+/app/config/packages
 /app/config/staging
 /app/config/production
 

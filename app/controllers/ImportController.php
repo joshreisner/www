@@ -3,6 +3,7 @@
 class ImportController extends BaseController {
 
 	public function getFacebook() {
+
 		if (Session::has('facebook.access_token')) {
 
 			if (!$file = file_get_contents('https://graph.facebook.com/me/posts?with=location&limit=25&access_token=' . Session::get('facebook.access_token'))) {
@@ -191,6 +192,18 @@ class ImportController extends BaseController {
 		return 'instagram imported';
 	}
 
+	public function getInstapaper() {
+		//retrieve last.fm chart infoz
+		if (!$file = file_get_contents('http://www.instapaper.com/starred/rss/490270/Qy2IMb0Z4tO6Ij2QgOssRcvWg')) {
+			trigger_error('Instapaper API call did not work!');
+		}
+
+		$instapaper = simplexml_load_string($file);
+
+		dd($instapaper);
+	
+	}
+
 	public function getLastFm() {
 
 		//retrieve last.fm chart infoz
@@ -200,7 +213,7 @@ class ImportController extends BaseController {
 
 		DB::table('songs')->truncate();
 
-		//clean up XML
+		//clean up JSON
 		$file = str_replace('#text', 'text', $file);
 		$file = str_replace('@attr', 'attr', $file);
 
@@ -270,6 +283,19 @@ class ImportController extends BaseController {
 		));
 
 		return 'readability imported';
+	}
+
+	public function getSoundCloud() {
+		$soundcloud = OAuth::consumer('SoundCloud');
+
+		if (Input::has('code')) {
+		    //callback request from SoundCloud, get token
+		    $soundcloud->requestAccessToken(Input::get('code'));
+		    $result = json_decode($soundcloud->request('me.json'), true);
+		    return 'Your unique user id is: ' . $result['id'] . ' and your name is ' . $result['username'];
+		} else {
+			return Redirect::to($soundcloud->getAuthorizationUri());
+		}
 	}
 
 	public function getTwitter() {
