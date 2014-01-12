@@ -6,7 +6,9 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"guzzle/guzzle": "dev-master",
-		"artdarek/oauth-4-laravel": "dev-master"
+		"artdarek/oauth-4-laravel": "dev-master",
+		"intervention/image": "dev-master",
+        "aws/aws-sdk-php-laravel": "1.*"
 	},
 	"autoload": {
 		"classmap": [

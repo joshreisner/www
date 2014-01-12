@@ -109,7 +109,8 @@ return array(
 
 		'Joshreisner\Avalon\AvalonServiceProvider',
 		'Artdarek\OAuth\OAuthServiceProvider',
-
+		'Intervention\Image\ImageServiceProvider',
+		'Aws\Laravel\AwsServiceProvider',
 	),
 
 	/*
@@ -176,7 +177,9 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
-		'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
+		'OAuth'			  => 'Artdarek\OAuth\Facade\OAuth',
+		'Image'			  => 'Intervention\Image\Facades\Image',
+        'AWS'			  => 'Aws\Laravel\AwsFacade',
 	),
 
 );
