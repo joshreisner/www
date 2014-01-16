@@ -170,7 +170,7 @@ class ImportController extends BaseController {
 			$date->setTimestamp($pic->created_time);
 
 			$photo 				= new Photo;
-			$photo->location	= $pic->location->name;
+			$photo->location	= (empty($pic->location->name)) ? '' : $pic->location->name;
 			$photo->img 		= $pic->images->standard_resolution->url;
 			$photo->width 		= $pic->images->standard_resolution->width;
 			$photo->height 		= $pic->images->standard_resolution->height;
@@ -302,12 +302,12 @@ class ImportController extends BaseController {
 
 		$client = new \Guzzle\Service\Client('https://api.twitter.com/1.1');
 
-		$auth = new \Guzzle\Plugin\Oauth\OauthPlugin([
+		$auth = new \Guzzle\Plugin\Oauth\OauthPlugin(array(
 			'consumer_key' 		=> Config::get('api.twitter.consumer_key'),
 			'consumer_secret' 	=> Config::get('api.twitter.consumer_secret'),
 			'token' 			=> Config::get('api.twitter.access_token'),
 			'token_secret'		=> Config::get('api.twitter.access_token_secret'),
-		]);
+		));
 
 		$client->addSubscriber($auth);
 
