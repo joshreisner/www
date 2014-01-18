@@ -315,8 +315,6 @@ class ImportController extends BaseController {
 
 		$tweets = $response->json();
 		
-		//dd($tweets);
-
 		DB::table('tweets')->truncate();
 
 		$precedence = 1;
@@ -324,14 +322,18 @@ class ImportController extends BaseController {
 		foreach ($tweets as $tweet) {
 			$tweet = (object)$tweet;
 
-			if (!empty($tweet->entities->urls)) {
-				foreach ($tweet->entities->urls as $url) {
+			echo '<pre>', print_r($tweet);		
+
+			if (!empty($tweet->entities['urls'])) {
+				foreach ($tweet->entities['urls'] as $url) {
+					$url = (object)$url;
 					$tweet->text = str_replace($url->url, '<a href="' . $url->expanded_url . '">' . $url->display_url . '</a>', $tweet->text);
 				}
 			}
 
-			if (!empty($tweet->entities->user_mentions)) {
-				foreach ($tweet->entities->user_mentions as $user) {
+			if (!empty($tweet->entities['user_mentions'])) {
+				foreach ($tweet->entities['user_mentions'] as $user) {
+					$user = (object)$user;
 					$tweet->text = str_replace('@' . $user->screen_name, '<a href="https://twitter.com/' . $user->screen_name . '">@' . $user->screen_name . '</a>', $tweet->text);
 				}
 			}

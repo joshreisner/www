@@ -57,9 +57,10 @@ class HomeController extends BaseController {
 		$photos = Photo::active()->get();
 		foreach ($photos as $photo) {
 			$time = strtotime($photo->date);
+			if (!empty($photo->location)) $photo->location = '<p>' . $photo->location . '</p>';
 			self::timelineAdd($time, 'photo', 'Photo', 'Instagram', 
-				'<a class="image" href="' . $photo->url . '"><img src="' . $photo->img . '" width="' . $photo->width . '" height="' . $photo->height . '" class="img-responsive"></a>
-				<p>' . $photo->location . '</p>'
+				'<a class="image" href="' . $photo->url . '"><img src="' . $photo->img . '" width="' . $photo->width . '" height="' . $photo->height . '" class="img-responsive"></a>'
+				. $photo->location
 			);
 		}
 		self::$types[] = array(
