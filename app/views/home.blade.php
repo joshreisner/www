@@ -27,10 +27,10 @@
                     <li class="divider"></li>
                     @foreach ($types as $type)
                     <li class="{{ $type['class'] }}">
-                        <a>
-                            <i class="glyphicon glyphicon-check"></i> 
-                            <i class="glyphicon glyphicon-unchecked"></i> 
-                            {{ $type['title'] }}
+                        <a class="clearfix">
+                            <i class="pull-left glyphicon glyphicon-check"></i> 
+                            <i class="pull-left glyphicon glyphicon-unchecked"></i> 
+                            <span class="pull-left">{{ $type['title'] }}</span>
                             <span class="badge pull-right">{{ $type['count'] }}</span>
                         </a>
                     </li>
@@ -38,7 +38,7 @@
                 </ul>                
             </div>
         </section>
-        <section id="articles">
+        <section id="articles" class="loading">
             <article class="about">
                 <p>I make websites. With <a href="http://katehowemakesthings.com/">Kate Howe</a>, I formed <a href="http://left-right.co/">Left&ndash;Right</a>, a web-development practice serving social-purpose clients. Formerly I was Director of Web Development at <a href="http://www.bureaublank.com/">Bureau Blank</a>, a branding agency in New York City, where I supervised work for clients such as Living Cities, the Harvard Kennedy School of Government, and PolicyLink.</p>
                 <p>This site merges my info from sites like 
@@ -70,7 +70,7 @@
         <script src="/assets/js/jquery.cookie.js"></script>
         <script src="/assets/js/bootstrap.min.js"></script>
         <script src="/assets/js/isotope.pkgd.js"></script>
-        <script src="/assets/js/javascript.js"></script>
+        <script src="/assets/js/javascript.min.js"></script>
         <script>
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-80350-2']);

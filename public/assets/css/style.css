@@ -43,35 +43,32 @@ body {
           width: 200px; }
           body section#head #filter .dropdown-menu li a {
             padding: 3px 8px; }
-            body section#head #filter .dropdown-menu li a i.glyphicon-unchecked {
-              display: none; }
+            body section#head #filter .dropdown-menu li a i {
+              margin: 1px 6px 0 0; }
+              body section#head #filter .dropdown-menu li a i.glyphicon-unchecked {
+                display: none; }
             body section#head #filter .dropdown-menu li a.inactive {
-              color: #aaaaaa; }
+              opacity: .5; }
               body section#head #filter .dropdown-menu li a.inactive i.glyphicon-check {
                 display: none; }
               body section#head #filter .dropdown-menu li a.inactive i.glyphicon-unchecked {
                 display: inline; }
-              body section#head #filter .dropdown-menu li a.inactive span {
-                background-color: #aaaaaa; }
-          body section#head #filter .dropdown-menu li.about a span {
-            background-color: #fafade;
-            color: inherit; }
-          body section#head #filter .dropdown-menu li.article a span {
+          body section#head #filter .dropdown-menu li.article a span.badge {
             background-color: #f6f6f6;
             color: #333333; }
-          body section#head #filter .dropdown-menu li.project a span {
+          body section#head #filter .dropdown-menu li.project a span.badge {
             background-color: #333333; }
-          body section#head #filter .dropdown-menu li.status a span {
+          body section#head #filter .dropdown-menu li.status a span.badge {
             background-color: #00acee; }
-          body section#head #filter .dropdown-menu li.music a span {
+          body section#head #filter .dropdown-menu li.music a span.badge {
             background-color: #c3000d; }
-          body section#head #filter .dropdown-menu li.checkin a span {
+          body section#head #filter .dropdown-menu li.checkin a span.badge {
             background-color: #25a0ca; }
-          body section#head #filter .dropdown-menu li.video a span {
+          body section#head #filter .dropdown-menu li.video a span.badge {
             background-color: #7b8084; }
-          body section#head #filter .dropdown-menu li.photo a span {
+          body section#head #filter .dropdown-menu li.photo a span.badge {
             background-color: #3f729b; }
-          body section#head #filter .dropdown-menu li.book a span {
+          body section#head #filter .dropdown-menu li.book a span.badge {
             background-color: #725333; }
           body section#head #filter .dropdown-menu::before {
             border-bottom: 7px solid rgba(0, 0, 0, 0.2);
@@ -187,6 +184,8 @@ body {
           background-color: #f2e5d7;
           color: #725333;
           border-top: 0; }
+    body section#articles.loading {
+      visibility: hidden; }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
   body section#head h1 {

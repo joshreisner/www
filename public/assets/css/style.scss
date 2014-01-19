@@ -45,23 +45,24 @@ body {
 					li {
 						a { 
 							padding: $padding; 
-							i.glyphicon-unchecked { display: none; }
+							i {
+								margin: 1px 6px 0 0;
+								&.glyphicon-unchecked { display: none; }
+							}
 							&.inactive { 
+								opacity: .5;
 								i.glyphicon-check { display: none; }
 								i.glyphicon-unchecked { display: inline; }
-								color: $gray; 
-								span { background-color: $gray; }
 							}
 						}
-						&.about a span { background-color: $about; color: inherit; }
-						&.article a span { background-color: $smoke; color: $black; }
-						&.project a span { background-color: $black; }
-						&.status a span { background-color: $twitter; }
-						&.music a span { background-color: $lastfm; }
-						&.checkin a span { background-color: $foursquare; }
-						&.video a span { background-color: $vimeo; }
-						&.photo a span { background-color: $instagram; }
-						&.book a span { background-color: $book_dark; }
+						&.article a span.badge { background-color: $smoke; color: $black; }
+						&.project a span.badge { background-color: $black; }
+						&.status a span.badge { background-color: $twitter; }
+						&.music a span.badge { background-color: $lastfm; }
+						&.checkin a span.badge { background-color: $foursquare; }
+						&.video a span.badge { background-color: $vimeo; }
+						&.photo a span.badge { background-color: $instagram; }
+						&.book a span.badge { background-color: $book_dark; }
 					}
 
 					&::before {
@@ -88,23 +89,23 @@ body {
 				}
 
 				&.open .dropdown-menu {
-				  animation-name: slidenavAnimation;
-				  animation-duration:.2s;
-				  animation-iteration-count: 1;
-				  animation-timing-function: ease;
-				  animation-fill-mode: forwards;
+					animation-name: slidenavAnimation;
+					animation-duration:.2s;
+					animation-iteration-count: 1;
+					animation-timing-function: ease;
+					animation-fill-mode: forwards;
 
-				  -webkit-animation-name: slidenavAnimation;
-				  -webkit-animation-duration:.2s;
-				  -webkit-animation-iteration-count: 1;
-				  -webkit-animation-timing-function: ease;
-				  -webkit-animation-fill-mode: forwards;
+					-webkit-animation-name: slidenavAnimation;
+					-webkit-animation-duration:.2s;
+					-webkit-animation-iteration-count: 1;
+					-webkit-animation-timing-function: ease;
+					-webkit-animation-fill-mode: forwards;
 
-				  -moz-animation-name: slidenavAnimation;
-				  -moz-animation-duration:.2s;
-				  -moz-animation-iteration-count: 1;
-				  -moz-animation-timing-function: ease;
-				  -moz-animation-fill-mode: forwards;
+					-moz-animation-name: slidenavAnimation;
+					-moz-animation-duration:.2s;
+					-moz-animation-iteration-count: 1;
+					-moz-animation-timing-function: ease;
+					-moz-animation-fill-mode: forwards;
 				}
 			}
 		}
@@ -159,6 +160,8 @@ body {
 					footer { clear: left; background-color: $book_light; color: $book_dark; border-top: 0; }
 				}
 			}
+
+			&.loading { visibility: hidden; }
 		}
 	}
 }

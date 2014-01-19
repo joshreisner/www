@@ -45,7 +45,7 @@ $(document).ready(function(){
 		itemSelector: "article",
 		layoutMode: "masonry",
 		filter: ".about" 
-	});
+	}).removeClass("loading");
 
 	$("#filter a").click(function(e) {
 
