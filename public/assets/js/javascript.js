@@ -11,7 +11,7 @@ $(document).ready(function(){
 	$("li.divider").hide();
 
 	if (window.location.hash.length > 1) {
-		filter = "." + window.location.hash.substr(1);
+		filter = ".about,." + window.location.hash.substr(1);
 		$.cookie('filter', filter, { expires: 365 });
 		$("#filter li:not(.all) a").addClass("inactive");
 		$("#filter li" + filter).find("a").removeClass("inactive");
@@ -40,6 +40,13 @@ $(document).ready(function(){
 		$("li.divider").show();			
 	}
 
+	//temp init
+	$container.isotope({ 
+		itemSelector: "article",
+		layoutMode: "masonry",
+		filter: ".about" 
+	});
+
 	$("#filter a").click(function(e) {
 
 		if ($(this).parent().hasClass("all")) {
@@ -63,22 +70,23 @@ $(document).ready(function(){
 
 			//build filter string
 			filter = new Array;
+			filter[filter.length] = '.about';
 			$("#filter a:not(.inactive)").each(function(){
 				filter[filter.length] = "." + $(this).parent().attr("class");
 			});
-			if (filter.length == 1) {
-				window.location.hash = filter[0].substr(1);
+			if (filter.length == 2) {
+				window.location.hash = filter[1].substr(1);
 			} else if (window.location.hash.length) {
 				window.location.hash = "";
 			}
 			filter = filter.join(",");
 
-			$container.isotope({ filter: filter })
-
 			//save filter to query
 			$.cookie('filter', filter, { expires: 365 });
 
 		}
+
+		$container.isotope({ filter: filter })
 
 		if ($("#filter a.inactive").size()) {
 			$("li.all").show();
@@ -92,10 +100,6 @@ $(document).ready(function(){
 });
 
 $(window).load(function(){
-	//init isotope
-	$container.isotope({
-		itemSelector: "article",
-		layoutMode: "masonry",
-		filter: filter
-	}).removeClass("loading");
+	//real filter
+	$container.isotope({ filter: filter });
 });

@@ -149,6 +149,7 @@ body {
           position: absolute;
           right: 8px; }
       body section#articles article.about {
+        display: block;
         background-color: #fafade; }
       body section#articles article.article header {
         background-color: #eee;
@@ -186,8 +187,6 @@ body {
           background-color: #f2e5d7;
           color: #725333;
           border-top: 0; }
-    body section#articles.loading {
-      visibility: hidden; }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
   body section#head h1 {

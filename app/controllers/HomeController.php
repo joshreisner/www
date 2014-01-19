@@ -14,12 +14,12 @@ class HomeController extends BaseController {
 
 	private static function timeline() {
 
-		//about
+		/*about
 		self::$types[] = array(
 			'title'=>'About',
 			'count'=>1,
 			'class'=>'about',
-		);
+		);*/
 
 
 		//books
@@ -74,8 +74,9 @@ class HomeController extends BaseController {
 		$checkins = Checkin::active()->get();
 		foreach ($checkins as $checkin) {
 			$time = strtotime($checkin->date);
+			$checkin->url = 'http://maps.google.com/?q=' . urlencode($checkin->name) . '&ll=' . $checkin->latitude . ',' . $checkin->longitude;
 			self::timelineAdd($time, 'checkin', 'Place Visited', $checkin->source, 
-				'<a class="image" href="#"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $checkin->latitude . ',' . $checkin->longitude . '&zoom=13&maptype=terrain&size=640x380&sensor=false" width="640" height="380" class="img-responsive"></a>
+				'<a class="image" href="' . $checkin->url . '"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $checkin->latitude . ',' . $checkin->longitude . '&zoom=13&maptype=terrain&size=640x380&sensor=false" width="640" height="380" class="img-responsive"></a>
 				<p>' . $checkin->name . '</p>'
 			);
 		}

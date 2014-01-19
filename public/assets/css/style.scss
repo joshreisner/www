@@ -144,7 +144,7 @@ body {
 					time { position: absolute; right: 8px; }
 				}
 
-				&.about 	{ background-color: $about; }
+				&.about 	{ display: block; background-color: $about; }
 				&.article	header { background-color: #eee; color: $black; }
 				&.project	header { background-color: $black; color: white; }
 				&.status	header { background-color: $twitter; color: white; }
@@ -158,10 +158,6 @@ body {
 					img { float: left; margin: 8px 12px 12px 8px; box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5); }
 					footer { clear: left; background-color: $book_light; color: $book_dark; border-top: 0; }
 				}
-			}
-
-			&.loading {
-				visibility: hidden;
 			}
 		}
 	}

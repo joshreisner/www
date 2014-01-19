@@ -18,7 +18,11 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-arrow">
                     <li class="all">
-                        <a><i class="glyphicon glyphicon-check"></i> Show All</a>
+                        <a>
+                            <i class="glyphicon glyphicon-check"></i> 
+                            <i class="glyphicon glyphicon-unchecked"></i> 
+                            Show All
+                        </a>
                     </li>
                     <li class="divider"></li>
                     @foreach ($types as $type)
