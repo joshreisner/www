@@ -291,9 +291,12 @@ class ImportController extends BaseController {
 		if (Input::has('code')) {
 		    //callback request from SoundCloud, get token
 		    $soundcloud->requestAccessToken(Input::get('code'));
-		    $result = json_decode($soundcloud->request('me.json'), true);
+		    $result = json_decode($soundcloud->request('/users/219516/favorites.json'), true);
+		    echo '<pre>', print_r($result);
+		    exit;
 		    return 'Your unique user id is: ' . $result['id'] . ' and your name is ' . $result['username'];
 		} else {
+			die($soundcloud->getAuthorizationUri());
 			return Redirect::to($soundcloud->getAuthorizationUri());
 		}
 	}
