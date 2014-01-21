@@ -136,6 +136,11 @@ body {
         font-size: 16px; }
       body section#articles article header, body section#articles article footer {
         padding: 3px 8px; }
+      body section#articles article header a.edit {
+        position: absolute;
+        right: 8px;
+        top: 4px;
+        display: none; }
       body section#articles article footer {
         color: #aaaaaa;
         background-color: #f6f6f6;
@@ -184,6 +189,12 @@ body {
           background-color: #f2e5d7;
           color: #725333;
           border-top: 0; }
+      body section#articles article:hover header a.edit {
+        display: block;
+        color: white;
+        opacity: .5; }
+        body section#articles article:hover header a.edit:hover {
+          opacity: 1; }
     body section#articles.loading {
       visibility: hidden; }
 

@@ -42,9 +42,9 @@
             <article class="about">
                 <p>I make websites. With <a href="http://katehowemakesthings.com/">Kate Howe</a>, I formed <a href="http://left-right.co/">Left&ndash;Right</a>, a web-development practice serving social-purpose clients. Formerly I was Director of Web Development at <a href="http://www.bureaublank.com/">Bureau Blank</a>, a branding agency in New York City, where I supervised work for clients such as Living Cities, the Harvard Kennedy School of Government, and PolicyLink.</p>
                 <p>This site merges my info from sites like 
-                    <a href="https://www.facebook.com/joshreisner">Facebook</a>,
-                    <a href="https://twitter.com/joshreisner">Twitter</a> and
-                    <a href="http://instagram.com/joshreisner">Instagram</a>
+                    <a href="https://www.facebook.com/joshreisner">Facebook</a>, 
+                    <a href="https://twitter.com/joshreisner">Twitter</a> and 
+                    <a href="http://instagram.com/joshreisner">Instagram</a> 
                     with info I enter into <a href="https://github.com/joshreisner/avalon">a custom CMS</a>. 
                     I made it in PHP using <a href="http://laravel.com/">Laravel</a>, 
                     <a href="http://isotope.metafizzy.co/">Isotope</a>, and 

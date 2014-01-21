@@ -91,6 +91,7 @@ class HomeController extends BaseController {
 		$projects = Project::active()->get();
 		foreach ($projects as $project) {
 			$time = strtotime($project->date);
+			//'<a href="/login/objects/' . $project->object_id . '/instances/' . $project->id . '/edit" class="edit"><i class="glyphicon glyphicon-pencil"></i></a>'
 			self::timelineAdd($time, 'project', 'Project', self::domain($project->url), 
 				'<a class="image" href="' . $project->url . '"><img src="' . $project->img . '" width="640" height="400" class="img-responsive"></a>' . $project->description
 			);

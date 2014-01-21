@@ -139,6 +139,10 @@ body {
 
 				header, footer { padding: $padding; }
 
+				header { 
+					a.edit { position: absolute; right: 8px; top: 4px; display: none; }
+				}
+
 				footer { 
 					color: $gray; background-color: #f6f6f6; border-top: 1px solid #eee; font-size: 12px; 
 					position: relative;
@@ -158,6 +162,15 @@ body {
 					header { background-color: $book_dark; color: white; }
 					img { float: left; margin: 8px 12px 12px 8px; box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5); }
 					footer { clear: left; background-color: $book_light; color: $book_dark; border-top: 0; }
+				}
+
+				&:hover { 
+					header { 
+						a.edit { 
+							display: block; color: white; opacity: .5; 
+							&:hover { opacity: 1; }
+						}
+					}
 				}
 			}
 
