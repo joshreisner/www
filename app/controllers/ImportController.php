@@ -26,18 +26,17 @@ class ImportController extends BaseController {
 				$checkin->date 			= $date;
 				$checkin->latitude 		= $fbcheckin->place->location->latitude;
 				$checkin->longitude 	= $fbcheckin->place->location->longitude;
-				$checkin->updated 		= new DateTime;
 				$checkin->source 		= 'Facebook';
-				$checkin->updater 		= 1;
-				$checkin->active 		= 1;
+				$checkin->updated_at 	= new DateTime;
+				$checkin->updated_by 	= 1;
 				$checkin->precedence 	= Checkin::max('precedence') + 1;
 				$checkin->save();
 			}
 
 			DB::table('avalon_objects')->where('id', 8)->update(array(
-				'updated'	=>new DateTime,
-				'updater'	=>1,
-				'count'		=>Checkin::active()->count(),
+				'updated_at'=>new DateTime,
+				'updated_by'	=>1,
+				'count'		=>Checkin::count(),
 			));
 
 			//dd($facebook);
@@ -98,18 +97,17 @@ class ImportController extends BaseController {
 			$checkin->date 			= $date;
 			$checkin->latitude 		= $latitude;
 			$checkin->longitude 	= $longitude;
-			$checkin->updated 		= new DateTime;
 			$checkin->source 		= 'Foursquare';
-			$checkin->updater 		= 1;
-			$checkin->active 		= 1;
+			$checkin->updated_at 	= new DateTime;
+			$checkin->updated_by 	= 1;
 			$checkin->precedence 	= Checkin::max('precedence') + 1;
 			$checkin->save();
 		}
 
 		DB::table('avalon_objects')->where('id', 8)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
-			'count'		=>Checkin::active()->count(),
+			'updated_at'	=>new DateTime,
+			'updated_by'	=>1,
+			'count'			=>Checkin::count(),
 		));
 
 		return 'foursquare imported';
@@ -138,17 +136,16 @@ class ImportController extends BaseController {
 			$book->img 			= $goodread->book_medium_image_url;
 			$book->url 			= $goodread->link;
 			$book->date 		= $date;
-			$book->updated 		= new DateTime;
-			$book->updater 		= 1;
-			$book->active 		= 1;
+			$book->updated_at 	= new DateTime;
+			$book->updated_by 	= 1;
 			$book->precedence 	= $precedence++;
 			$book->save();
 		}
 
 		DB::table('avalon_objects')->where('id', 10)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
-			'count'		=>--$precedence,
+			'updated_at'	=>new DateTime,
+			'updated_by'	=>1,
+			'count'			=>--$precedence,
 		));
 
 		return 'goodreads imported';
@@ -176,17 +173,16 @@ class ImportController extends BaseController {
 			$photo->height 		= $pic->images->standard_resolution->height;
 			$photo->url 		= $pic->link;
 			$photo->date 		= $date;
-			$photo->updated 	= new DateTime;
-			$photo->updater 	= 1;
-			$photo->active 		= 1;
+			$photo->updated_at 	= new DateTime;
+			$photo->updated_by 	= 1;
 			$photo->precedence 	= $precedence++;
 			$photo->save();
 		}
 
 		DB::table('avalon_objects')->where('id', 4)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
-			'count'		=>--$precedence,
+			'updated_at'	=>new DateTime,
+			'updated_by'	=>1,
+			'count'			=>--$precedence,
 		));
 
 		return 'instagram imported';
@@ -232,16 +228,15 @@ class ImportController extends BaseController {
 			$song->artist 		= $track->artist->name;
 			$song->date 		= $date;
 			$song->img 			= $track->image[3]->text;
-			$song->updated 		= new DateTime;
-			$song->updater 		= 1;
-			$song->active 		= 1;
+			$song->updated_at 	= new DateTime;
+			$song->updated_by 	= 1;
 			$song->precedence 	= $precedence++;
 			$song->save();
 		}
 
 		DB::table('avalon_objects')->where('id', 2)->update(array(
-			'updated'=>new DateTime,
-			'updater'=>1,
+			'updated_at'=>new DateTime,
+			'updated_by'=>1,
 			'count'=>--$precedence,
 		));
 
@@ -269,16 +264,15 @@ class ImportController extends BaseController {
 			$article->date 			= $date;
 			$article->excerpt 		= $rdbl->description;
 			$article->url 		 	= substr($rdbl->link, 36);
-			$article->updated 		= new DateTime;
-			$article->updater 		= 1;
-			$article->active 		= 1;
+			$article->updated_at 	= new DateTime;
+			$article->updated_by 	= 1;
 			$article->precedence 	= $precedence++;
 			$article->save();
 		}
 
 		DB::table('avalon_objects')->where('id', 9)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
+			'updated_at'	=>new DateTime,
+			'updated_by'	=>1,
 			'count'		=>--$precedence,
 		));
 
@@ -347,17 +341,16 @@ class ImportController extends BaseController {
 			$status 				= new Tweet;
 			$status->text 	 		= $tweet->text;
 			$status->date 			= $date;
-			$status->updated 		= new DateTime;
-			$status->updater 		= 1;
-			$status->active 		= 1;
+			$status->updated_at 	= new DateTime;
+			$status->updated_by 	= 1;
 			$status->precedence 	= $precedence++;
 			$status->save();
 		}
 
 		DB::table('avalon_objects')->where('id', 6)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
-			'count'		=>--$precedence,
+			'updated_at'	=>new DateTime,
+			'updated_by'	=>1,
+			'count'			=>--$precedence,
 		));
 
 		return 'twitter imported';
@@ -386,16 +379,15 @@ class ImportController extends BaseController {
 			$video->author 		= $vimeo->user_name;
 			$video->img 		= $vimeo->thumbnail_large;
 			$video->height 		= (640 / $vimeo->width) * $vimeo->height; //thumbnail height
-			$video->updated 	= new DateTime;
-			$video->updater 	= 1;
-			$video->active 		= 1;
+			$video->updated_at 	= new DateTime;
+			$video->updated_by 	= 1;
 			$video->precedence 	= $precedence++;
 			$video->save();
 		}
 
 		DB::table('avalon_objects')->where('id', 7)->update(array(
-			'updated'	=>new DateTime,
-			'updater'	=>1,
+			'updated_at'	=>new DateTime,
+			'updated_by'	=>1,
 			'count'		=>--$precedence,
 		));
 

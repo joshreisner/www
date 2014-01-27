@@ -13,6 +13,14 @@
 
 Route::get('/', 'HomeController@getIndex');
 
+Route::get('/test', function(){
+	Tweet::create(array(
+		'text'=>'dude whats up',
+		'date'=>new DateTime(),
+	));
+	return 'hello';
+});
+
 Route::get('/data', 'HomeController@getData');
 
 Route::get('/category/work', function() {

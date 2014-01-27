@@ -1,0 +1,52 @@
+$dark : #555;
+$light : #999;
+
+body { 
+	font-family: Courier New, monospace; 
+
+	input.btn-primary { 
+		background-color: $dark; border-color: $dark; 
+		&:hover { background-color: $light; border-color: $light; }
+	}
+
+
+	&.login {
+		div.modal-header {
+			background-color: $dark; color: white; 
+			h2 { font-size: 34px; line-height: .9; }
+		}
+	}
+
+	.container { 
+		a { 
+			color: $dark; 
+			&:hover { color: $light; }
+		}
+
+		.header { 
+			a { background-image: url(/assets/img/avalon.png); width: 563px; height: 59px; margin-top: 20px; }
+		}
+
+		.main { 
+			h1 { 
+				font-size: 30px; 
+				i { 
+					font-size: 24px; margin: 0 -10px; 
+					&:first-child { margin: 0; }
+				}
+			}
+		}
+
+		.btn-group {
+			a.btn-default {
+				background-color: $dark; color: #fff; border-color: white; border-radius: 4px;
+				&:hover { background-color: $light; }
+			}
+		}
+
+		.alert-warning {
+			background-color: #eee; border-color: #ddd; border-radius: 0; padding: 100px 15px; 
+			text-align: center;
+		}
+	}
+}
