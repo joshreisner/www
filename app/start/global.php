@@ -1,5 +1,9 @@
 <?php
 
+//bugsnag only in production
+$app['bugsnag']->setNotifyReleaseStages(array('production'));
+
+
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader
