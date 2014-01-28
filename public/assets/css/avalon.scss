@@ -1,5 +1,6 @@
-$dark : #555;
+$dark  : #555;
 $light : #999;
+$white : #fff;
 
 body { 
 	font-family: Courier New, monospace; 
@@ -7,12 +8,12 @@ body {
 	input.btn-primary { 
 		background-color: $dark; border-color: $dark; 
 		&:hover { background-color: $light; border-color: $light; }
+		&:focus { outline: none; }
 	}
-
 
 	&.login {
 		div.modal-header {
-			background-color: $dark; color: white; 
+			background-color: $dark; color: $white; 
 			h2 { font-size: 34px; line-height: .9; }
 		}
 	}
@@ -39,7 +40,7 @@ body {
 
 		.btn-group {
 			a.btn-default {
-				background-color: $dark; color: #fff; border-color: white; border-radius: 6px;
+				background-color: $dark; color: $white; border-color: $white; border-radius: 6px;
 				&:hover { background-color: $light; }
 			}
 		}

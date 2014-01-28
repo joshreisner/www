@@ -6,6 +6,8 @@ body {
     body input.btn-primary:hover {
       background-color: #999999;
       border-color: #999999; }
+    body input.btn-primary:focus {
+      outline: none; }
   body.login div.modal-header {
     background-color: #555555;
     color: white; }
@@ -30,7 +32,7 @@ body {
         margin: 0; }
   body .container .btn-group a.btn-default {
     background-color: #555555;
-    color: #fff;
+    color: white;
     border-color: white;
     border-radius: 6px; }
     body .container .btn-group a.btn-default:hover {
