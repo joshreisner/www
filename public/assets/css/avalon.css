@@ -8,19 +8,34 @@ body {
     body input.btn-primary:hover, body input.btn-primary:active, body input.btn-primary:focus {
       background-color: #999999;
       border-color: #999999; }
-  body.login div.modal-header {
-    background-color: #555555;
-    color: white; }
-    body.login div.modal-header h2, body.login div.modal-header h3 {
-      line-height: 1; }
-    body.login div.modal-header h2 {
-      font-size: 34px; }
-  body.login div.modal-body div.alert {
-    margin: -20px -20px 20px;
-    border-width: 0 0 1px 0;
+  body .form-control {
+    background-color: #f9f9f9; }
+    body .form-control:focus {
+      box-shadow: none; }
+  body .has-error .form-control:focus {
+    box-shadow: none; }
+  body .form-control, body .btn {
+    border-radius: 0; }
+  body.login div.modal div.modal-content {
     border-radius: 0;
-    text-align: center;
-    line-height: 1; }
+    box-shadow: 6px 6px 0px 0px #999999; }
+    body.login div.modal div.modal-content div.modal-header {
+      background-color: #555555;
+      color: white;
+      border-radius: 0; }
+      body.login div.modal div.modal-content div.modal-header h2, body.login div.modal div.modal-content div.modal-header h3 {
+        line-height: 1; }
+      body.login div.modal div.modal-content div.modal-header h2 {
+        font-size: 34px; }
+    body.login div.modal div.modal-content div.modal-body div.alert {
+      margin: -21px -20px 20px;
+      border-width: 0 0 1px 0;
+      border-radius: 0;
+      text-align: center;
+      line-height: 1;
+      font-style: italic; }
+    body.login div.modal div.modal-content div.modal-footer {
+      border-radius: 0; }
   body .container a {
     color: #555555; }
     body .container a:hover {
