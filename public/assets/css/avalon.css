@@ -34,19 +34,22 @@ body {
     font-size: 30px; }
     body .container .main h1 i {
       font-size: 24px;
-      margin: 0 -10px; }
+      margin: 0 -10px;
+      color: #999999; }
       body .container .main h1 i:first-child {
         margin: 0; }
-  body .container .btn-group a.btn-default {
-    background-color: #555555;
-    color: white;
-    border-color: white;
-    border-radius: 0;
-    line-height: 1.5; }
-    body .container .btn-group a.btn-default i {
-      vertical-align: text-top; }
-    body .container .btn-group a.btn-default:hover {
-      background-color: #999999; }
+  body .container .btn-group {
+    box-shadow: 6px 6px 0px 0px #999999; }
+    body .container .btn-group a.btn-default {
+      background-color: #555555;
+      color: white;
+      border-color: white;
+      border-radius: 0;
+      line-height: 1.5; }
+      body .container .btn-group a.btn-default i {
+        vertical-align: text-top; }
+      body .container .btn-group a.btn-default:hover {
+        background-color: #999999; }
   body .container .alert-warning {
     background-color: #eee;
     border-color: #ddd;

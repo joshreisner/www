@@ -40,16 +40,17 @@ body {
 			h1 { 
 				font-size: 30px; 
 				i { 
-					font-size: 24px; margin: 0 -10px; 
+					font-size: 24px; margin: 0 -10px; color: $light;
 					&:first-child { margin: 0; }
 				}
 			}
 		}
 
 		.btn-group {
+			box-shadow: 6px 6px 0px 0px $light;
 			a.btn-default {
 				background-color: $dark; color: $white; border-color: $white; border-radius: 0;
-				line-height: 1.5;
+				line-height: 1.5; 
 				i { vertical-align: text-top; }
 				&:hover { background-color: $light; }
 			}
