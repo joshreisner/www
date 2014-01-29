@@ -15,6 +15,12 @@ body {
       line-height: 1; }
     body.login div.modal-header h2 {
       font-size: 34px; }
+  body.login div.modal-body div.alert {
+    margin: -20px -20px 20px;
+    border-width: 0 0 1px 0;
+    border-radius: 0;
+    text-align: center;
+    line-height: 1; }
   body .container a {
     color: #555555; }
     body .container a:hover {
