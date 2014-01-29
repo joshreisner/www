@@ -5,16 +5,18 @@ $white : #fff;
 body { 
 	font-family: Courier New, monospace; 
 
+	.btn:focus, .btn-primary:focus { outline: none; }
+
 	input.btn-primary { 
 		background-color: $dark; border-color: $dark; 
-		&:hover { background-color: $light; border-color: $light; }
-		&:focus { outline: none; }
+		&:hover, &:active, &:focus { background-color: $light; border-color: $light; }
 	}
 
 	&.login {
 		div.modal-header {
 			background-color: $dark; color: $white; 
-			h2 { font-size: 34px; line-height: .9; }
+			h2, h3 { line-height: 1; }
+			h2 { font-size: 34px; }
 		}
 	}
 
@@ -40,7 +42,9 @@ body {
 
 		.btn-group {
 			a.btn-default {
-				background-color: $dark; color: $white; border-color: $white; border-radius: 6px;
+				background-color: $dark; color: $white; border-color: $white; border-radius: 0;
+				line-height: 1.5;
+				i { vertical-align: text-top; }
 				&:hover { background-color: $light; }
 			}
 		}
