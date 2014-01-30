@@ -9,7 +9,8 @@
 		"artdarek/oauth-4-laravel": "dev-master",
 		"intervention/image": "dev-master",
         "aws/aws-sdk-php-laravel": "1.*",
-		"bugsnag/bugsnag-laravel": "1.*"
+		"bugsnag/bugsnag-laravel": "1.*",
+		"joshreisner/avalon": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
