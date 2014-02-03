@@ -12,6 +12,8 @@ body {
     background-color: #f9f9f9; }
     body .form-control:focus {
       box-shadow: none; }
+  body .redactor_editor {
+    font-family: Courier New, monospace; }
   body .has-error .form-control:focus {
     box-shadow: none; }
   body .form-control, body .btn {

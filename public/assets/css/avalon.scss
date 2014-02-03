@@ -17,6 +17,10 @@ body {
 		&:focus { box-shadow: none; }
 	}
 
+	.redactor_editor {
+		font-family: Courier New, monospace; 
+	}
+
 	.has-error .form-control:focus { box-shadow: none; }
 	.form-control, .btn { border-radius: 0; }
 
