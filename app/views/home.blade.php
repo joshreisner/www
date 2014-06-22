@@ -7,7 +7,7 @@
         <title>Josh Reisner</title>
         <link rel="canonical" href="http://joshreisner.com/">
         <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/main.css">
     </head>
     <body>
         <section id="head" role="banner">

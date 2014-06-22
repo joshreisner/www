@@ -65,7 +65,9 @@ return array(
 	|
 	*/
 
-	'key' => '3f3VFlPwgHAGZq2BCywmu0apCDVfYpxZ',
+	'key' => $_ENV['SECRET_KEY'],
+
+	'cipher' => MCRYPT_RIJNDAEL_256,
 
 	/*
 	|--------------------------------------------------------------------------

@@ -4,12 +4,12 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.x",
+		"laravel/framework": "4.2.x",
 		"guzzle/guzzle": "dev-master",
 		"artdarek/oauth-4-laravel": "dev-master",
         "aws/aws-sdk-php-laravel": "1.*",
 		"bugsnag/bugsnag-laravel": "1.*",
-		"joshreisner/avalon": "dev-master"
+		"joshreisner/avalon": "*"
 	},
 	"autoload": {
 		"classmap": [

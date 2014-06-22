@@ -149,6 +149,7 @@ class HomeController extends BaseController {
 		);
 
 		krsort(self::$timeline);
+
 		return self::$timeline;
 	}
 
