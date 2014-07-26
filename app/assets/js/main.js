@@ -1,3 +1,8 @@
+//= include ../../../bower_components/jquery/dist/jquery.js
+//= include ../../../bower_components/isotope/dist/isotope.pkgd.js
+//= include ../../../bower_components/bootstrap-sass/dist/js/bootstrap.js
+//= include ../../../bower_components/jquery.cookie/jquery.cookie.js
+
 $(document).ready(function(){
 
 	$container = $("section#articles");

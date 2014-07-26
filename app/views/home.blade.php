@@ -6,8 +6,7 @@
         <meta name="description" content="I make websites.">
         <title>Josh Reisner</title>
         <link rel="canonical" href="http://joshreisner.com/">
-        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/assets/css/main.css">
+        <link rel="stylesheet" href="/assets/css/main.min.css">
     </head>
     <body>
         <section id="head" role="banner">
@@ -66,11 +65,7 @@
                 </article>
             @endforeach
         </section>
-        <script src="/assets/js/jquery-1.10.2.min.js"></script>
-        <script src="/assets/js/jquery.cookie.js"></script>
-        <script src="/assets/js/bootstrap.min.js"></script>
-        <script src="/assets/js/isotope.pkgd.js"></script>
-        <script src="/assets/js/javascript.min.js"></script>
+        <script src="/assets/js/main.min.js"></script>
         <script>
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-80350-2']);

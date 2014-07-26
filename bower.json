@@ -1,0 +1,21 @@
+{
+  "name": "www",
+  "version": "0.0.0",
+  "homepage": "https://github.com/joshreisner/www",
+  "authors": [
+    "Josh Reisner <josh@joshreisner.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "~3.0.2",
+    "isotope": "~2.0.0",
+    "jquery.cookie": "~1.4.1"
+  }
+}
