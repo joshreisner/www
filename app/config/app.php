@@ -111,7 +111,6 @@ return array(
 
 		'Joshreisner\Avalon\AvalonServiceProvider',
 		'Artdarek\OAuth\OAuthServiceProvider',
-	    'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
 
 		'Intervention\Image\ImageServiceProvider',
 		'Aws\Laravel\AwsServiceProvider',
@@ -182,8 +181,6 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 
 		'OAuth'			  => 'Artdarek\OAuth\Facade\OAuth',
-	    'Bugsnag'		  => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
-
 		'Image'			  => 'Intervention\Image\Facades\Image',
         'AWS'			  => 'Aws\Laravel\AwsFacade',
 	),

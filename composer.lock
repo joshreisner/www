@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "314e0b59af28bafe7e980e0db4129ab6",
+    "hash": "2b8c42dc0aec95bb175c63d5399ecc7c",
     "packages": [
         {
             "name": "artdarek/oauth-4-laravel",
@@ -174,103 +174,6 @@
                 "sdk"
             ],
             "time": "2014-05-12 23:31:32"
-        },
-        {
-            "name": "bugsnag/bugsnag",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bugsnag/bugsnag-php.git",
-                "reference": "7ac3f4eceac38ef4f7977408202b54cc414c8671"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bugsnag/bugsnag-php/zipball/7ac3f4eceac38ef4f7977408202b54cc414c8671",
-                "reference": "7ac3f4eceac38ef4f7977408202b54cc414c8671",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "kherge/box": "~2.0",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Bugsnag_": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "James Smith",
-                    "email": "notifiers@bugsnag.com",
-                    "homepage": "https://bugsnag.com"
-                }
-            ],
-            "description": "Official Bugsnag notifier for PHP applications.",
-            "homepage": "https://github.com/bugsnag/bugsnag-php",
-            "keywords": [
-                "bugsnag",
-                "errors",
-                "exceptions",
-                "logging",
-                "tracking"
-            ],
-            "time": "2014-07-17 15:40:52"
-        },
-        {
-            "name": "bugsnag/bugsnag-laravel",
-            "version": "v1.0.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bugsnag/bugsnag-laravel.git",
-                "reference": "d43674ba89d062102fe0e1222ecc0937678eb7fa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bugsnag/bugsnag-laravel/zipball/d43674ba89d062102fe0e1222ecc0937678eb7fa",
-                "reference": "d43674ba89d062102fe0e1222ecc0937678eb7fa",
-                "shasum": ""
-            },
-            "require": {
-                "bugsnag/bugsnag": ">=2.2.8",
-                "illuminate/support": "~4.0",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Bugsnag\\BugsnagLaravel\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "James Smith",
-                    "email": "notifiers@bugsnag.com",
-                    "homepage": "https://bugsnag.com"
-                }
-            ],
-            "description": "Official Bugsnag notifier for Laravel applications.",
-            "homepage": "https://github.com/bugsnag/bugsnag-laravel",
-            "keywords": [
-                "bugsnag",
-                "errors",
-                "exceptions",
-                "laravel",
-                "logging",
-                "tracking"
-            ],
-            "time": "2014-05-26 19:58:22"
         },
         {
             "name": "classpreloader/classpreloader",

@@ -8,7 +8,6 @@
 		"guzzle/guzzle": "dev-master",
 		"artdarek/oauth-4-laravel": "dev-master",
         "aws/aws-sdk-php-laravel": "1.*",
-		"bugsnag/bugsnag-laravel": "1.*",
 		"joshreisner/avalon": "*"
 	},
 	"autoload": {
