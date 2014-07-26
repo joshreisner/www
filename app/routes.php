@@ -31,6 +31,12 @@ Route::get('/work', function() {
 	return Redirect::to('/#project');
 });
 
+Route::group(['filter'=>'auth'], function(){
+	Route::get('error', function(){
+		trigger_error('Test error you guys');
+	});
+});
+
 Route::group(array('prefix' => 'import'), function()
 {
 
