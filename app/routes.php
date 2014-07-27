@@ -13,21 +13,11 @@
 
 Route::get('/', 'HomeController@getIndex');
 
-Route::get('/test', function(){
-	Tweet::create(array(
-		'text'=>'dude whats up',
-		'date'=>new DateTime(),
-	));
-	return 'hello';
-});
-
-Route::get('/data', 'HomeController@getData');
-
-Route::get('/category/work', function() {
+Route::get('/category/work', function(){
 	return Redirect::to('/#project');
 });
 
-Route::get('/work', function() {
+Route::get('/work', function(){
 	return Redirect::to('/#project');
 });
 
@@ -35,34 +25,31 @@ Route::group(['filter'=>'auth'], function(){
 	Route::get('error', function(){
 		trigger_error('Test error you guys');
 	});
-});
+	
+	Route::group(array('prefix' => 'import'), function(){
 
-Route::group(array('prefix' => 'import'), function()
-{
+		$services = [
+			//'facebook'=>	'Facebook',
+			'foursquare'=>	'Foursquare',
+			'goodreads'=>	'Goodreads',
+			'instagram'=>	'Instagram',
+			'instapaper'=>	'Instapaper',
+			'lastfm'=>		'LastFm',
+			'readability'=>	'Readability',
+			'soundcloud'=>	'SoundCloud',
+			'twitter'=>		'Twitter',
+			'vimeo'=>		'Vimeo',
+			'youtube'=>		'YouTube',
+		];
 
-	Route::get('/facebook', 'ImportController@getFacebook'); //under const, oauth2
-	Route::get('/foursquare', 'ImportController@getFoursquare');
-	Route::get('/goodreads', 'ImportController@getGoodreads');
-	Route::get('/instagram', 'ImportController@getInstagram');
-	Route::get('/instapaper', 'ImportController@getInstapaper'); //under const
-	Route::get('/lastfm', 'ImportController@getLastFm');
-	Route::get('/readability', 'ImportController@getReadability');
-	Route::get('/soundcloud', 'ImportController@getSoundCloud'); //under const, oauth2
-	Route::get('/twitter', 'ImportController@getTwitter');
-	Route::get('/vimeo', 'ImportController@getVimeo');
-	Route::get('/youtube', 'ImportController@getYouTube'); //under const
+		Route::get('/', function() use ($services){
+			return View::make('import')->with('services', $services);
+		});
 
-	Route::get('/', function(){
-		$importer = new ImportController;
-		$importer->getLastFm();
-		$importer->getInstagram();
-		$importer->getReadability();
-		$importer->getTwitter();
-		$importer->getVimeo();
-		$importer->getFoursquare();
-		$importer->getGoodreads();
+		foreach ($services as $key=>$value) {
+			Route::get('/' . $key, 	'ImportController@get' . $value);
+		}
 	});
-
 });
 
 App::missing(function($exception) {

@@ -54,6 +54,10 @@
                     <a class="btn btn-default" href="mailto:josh@joshreisner.com"><i class="glyphicon glyphicon-send"></i></a>
                 </p>
             </article>
+	        <script>
+	        var data = {{ json_encode($articles) }};
+	        </script>
+	        <?php $articles = array_slice($articles, 0, 16)?>
             @foreach ($articles as $time=>$article)
                 <article class="{{ $article['type'] }}">
                     <header>{{ $article['header'] }}</header>
@@ -66,16 +70,5 @@
             @endforeach
         </section>
         <script src="/assets/js/main.min.js"></script>
-        <script>
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-80350-2']);
-          _gaq.push(['_trackPageview']);
-
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-        </script>
     </body>
 </html>
