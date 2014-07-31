@@ -1,4 +1,4 @@
-<header><i class="glyphicon glyphicon-video"></i> Music</header>
+<header><i class="glyphicon glyphicon-music"></i> Music</header>
 
 <a class="image" href="{{ $music->url }}"><img src="{{ $music->img }}" width="300" height="300" class="img-responsive"></a>
 

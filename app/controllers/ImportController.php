@@ -409,23 +409,43 @@ class ImportController extends BaseController {
 		$precedence = 1;
 
 		$vimeos = json_decode($file);
+		$images = array();
+		
+		//dd($vimeos);
 
 		foreach ($vimeos as $vimeo) {
 
 			$date = new DateTime;
 			$date->setTimestamp(strtotime($vimeo->liked_on));
 
-			$video 				= new Video;
+			if (!$video = Video::where('vimeo_id', $vimeo->id)->first()) {
+				$video 			= new Video;
+			}
 			$video->title 	 	= $vimeo->title;
 			$video->url 		= $vimeo->url;
 			$video->date 		= $date;
 			$video->author 		= $vimeo->user_name;
-			$video->img 		= $vimeo->thumbnail_large;
-			$video->height 		= (640 / $vimeo->width) * $vimeo->height; //thumbnail height
+			$video->vimeo_id	= $vimeo->id;
 			$video->updated_at 	= new DateTime;
 			$video->updated_by 	= 1;
 			$video->precedence 	= $precedence++;
 			$video->save();
+
+			//save image to database
+			$image = file_get_contents($vimeo->thumbnail_large);
+			$path_parts = pathinfo($vimeo->thumbnail_large);
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(54, $image, 'image', $path_parts['extension'], $video->id);
+
+			if ($video->image_id !== null) $images[] = $video->image_id;
+
+			$video->image_id 		= $image_props['file_id'];
+			$video->save();
+
+		}
+
+		if (count($images)) {
+			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
+			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
 		}
 
 		DB::table('avalon_objects')->where('id', 7)->update(array(

@@ -22,6 +22,12 @@ $smoke		: #f6f6f6
 	font-weight: normal
 	font-style: normal
 
+@font-face
+	font-family: 'AkkuratBold'
+	src: url('../fonts/AkkBd_Pro_1.eot?') format('eot'), url('../fonts/AkkBd_Pro_1.woff') format('woff'), url('../fonts/AkkBd_Pro_1.ttf') format('truetype'), url('../fonts/AkkBd_Pro_1.svg') format('svg')
+	font-weight: normal
+	font-style: normal
+
 @keyframes slidenavAnimation
 	from
 		opacity: 0
@@ -52,6 +58,11 @@ section
 		cursor: pointer
 		outline: 0
 
+	.btn
+		background-color: $smoke
+		border: 1px solid $gray
+		border-radius: 0
+	
 	&#head
 		position: relative
 
@@ -64,11 +75,6 @@ section
 			position: absolute
 			bottom: 10px
 			right: $margin
-
-			.btn-transparent
-				background-color: $smoke
-				border: 1px solid $gray
-				border-radius: 0
 
 			.dropdown-menu
 				width: 200px
@@ -136,7 +142,6 @@ article
 	margin: 0 $margin $margin / 1.1 0
 	float: left
 	width: 22.5%
-	position: relative
 	box-shadow: 6px 6px 0px 0px $gray
 
 	a
@@ -145,6 +150,7 @@ article
 			color: $gray
 		&.image
 			display: block
+			position: relative
 			img
 				width: 100%
 			i
@@ -152,31 +158,32 @@ article
 				position: absolute
 				left: 106px
 				top: 50%
-				margin-top: -70px
+				margin-top: -55px
 				font-size: 100px
 				opacity: .5
+			&:hover
+				i
+					opacity: 1
 
 	p
 		margin: 8px
 		overflow: hidden
 
 	h4
-		margin: 8px
-		font-family: inherit
+		margin: 12px 8px 8px
+		font-family: 'AkkuratBold'
 		line-height: 1.2
 		font-size: 16px
-
-	header, footer
-		padding: $padding
+		a
+			text-decoration: none
 
 	header
-		a.edit
-			position: absolute
-			right: 8px
-			top: 4px
-			display: none
+		padding: $padding
+		i
+			margin-right: 4px
 
 	footer
+		padding: $padding
 		color: $gray
 		background-color: #f6f6f6
 		border-top: 1px solid #eee
@@ -222,7 +229,8 @@ article
 		img
 			float: left
 			margin: 8px 12px 12px 8px
-			box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5)
+			//box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5)
+			box-shadow: 3px 3px 0px 0px white
 			max-width: 100px
 			height: auto
 		footer

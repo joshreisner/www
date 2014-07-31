@@ -1,4 +1,4 @@
-<header><i class="glyphicon glyphicon-book"></i> Recommended Reading</header>
+<header><i class="glyphicon glyphicon-bookmark"></i> Article</header>
 
 <h4><a href="{{ $article->url }}">{{ $article->title }}</a></h4>
 

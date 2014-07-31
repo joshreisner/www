@@ -1,4 +1,4 @@
-<header><i class="glyphicon glyphicon-book"></i> Place Visited</header>
+<header><i class="glyphicon glyphicon-map-marker"></i> Place Visited</header>
 
 <a class="image" href="{{ $checkin->url }}"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ $checkin->latitude }},{{ $checkin->longitude }}&zoom=13&maptype=terrain&size=640x380&sensor=false" width="640" height="380" class="img-responsive"></a>
 

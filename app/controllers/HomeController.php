@@ -6,6 +6,17 @@ class HomeController extends BaseController {
 
 		$timeline = $types = [];
 
+		# Articles
+		$articles = Article::get();
+		foreach ($articles as $article) {
+			$timeline[strtotime($article->date)] = [
+				'type' => 'article',
+				'article' => $article,
+			];
+		}
+		$types['article'] = ['title'=>'Articles', 'count'=>count($articles)];
+
+
 		# Books
 		$books = Book::get();
 		foreach ($books as $book) {
@@ -54,23 +65,13 @@ class HomeController extends BaseController {
 		# Projects
 		$projects = Project::get();
 		foreach ($projects as $project) {
+			$project->url = self::domain($project->url);
 			$timeline[strtotime($project->date)] = [
 				'type' => 'project',
 				'project' => $project,
 			];
 		}
 		$types['project'] = ['title'=>'Projects', 'count'=>count($projects)];
-
-
-		# Articles
-		$articles = Article::get();
-		foreach ($articles as $article) {
-			$timeline[strtotime($article->date)] = [
-				'type' => 'article',
-				'article' => $article,
-			];
-		}
-		$types['article'] = ['title'=>'Rec. Reading', 'count'=>count($articles)];
 
 
 		# Tweets

@@ -1,6 +1,6 @@
-<header><i class="glyphicon glyphicon-video"></i> Video</header>
+<header><i class="glyphicon glyphicon-facetime-video"></i> Video</header>
 
-<a class="image" href="{{ $video->url }}"><img src="{{ $video->img }}" width="640" height="{{ $video->height }}" class="img-responsive"><i class="glyphicon glyphicon-play"></i></a>
+<a class="image" href="{{ $video->url }}"><img src="{{ $video->image->url }}" width="{{ $video->image->height }}" height="{{ $video->image->height }}" class="img-responsive"><i class="glyphicon glyphicon-play"></i></a>
 
 <p><a href="{{ $video->url }}">{{ $video->title }}</a> by {{ $video->author }}</p>
 
