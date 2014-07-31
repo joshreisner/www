@@ -2,6 +2,7 @@
 //= include ../../../bower_components/isotope/dist/isotope.pkgd.js
 //= include ../../../bower_components/bootstrap-sass/dist/js/bootstrap.js
 //= include ../../../bower_components/jquery.cookie/jquery.cookie.js
+//= include ../../../bower_components/imagesloaded/imagesloaded.pkgd.js
 
 $(document).ready(function(){
 
@@ -46,11 +47,20 @@ $(document).ready(function(){
 	}
 
 	//temp init
-	$container.isotope({ 
+	$container = $container.isotope({ 
 		itemSelector: "article",
 		layoutMode: "masonry",
-		filter: ".about" 
-	}).removeClass("loading");
+		filter: filter
+	});
+
+	$('section#source article').each(function(){
+		
+		var $this = $(this).detach().imagesLoaded(function(){
+			$this.removeClass("loading").appendTo($container);
+			$container.isotope("appended", $this);
+		});
+
+	});
 
 	$("#filter a").click(function(e) {
 
@@ -106,7 +116,7 @@ $(document).ready(function(){
 
 $(window).load(function(){
 	//real filter
-	$container.isotope({ filter: filter });
+	//$container.isotope({ filter: filter });
 });
 
 var _gaq = _gaq || [];

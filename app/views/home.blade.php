@@ -12,7 +12,7 @@
         <section id="head" role="banner">
             <h1>Josh Reisner</h1>
             <div id="filter" class="btn-group pull-right">
-                <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn btn-transparent btn-lg dropdown-toggle" data-toggle="dropdown">
                     <i class="glyphicon glyphicon-list"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-arrow">
@@ -54,8 +54,12 @@
                     <a class="btn btn-default" href="mailto:josh@joshreisner.com"><i class="glyphicon glyphicon-send"></i></a>
                 </p>
             </article>
+        </section>
+        <section id="source">
             @foreach ($articles as $time=>$article)
-            	@include('articles.' . $article['type'], $article)
+	            <article class="{{ $article['type'] }}" class="loading">
+            		@include('articles.' . $article['type'], $article)
+            	</article>
             @endforeach
         </section>
         <script src="/assets/js/main.min.js"></script>

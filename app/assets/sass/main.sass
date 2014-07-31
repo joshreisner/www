@@ -43,202 +43,203 @@ body
 	background-color: #ddd
 	font-family: 'Akkurat', Sans-Serif
 	font-size: 15px
-	section
-		margin: $margin / 2 0 0 $margin
 
-		a
-			color: inherit
-			cursor: pointer
-			outline: 0
+section
+	margin: $margin / 2 0 0 $margin
 
-		&#head
-			position: relative
+	a
+		color: inherit
+		cursor: pointer
+		outline: 0
 
-			h1
-				margin: 0
-				font-size: 50px
-				font-family: inherit
+	&#head
+		position: relative
 
-			#filter
-				position: absolute
-				bottom: 10px
-				right: $margin
+		h1
+			margin: 0
+			font-size: 50px
+			font-family: inherit
 
-				.btn-transparent
-					background-color: transparent
-					border: 1px solid $gray
+		#filter
+			position: absolute
+			bottom: 10px
+			right: $margin
 
-				.dropdown-menu
-					width: 200px
-					li
-						a
-							padding: $padding
-							i
-								margin: 1px 6px 0 0
-								&.glyphicon-unchecked
-									display: none
-							&.inactive
-								opacity: .5
-								i.glyphicon-check
-									display: none
-								i.glyphicon-unchecked
-									display: inline
+			.btn-transparent
+				background-color: $smoke
+				border: 1px solid $gray
+				border-radius: 0
 
-						&.article a span.badge
-							background-color: $smoke
-							color: $black
-						&.project a span.badge
-							background-color: $black
-						&.status a span.badge
-							background-color: $twitter
-						&.music a span.badge
-							background-color: $lastfm
-						&.checkin a span.badge
-							background-color: $foursquare
-						&.video a span.badge
-							background-color: $vimeo
-						&.photo a span.badge
-							background-color: $instagram
-						&.book a span.badge
-							background-color: $book_dark
-
-					&::before
-						border-bottom: 7px solid rgba(0, 0, 0, 0.2)
-						border-left: 7px solid transparent
-						border-right: 7px solid transparent
-						content: ""
-						display: inline-block
-						right: 9px
-						position: absolute
-						top: -7px
-
-					&::after
-						border-bottom: 6px solid white
-						border-left: 6px solid transparent
-						border-right: 6px solid transparent
-						content: ""
-						display: inline-block
-						right: 10px
-						position: absolute
-						top: -6px
-
-				&.open .dropdown-menu
-					animation-name: slidenavAnimation
-					animation-duration: 0.2s
-					animation-iteration-count: 1
-					animation-timing-function: ease
-					animation-fill-mode: forwards
-
-		&#articles
-			
-			article
-				background-color: white
-				margin: 0 $margin $margin / 1.1 0
-				float: left
-				width: 22.5%
-				position: relative
-				box-shadow: 6px 6px 0px 0px $gray
-
-				a
-					text-decoration: underline
-					&:hover
-						color: $gray
-					&.image
-						display: block
-						img
-							width: 100%
+			.dropdown-menu
+				width: 200px
+				li
+					a
+						padding: $padding
 						i
-							color: white
-							position: absolute
-							left: 106px
-							top: 50%
-							margin-top: -70px
-							font-size: 100px
+							margin: 1px 6px 0 0
+							&.glyphicon-unchecked
+								display: none
+						&.inactive
 							opacity: .5
+							i.glyphicon-check
+								display: none
+							i.glyphicon-unchecked
+								display: inline
 
-				p
-					margin: 8px
-					overflow: hidden
-
-				h4
-					margin: 8px
-					font-family: inherit
-					line-height: 1.2
-					font-size: 16px
-
-				header, footer
-					padding: $padding
-
-				header
-					a.edit
-						position: absolute
-						right: 8px
-						top: 4px
-						display: none
-
-				footer
-					color: $gray
-					background-color: #f6f6f6
-					border-top: 1px solid #eee
-					font-size: 12px
-					position: relative
-					time
-						position: absolute
-						right: 8px
-
-				&.about
-					display: block
-					background-color: $about
-				&.article header
-					background-color: #eee
-					color: $black
-				&.project header
-					background-color: $black
-					color: white
-				&.status header
-					background-color: $twitter
-					color: white
-				&.music header
-					background-color: $lastfm
-					color: white
-				&.checkin header
-					background-color: $foursquare
-					color: white
-				&.photo	 header
-					background-color: $instagram
-					color: white
-				&.video header
-					background-color: $vimeo
-					color: white
-				&.book 
-					background-color: $book_light
-					overflow: auto
-					header
+					&.article a span.badge
+						background-color: $smoke
+						color: $black
+					&.project a span.badge
+						background-color: $black
+					&.status a span.badge
+						background-color: $twitter
+					&.music a span.badge
+						background-color: $lastfm
+					&.checkin a span.badge
+						background-color: $foursquare
+					&.video a span.badge
+						background-color: $vimeo
+					&.photo a span.badge
+						background-color: $instagram
+					&.book a span.badge
 						background-color: $book_dark
-						color: white
-					img
-						float: left
-						margin: 8px 12px 12px 8px
-						box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5)
-						max-width: 100px
-						height: auto
-					footer
-						clear: left
-						background-color: $book_light
-						color: $book_dark
-						border-top: 0
 
+				&::before
+					border-bottom: 7px solid rgba(0, 0, 0, 0.2)
+					border-left: 7px solid transparent
+					border-right: 7px solid transparent
+					content: ""
+					display: inline-block
+					right: 9px
+					position: absolute
+					top: -7px
+
+				&::after
+					border-bottom: 6px solid white
+					border-left: 6px solid transparent
+					border-right: 6px solid transparent
+					content: ""
+					display: inline-block
+					right: 10px
+					position: absolute
+					top: -6px
+
+			&.open .dropdown-menu
+				animation-name: slidenavAnimation
+				animation-duration: 0.2s
+				animation-iteration-count: 1
+				animation-timing-function: ease
+				animation-fill-mode: forwards
+
+article
+	background-color: white
+	margin: 0 $margin $margin / 1.1 0
+	float: left
+	width: 22.5%
+	position: relative
+	box-shadow: 6px 6px 0px 0px $gray
+
+	a
+		text-decoration: underline
+		&:hover
+			color: $gray
+		&.image
+			display: block
+			img
+				width: 100%
+			i
+				color: white
+				position: absolute
+				left: 106px
+				top: 50%
+				margin-top: -70px
+				font-size: 100px
+				opacity: .5
+
+	p
+		margin: 8px
+		overflow: hidden
+
+	h4
+		margin: 8px
+		font-family: inherit
+		line-height: 1.2
+		font-size: 16px
+
+	header, footer
+		padding: $padding
+
+	header
+		a.edit
+			position: absolute
+			right: 8px
+			top: 4px
+			display: none
+
+	footer
+		color: $gray
+		background-color: #f6f6f6
+		border-top: 1px solid #eee
+		font-size: 12px
+		position: relative
+		time
+			position: absolute
+			right: 8px
+
+	&.loading
+		visibility: hidden
+		
+	&.about
+		display: block
+		background-color: $about
+	&.article header
+		background-color: #eee
+		color: $black
+	&.project header
+		background-color: $black
+		color: white
+	&.status header
+		background-color: $twitter
+		color: white
+	&.music header
+		background-color: $lastfm
+		color: white
+	&.checkin header
+		background-color: $foursquare
+		color: white
+	&.photo	 header
+		background-color: $instagram
+		color: white
+	&.video header
+		background-color: $vimeo
+		color: white
+	&.book 
+		background-color: $book_light
+		overflow: auto
+		header
+			background-color: $book_dark
+			color: white
+		img
+			float: left
+			margin: 8px 12px 12px 8px
+			box-shadow: 2px 2px 13px rgba(50, 50, 50, 0.5)
+			max-width: 100px
+			height: auto
+		footer
+			clear: left
+			background-color: $book_light
+			color: $book_dark
+			border-top: 0
+
+	&:hover
+		header
+			a.edit
+				display: block
+				color: white
+				opacity: .5
 				&:hover
-					header
-						a.edit
-							display: block
-							color: white
-							opacity: .5
-							&:hover
-								opacity: 1
+					opacity: 1
 
-			&.loading
-				visibility: hidden
 
 // phone portrait - 1 col
 @media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait)
