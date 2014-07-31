@@ -26,7 +26,7 @@ class HomeController extends BaseController {
 		$books = Book::get();
 		foreach ($books as $book) {
 			$time = strtotime($book->date);
-			self::timelineAdd($time, 'book', 'Book I Recently Read', 'Goodreads', 
+			self::timelineAdd($time, 'book', '<i class="glyphicon glyphicon-book"></i> Book', 'Goodreads', 
 				'<a href="' . $book->url . '"><img src="' . $book->cover->url . '" width="' . $book->cover->width . '" height="' . $book->cover->height . '"></a>
 				<p>' . $book->author . '<br><a href="' . $book->url . '">' . $book->title . '</a><br>' . $book->published . '</p>'
 			);
@@ -103,11 +103,11 @@ class HomeController extends BaseController {
 		);
 
 
-		//recommended reading
+		//article
 		$articles = Article::get();
 		foreach ($articles as $article) {
 			$time = strtotime($article->date);
-			self::timelineAdd($time, 'article', 'Recommended Reading', self::domain($article->url), 
+			self::timelineAdd($time, 'article', '<i class="glyphicon glyphicon-bookmark"></i> Article', self::domain($article->url), 
 				'<h4><a href="' . $article->url . '">' . $article->title . '</a></h4>' . 
 				'<p>' . $article->excerpt . '</p>'
 			);
