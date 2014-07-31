@@ -118,28 +118,51 @@ class ImportController extends BaseController {
 			trigger_error('Goodreads API call did not work!');
 		}
 
-		DB::table('books')->truncate();
+		$goodreads = simplexml_load_string($file);
+		//dd($goodreads);
+
+		//DB::table('books')->truncate();
+		//DB::table('avalon_files')->truncate();
 
 		$precedence = 1;
-
-		$goodreads = simplexml_load_string($file);
+		$images = array();
 
 		foreach ($goodreads->channel->item as $goodread) {
 
 			$date = new DateTime;
 			$date->setTimestamp(strtotime($goodread->user_read_at));
 
-			$book 				= new Book;
+			if (!$book = Book::where('goodreads_id', $goodread->book_id)->first()) {
+				$book = new Book;
+			}
+
 			$book->title 		= $goodread->title;
 			$book->author 	 	= $goodread->author_name;
 			$book->published 	= $goodread->book_published;
-			$book->img 			= $goodread->book_medium_image_url;
 			$book->url 			= $goodread->link;
+			$book->goodreads_id = $goodread->book_id;
 			$book->date 		= $date;
 			$book->updated_at 	= new DateTime;
 			$book->updated_by 	= 1;
 			$book->precedence 	= $precedence++;
+			$book->save(); //to ensure there's an id?
+
+			//save image to database
+			$field_id = 50;
+			$image = file_get_contents($goodread->book_large_image_url);
+			$path_parts = pathinfo($goodread->book_large_image_url);
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(50, $image, 'cover', $path_parts['extension'], $book->id);
+
+			if ($book->cover_id !== null) $images[] = $book->cover_id;
+
+			$book->cover_id 		= $image_props['file_id'];
 			$book->save();
+
+		}
+
+		if (count($images)) {
+			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
+			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
 		}
 
 		DB::table('avalon_objects')->where('id', 10)->update(array(

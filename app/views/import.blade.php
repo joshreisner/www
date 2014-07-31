@@ -11,7 +11,7 @@
     		<form>
     		<div class="row">
     			<div class="col-md-10" style="margin:20px 0">
-    				{{ Form::select('service', $services, null, ['class'=>'form-control']) }}
+    				{{ Form::select('service', $services, 'goodreads', ['class'=>'form-control']) }}
     			</div>
     			<div class="col-md-2" style="margin:20px 0">
     				<a class="btn btn-primary btn-block">Import</a>
