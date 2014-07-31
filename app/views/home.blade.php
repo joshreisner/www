@@ -24,8 +24,8 @@
                         </a>
                     </li>
                     <li class="divider"></li>
-                    @foreach ($types as $type)
-                    <li class="{{ $type['class'] }}">
+                    @foreach ($types as $class=>$type)
+                    <li class="{{ $class }}">
                         <a class="clearfix">
                             <i class="pull-left glyphicon glyphicon-check"></i> 
                             <i class="pull-left glyphicon glyphicon-unchecked"></i> 
@@ -54,19 +54,8 @@
                     <a class="btn btn-default" href="mailto:josh@joshreisner.com"><i class="glyphicon glyphicon-send"></i></a>
                 </p>
             </article>
-	        <script>
-	        var data = {{ json_encode($articles) }};
-	        </script>
-	        <?php $articles = array_slice($articles, 0, 16)?>
             @foreach ($articles as $time=>$article)
-                <article class="{{ $article['type'] }}">
-                    <header>{{ $article['header'] }}</header>
-                    {{ $article['content'] }}
-                    <footer>
-                        {{ $article['source'] }}
-                        <time datetime=" {{ date(DATE_W3C, $time) }}">{{ date('M d, Y', $time) }}</time>
-                    </footer>
-                </article>
+            	@include('articles.' . $article['type'], $article)
             @endforeach
         </section>
         <script src="/assets/js/main.min.js"></script>

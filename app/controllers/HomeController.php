@@ -2,155 +2,104 @@
 
 class HomeController extends BaseController {
 
-	private static $timeline 	= array();
-	private static $types 		= array();
-
 	public function getIndex() {
-		return View::make('home', array(
-			'articles'=>self::timeline(),
-			'types'=>self::$types,
-		));
-	}
 
-	private static function timeline() {
+		$timeline = $types = [];
 
-		/*about
-		self::$types[] = array(
-			'title'=>'About',
-			'count'=>1,
-			'class'=>'about',
-		);*/
-
-
-		//books
+		# Books
 		$books = Book::get();
 		foreach ($books as $book) {
-			$time = strtotime($book->date);
-			self::timelineAdd($time, 'book', '<i class="glyphicon glyphicon-book"></i> Book', 'Goodreads', 
-				'<a href="' . $book->url . '"><img src="' . $book->cover->url . '" width="' . $book->cover->width . '" height="' . $book->cover->height . '"></a>
-				<p>' . $book->author . '<br><a href="' . $book->url . '">' . $book->title . '</a><br>' . $book->published . '</p>'
-			);
+			$timeline[strtotime($book->date)] = [
+				'type' => 'book',
+				'book' => $book,
+			];
 		}
-		self::$types[] = array(
-			'title'=>'Books',
-			'count'=>count($books),
-			'class'=>'book',
-		);
+		$types['book'] = ['title'=>'Books', 'count'=>count($books)];
 
 
-		//music
+		# Music
 		$songs = Song::get();
 		foreach ($songs as $song) {
-			$time = strtotime($song->date);
-			self::timelineAdd($time, 'music', 'Music', 'Last.fm', 
-				'<a class="image" href="' . $song->url . '"><img src="' . $song->img . '" width="300" height="300" class="img-responsive"></a>
-				<p>' . $song->artist . ': <a class="track" href="' . $song->url . '">' . $song->song . '</a></p>');
+			$timeline[strtotime($song->date)] = [
+				'type' => 'music',
+				'music' => $song,
+			];
 		}
-		self::$types[] = array(
-			'title'=>'Music',
-			'count'=>count($songs),
-			'class'=>'music',
-		);
+		$types['music'] = ['title'=>'Music', 'count'=>count($songs)];
 
 
-		//photos
+		# Photos
 		$photos = Photo::get();
 		foreach ($photos as $photo) {
-			$time = strtotime($photo->date);
-			if (!empty($photo->location)) $photo->location = '<p>' . $photo->location . '</p>';
-			self::timelineAdd($time, 'photo', 'Photo', 'Instagram', 
-				'<a class="image" href="' . $photo->url . '"><img src="' . $photo->image->url . '" width="' . $photo->image->width . '" height="' . $photo->image->height . '" class="img-responsive"></a>'
-				. $photo->location
-			);
+			$timeline[strtotime($photo->date)] = [
+				'type' => 'photo',
+				'photo' => $photo,
+			];
 		}
-		self::$types[] = array(
-			'title'=>'Photos',
-			'count'=>count($photos),
-			'class'=>'photo',
-		);
+		$types['photo'] = ['title'=>'Photos', 'count'=>count($photos)];
 
 
-		//places visited
+		# Places
 		$checkins = Checkin::get();
 		foreach ($checkins as $checkin) {
-			$time = strtotime($checkin->date);
 			$checkin->url = 'http://maps.google.com/?q=' . urlencode($checkin->name) . '&ll=' . $checkin->latitude . ',' . $checkin->longitude;
-			self::timelineAdd($time, 'checkin', 'Place Visited', $checkin->source, 
-				'<a class="image" href="' . $checkin->url . '"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $checkin->latitude . ',' . $checkin->longitude . '&zoom=13&maptype=terrain&size=640x380&sensor=false" width="640" height="380" class="img-responsive"></a>
-				<p>' . $checkin->name . '</p>'
-			);
+			$timeline[strtotime($checkin->date)] = [
+				'type' => 'checkin',
+				'checkin' => $checkin,
+			];
 		}
-		self::$types[] = array(
-			'title'=>'Places Visited',
-			'count'=>count($checkins),
-			'class'=>'checkin',
-		);
+		$types['checkin'] = ['title'=>'Places Visited', 'count'=>count($checkins)];
 
 
-		//projects
+		# Projects
 		$projects = Project::get();
 		foreach ($projects as $project) {
-			$time = strtotime($project->date);
-			//'<a href="/login/objects/' . $project->object_id . '/instances/' . $project->id . '/edit" class="edit"><i class="glyphicon glyphicon-pencil"></i></a>'
-			self::timelineAdd($time, 'project', 'Project', self::domain($project->url), 
-				'<a class="image" href="' . $project->url . '"><img src="' . $project->img . '" width="640" height="400" class="img-responsive"></a>' . $project->description
-			);
+			$timeline[strtotime($project->date)] = [
+				'type' => 'project',
+				'project' => $project,
+			];
 		}
-		self::$types[] = array(
-			'title'=>'Projects',
-			'count'=>count($projects),
-			'class'=>'project',
-		);
+		$types['project'] = ['title'=>'Projects', 'count'=>count($projects)];
 
 
-		//article
+		# Articles
 		$articles = Article::get();
 		foreach ($articles as $article) {
-			$time = strtotime($article->date);
-			self::timelineAdd($time, 'article', '<i class="glyphicon glyphicon-bookmark"></i> Article', self::domain($article->url), 
-				'<h4><a href="' . $article->url . '">' . $article->title . '</a></h4>' . 
-				'<p>' . $article->excerpt . '</p>'
-			);
+			$timeline[strtotime($article->date)] = [
+				'type' => 'article',
+				'article' => $article,
+			];
 		}
-		self::$types[] = array(
-			'title'=>'Rec. Reading',
-			'count'=>count($articles),
-			'class'=>'article',
-		);
+		$types['article'] = ['title'=>'Rec. Reading', 'count'=>count($articles)];
 
 
-		//tweets
+		# Tweets
 		$statuses = Tweet::get();
 		foreach ($statuses as $status) {
-			$time = strtotime($status->date);
-			self::timelineAdd($time, 'status', 'Status Update', 'Twitter', 
-				'<p>' . $status->text . '</p>');
+			$timeline[strtotime($status->date)] = [
+				'type' => 'status',
+				'status' => $status,
+			];
 		}
-		self::$types[] = array(
-			'title'=>'Status Updates',
-			'count'=>count($statuses),
-			'class'=>'status',
-		);
+		$types['status'] = ['title'=>'Status Updates', 'count'=>count($statuses)];
 
 
-		//videos
+		# Videos
 		$videos = Video::get();
 		foreach ($videos as $video) {
-			$time = strtotime($video->date);
-			self::timelineAdd($time, 'video', 'Video', 'Vimeo', 
-				'<a class="image" href="' . $video->url . '"><img src="' . $video->img . '" width="640" height="' . $video->height . '" class="img-responsive"><i class="glyphicon glyphicon-play"></i></a>
-				<p><a href="' . $video->url . '">' . $video->title . '</a> by ' . $video->author . '</p>'
-			);
+			$timeline[strtotime($video->date)] = [
+				'type' => 'video',
+				'video' => $video,
+			];
 		}
-		self::$types[] = array(
-			'title'=>'Videos',
-			'count'=>count($videos),
-			'class'=>'video',
-		);
+		$types['video'] = ['title'=>'Videos', 'count'=>count($videos)];
 
-		krsort(self::$timeline);
+		krsort($timeline);
 
-		return self::$timeline;
+		return View::make('home', [
+			'articles' => $timeline,
+			'types' => $types,
+		]);
 	}
 
 	private static function domain($url) {
@@ -159,7 +108,4 @@ class HomeController extends BaseController {
 		return $url['host'];
 	}
 
-	private static function timelineAdd($time, $type, $header, $source, $content) {
-		self::$timeline[$time] = array('type'=>$type, 'header'=>$header, 'content'=>$content, 'source'=>$source);
-	}
 }
