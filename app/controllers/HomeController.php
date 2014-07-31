@@ -27,7 +27,7 @@ class HomeController extends BaseController {
 		foreach ($books as $book) {
 			$time = strtotime($book->date);
 			self::timelineAdd($time, 'book', 'Book I Recently Read', 'Goodreads', 
-				'<a href="' . $book->url . '"><img src="' . $book->img . '"></a>
+				'<a href="' . $book->url . '"><img src="' . $book->cover->url . '" width="' . $book->cover->width . '" height="' . $book->cover->height . '"></a>
 				<p>' . $book->author . '<br><a href="' . $book->url . '">' . $book->title . '</a><br>' . $book->published . '</p>'
 			);
 		}
@@ -59,7 +59,7 @@ class HomeController extends BaseController {
 			$time = strtotime($photo->date);
 			if (!empty($photo->location)) $photo->location = '<p>' . $photo->location . '</p>';
 			self::timelineAdd($time, 'photo', 'Photo', 'Instagram', 
-				'<a class="image" href="' . $photo->url . '"><img src="' . $photo->img . '" width="' . $photo->width . '" height="' . $photo->height . '" class="img-responsive"></a>'
+				'<a class="image" href="' . $photo->url . '"><img src="' . $photo->image->url . '" width="' . $photo->image->width . '" height="' . $photo->image->height . '" class="img-responsive"></a>'
 				. $photo->location
 			);
 		}

@@ -148,7 +148,6 @@ class ImportController extends BaseController {
 			$book->save(); //to ensure there's an id?
 
 			//save image to database
-			$field_id = 50;
 			$image = file_get_contents($goodread->book_large_image_url);
 			$path_parts = pathinfo($goodread->book_large_image_url);
 			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(50, $image, 'cover', $path_parts['extension'], $book->id);
@@ -181,25 +180,46 @@ class ImportController extends BaseController {
 			trigger_error('Instagram API call did not work!');
 		}
 
-		DB::table('photos')->truncate();
+		//DB::table('photos')->truncate();
 
 		$photos = json_decode($file);
+		$images = array();
+
+		//dd($photos);
+
 		$precedence = 1;
 		foreach ($photos->data as $pic) {
 			$date = new DateTime;
 			$date->setTimestamp($pic->created_time);
 
-			$photo 				= new Photo;
-			$photo->location	= (empty($pic->location->name)) ? '' : $pic->location->name;
-			$photo->img 		= $pic->images->standard_resolution->url;
-			$photo->width 		= $pic->images->standard_resolution->width;
-			$photo->height 		= $pic->images->standard_resolution->height;
-			$photo->url 		= $pic->link;
-			$photo->date 		= $date;
-			$photo->updated_at 	= new DateTime;
-			$photo->updated_by 	= 1;
-			$photo->precedence 	= $precedence++;
+			if (!$photo = Photo::where('instagram_id', $pic->id)->first()) {
+				$photo = new Photo;
+			}
+			$photo->caption			= (empty($pic->caption->text)) ? null : $pic->caption->text;
+			$photo->location		= (empty($pic->location->name)) ? null : $pic->location->name;
+			$photo->url 			= $pic->link;
+			$photo->date 			= $date;
+			$photo->updated_at		= new DateTime;
+			$photo->updated_by		= 1;
+			$photo->precedence		= $precedence++;
+			$photo->instagram_id	= $pic->id;
 			$photo->save();
+
+			//save image to database
+			$image = file_get_contents($pic->images->standard_resolution->url);
+			$path_parts = pathinfo($pic->images->standard_resolution->url);
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(51, $image, 'image', $path_parts['extension'], $photo->id);
+
+			if ($photo->image_id !== null) $images[] = $photo->image_id;
+
+			$photo->image_id 		= $image_props['file_id'];
+			$photo->save();
+
+		}
+
+		if (count($images)) {
+			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
+			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
 		}
 
 		DB::table('avalon_objects')->where('id', 4)->update(array(

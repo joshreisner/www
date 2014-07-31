@@ -42,10 +42,6 @@ Route::group(['filter'=>'auth'], function(){
 			'youtube'=>		'YouTube',
 		];
 
-		Route::get('/', function() use ($services){
-			return View::make('import')->with('services', $services);
-		});
-
 		foreach ($services as $key=>$value) {
 			Route::get('/' . $key, 	'ImportController@get' . $value);
 		}
