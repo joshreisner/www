@@ -2,23 +2,17 @@
 
 class ImportController extends BaseController {
 
+
 	public function getFacebook() {
 
-		if (Session::has('facebook.access_token')) {
+	    $oauth = OAuth::consumer('Facebook');
 
-			if (!$file = file_get_contents('https://graph.facebook.com/me/posts?with=location&limit=25&access_token=' . Session::get('facebook.access_token'))) {
-				trigger_error('Facebook API call did not work!');
-			}
+		if (Session::has('tokens.facebook')) {
 
-			$facebook = json_decode($file);
+	        $checkins = json_decode($oauth->request('/me/posts?with=location&limit=25'));
 			$images = array();
 
-			//dd($facebook);
-			//DB::table('checkins')->truncate();
-
-			foreach ($facebook->data as $fbcheckin) {
-
-				//echo $fbcheckin->id . '<br>';
+			foreach ($checkins->data as $fbcheckin) {
 
 				$date = new DateTime;
 				$date->setTimestamp(strtotime($fbcheckin->created_time));
@@ -61,38 +55,16 @@ class ImportController extends BaseController {
 				'count'		=>Checkin::count(),
 			));
 
-			//dd($facebook);
+			return 'Facebook imported';
 
-			return 'facebook imported';
+	    } elseif (Input::has('code')) {
 
-		} elseif (Input::has('code')) {
+			Session::put('tokens.facebook', $oauth->requestAccessToken(Input::get('code')));
+			return Redirect::to(Request::url());
 
-			//curl exchange the code for an access token
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/oauth/access_token' .
-				'?client_id=' . Config::get('api.facebook.key') . 
-				'&redirect_uri=' . urlencode(Request::url()) . 
-				'&client_secret=' . Config::get('api.facebook.secret') . 
-				'&code=' . Input::get('code'));
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
-
-			if (strstr($result, 'error')) {
-				echo $result;
-				exit;
-			} else {
-				parse_str($result, $parts);
-				Session::put('facebook.access_token', $parts['access_token']);
-				return Redirect::to(Request::url());
-			}
-		} else {
-			return Redirect::to('https://www.facebook.com/dialog/oauth' . 
-				'?client_id=' . Config::get('api.facebook.key') . 
-				'&redirect_uri=' . urlencode(Request::url()) . 
-				'&state=' . md5(uniqid(mt_rand(), true)) . 
-				'&scope=read_stream');
-		}
+	    } else {
+			return Redirect::to((string)$oauth->getAuthorizationUri());
+	    }
 	}
 
 	public function getFoursquare() {
@@ -502,19 +474,21 @@ class ImportController extends BaseController {
 
 	public function getYouTube() {
 
-		$google = OAuth::consumer('Google');
+		$oauth = OAuth::consumer('Google');
 
-		if (!Input::has('code')) return Redirect::to((string)$google->getAuthorizationUri());
+	    if (Session::has('tokens.google')) {
+			$youtube = json_decode($oauth->request('https://www.googleapis.com/youtube/v3/playlists'));
+			
+			dd($youtube);
 
-		try {
-			$token = $google->requestAccessToken(Input::get('code'));
-		} catch (TokenResponseException $e) {
-			dd($e);
-		}
-	
-		$result = json_decode($google->request('https://www.googleapis.com/youtube/v3/playlists'), true);
-		
-		dd($result);
+	    } elseif (Input::has('code')) {
+
+			Session::put('tokens.google', $oauth->requestAccessToken(Input::get('code')));
+			return Redirect::to(Request::url());
+
+	    } else {
+			return Redirect::to((string)$oauth->getAuthorizationUri());
+	    }
 
 	}
 

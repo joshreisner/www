@@ -22,30 +22,21 @@ Route::get('/work', function(){
 });
 
 Route::group(['filter'=>'auth'], function(){
-	Route::get('error', function(){
-		trigger_error('Test error you guys');
-	});
-	
+
 	Route::group(array('prefix' => 'import'), function(){
-
-		$services = [
-			'facebook'=>	'Facebook',
-			'foursquare'=>	'Foursquare',
-			'goodreads'=>	'Goodreads',
-			'instagram'=>	'Instagram',
-			'instapaper'=>	'Instapaper',
-			'lastfm'=>		'LastFm',
-			'readability'=>	'Readability',
-			'soundcloud'=>	'SoundCloud',
-			'twitter'=>		'Twitter',
-			'vimeo'=>		'Vimeo',
-			'youtube'=>		'YouTube',
-		];
-
-		foreach ($services as $key=>$value) {
-			Route::get('/' . $key, 	'ImportController@get' . $value);
-		}
+		Route::get('/facebook',		'ImportController@getFacebook');
+		Route::get('/foursquare',	'ImportController@getFoursquare');
+		Route::get('/goodreads',	'ImportController@getGoodreads');
+		Route::get('/instagram',	'ImportController@getInstagram');
+		Route::get('/instapaper',	'ImportController@getInstapaper');
+		Route::get('/lastfm',		'ImportController@getLastFm');
+		Route::get('/readability',	'ImportController@getReadability');
+		Route::get('/soundcloud',	'ImportController@getSoundcloud');
+		Route::get('/twitter',		'ImportController@getTwitter');
+		Route::get('/vimeo',		'ImportController@getVimeo');
+		Route::get('/youtube',		'ImportController@getYouTube');
 	});
+
 });
 
 App::missing(function($exception) {
