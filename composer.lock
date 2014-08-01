@@ -542,12 +542,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "663135d59bd8abb64e3efea3adc53aed9674df74"
+                "reference": "d686e5d911fd7ebb008e11866aa303d46ec05d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/663135d59bd8abb64e3efea3adc53aed9674df74",
-                "reference": "663135d59bd8abb64e3efea3adc53aed9674df74",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/d686e5d911fd7ebb008e11866aa303d46ec05d08",
+                "reference": "d686e5d911fd7ebb008e11866aa303d46ec05d08",
                 "shasum": ""
             },
             "require": {
@@ -605,7 +605,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-07-27 12:25:05"
+            "time": "2014-08-01 04:56:28"
         },
         {
             "name": "doctrine/inflector",
@@ -1077,12 +1077,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b67df34fb9e26c1beb9ca2db54079be83f411149"
+                "reference": "c4b555f750a8b94b3256c5640262461c7e519c57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b67df34fb9e26c1beb9ca2db54079be83f411149",
-                "reference": "b67df34fb9e26c1beb9ca2db54079be83f411149",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c4b555f750a8b94b3256c5640262461c7e519c57",
+                "reference": "c4b555f750a8b94b3256c5640262461c7e519c57",
                 "shasum": ""
             },
             "require": {
@@ -1184,7 +1184,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-07-30 17:46:12"
+            "time": "2014-08-01 07:08:18"
         },
         {
             "name": "lusitanian/oauth",
@@ -1256,12 +1256,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "997222d25ec7eb53b7e0d864cee424c01fe27c32"
+                "reference": "12545cda2f7a0bd82a110f742ef455fe735e60cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/997222d25ec7eb53b7e0d864cee424c01fe27c32",
-                "reference": "997222d25ec7eb53b7e0d864cee424c01fe27c32",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/12545cda2f7a0bd82a110f742ef455fe735e60cf",
+                "reference": "12545cda2f7a0bd82a110f742ef455fe735e60cf",
                 "shasum": ""
             },
             "require": {
@@ -1320,7 +1320,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-07-28 20:11:00"
+            "time": "2014-07-31 22:12:22"
         },
         {
             "name": "nesbot/carbon",
@@ -1470,12 +1470,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "11c4a62af68bdc681c52dd77acc0558907078881"
+                "reference": "5ea6502cec8d182fdf8cc2b57d814facfe6d0c25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/11c4a62af68bdc681c52dd77acc0558907078881",
-                "reference": "11c4a62af68bdc681c52dd77acc0558907078881",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/5ea6502cec8d182fdf8cc2b57d814facfe6d0c25",
+                "reference": "5ea6502cec8d182fdf8cc2b57d814facfe6d0c25",
                 "shasum": ""
             },
             "require": {
@@ -1560,7 +1560,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2014-07-26 15:20:06"
+            "time": "2014-07-31 09:51:13"
         },
         {
             "name": "predis/predis",
@@ -1568,12 +1568,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "647cd4c502bb04748e00f9f5fe592809cdc09e85"
+                "reference": "4123fcd85d61354c6c9900db76c9597dbd129bf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/647cd4c502bb04748e00f9f5fe592809cdc09e85",
-                "reference": "647cd4c502bb04748e00f9f5fe592809cdc09e85",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/4123fcd85d61354c6c9900db76c9597dbd129bf6",
+                "reference": "4123fcd85d61354c6c9900db76c9597dbd129bf6",
                 "shasum": ""
             },
             "require": {
@@ -1610,7 +1610,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2014-07-28 18:58:26"
+            "time": "2014-08-01 09:43:10"
         },
         {
             "name": "psr/log",

@@ -447,7 +447,7 @@ class ImportController extends BaseController {
 			trigger_error('Vimeo API call did not work!');
 		}
 
-		DB::table('videos')->truncate();
+		//DB::table('videos')->truncate();
 
 		$precedence = 1;
 
@@ -501,24 +501,18 @@ class ImportController extends BaseController {
 	}
 
 	public function getYouTube() {
-		if (!$file = file_get_contents('http://gdata.youtube.com/feeds/api/users/joshreisner/favorites?max-results=50&alt=json')) {
-			trigger_error('YouTube API call did not work!');
-		}
 
-		$file = str_replace('$', '', $file);
+		$google = OAuth::consumer('Google');
 
-		$youtube = json_decode($file);
+		die($google->getAuthorizationUri());
+		if (!Input::has('code')) return Redirect::to($google->getAuthorizationUri());
 
-		foreach ($youtube->feed->entry as $video) {
-			if (!isset($video->mediagroup->mediathumbnail)) continue;
-			echo $video->title->t . '<br>';
-			echo $video->link[0]->href . '<br>';
-			echo $video->published->t . '<br>';
-			echo $video->mediagroup->mediathumbnail[0]->url . '<br>';
-			echo '<br>';
-		}
+		$token = $google->requestAccessToken(Input::get('code'));
+	
+		$result = json_decode($google->request('https://www.googleapis.com/youtube/v3/playlists'), true);
+		
+		dd($result);
 
-		return 'youtube imported';
 	}
 
 	private function mapURL($latitude, $longitude) {
