@@ -59,7 +59,7 @@ $(document).ready(function(){
 		itemSelector: "article",
 		layoutMode: "masonry",
 		filter: filter
-	});
+	}).removeClass("loading");
 
 	//form
 	$("#contact_btn").click(function(){
