@@ -5,6 +5,6 @@
 <p><a href="{{ $video->url }}">{{ $video->title }}</a> by {{ $video->author }}</p>
 
 <footer>
-    Vimeo
+    {{ $video->source }}
     <time datetime=" {{ date(DATE_W3C, $time) }}">{{ date('M d, Y', $time) }}</time>
 </footer>

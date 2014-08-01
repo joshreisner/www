@@ -444,6 +444,7 @@ class ImportController extends BaseController {
 			$video->updated_at 	= new DateTime;
 			$video->updated_by 	= 1;
 			$video->precedence 	= $precedence++;
+			$video->source 	 	= 'Vimeo';
 			$video->save();
 
 			//save image to database
@@ -469,15 +470,71 @@ class ImportController extends BaseController {
 			'count'		=>--$precedence,
 		));
 
-		return 'vimeo imported';
+		return 'Vimeo imported';
 	}
 
 	public function getYouTube() {
 
+		$ids = $images = array();
+		$precedence = 1;
+
+		//collect list of ids, since a snippet search gets crappy info
+		$videos = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=LL-9bKpIX-Be9VQ6k96ijDwQ&maxResults=50&key=' . Config::get('api.google.key')));
+		foreach ($videos->items as $video) $ids[] = $video->contentDetails->videoId;
+
+		//run actual request
+		$video_info = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' . urlencode(implode(',', $ids)) . '&key=' . Config::get('api.google.key')));
+
+		foreach ($video_info->items as $youtube) {
+
+			$date = new DateTime;
+			$date->setTimestamp(strtotime($youtube->snippet->publishedAt));
+
+			if (!$video = Video::where('youtube_id', $youtube->id)->first()) {
+				$video 			= new Video;
+			}
+			$video->title 	 	= $youtube->snippet->title;
+			$video->url 		= 'http://www.youtube.com/watch?v=' . $youtube->id;
+			$video->date 		= $date;
+			$video->author 		= $youtube->snippet->channelTitle;
+			$video->youtube_id	= $youtube->id;
+			$video->updated_at 	= new DateTime;
+			$video->updated_by 	= 1;
+			$video->precedence 	= $precedence++;
+			$video->source 	 	= 'YouTube';
+			$video->save();
+
+			//save image to database (standard > high for some reason)
+			$thumbnail = isset($youtube->snippet->thumbnails->standard->url) ? $youtube->snippet->thumbnails->standard->url : $youtube->snippet->thumbnails->high->url;
+			$image = file_get_contents($thumbnail);
+			$path_parts = pathinfo($thumbnail);
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(54, $image, 'image', $path_parts['extension'], $video->id);
+
+			if ($video->image_id !== null) $images[] = $video->image_id;
+
+			$video->image_id 		= $image_props['file_id'];
+			$video->save();
+
+		}
+
+		if (count($images)) {
+			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
+			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
+		}
+
+		DB::table('avalon_objects')->where('id', 7)->update(array(
+			'updated_at'	=>new DateTime,
+			'updated_by'	=>1,
+			'count'		=>--$precedence,
+		));
+
+		return 'YouTube imported';
+
+		/*
 		$oauth = OAuth::consumer('Google');
 
 	    if (Session::has('tokens.google')) {
-			$youtube = json_decode($oauth->request('https://www.googleapis.com/youtube/v3/playlists'));
+			$youtube = json_decode($oauth->request('/youtube/v3/channels?part=contentDetails&mine=true'));
 			
 			dd($youtube);
 
@@ -489,6 +546,7 @@ class ImportController extends BaseController {
 	    } else {
 			return Redirect::to((string)$oauth->getAuthorizationUri());
 	    }
+	    */
 
 	}
 
