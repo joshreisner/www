@@ -11,6 +11,10 @@ class ImportController extends BaseController {
 			}
 
 			$facebook = json_decode($file);
+			$images = array();
+
+			//dd($facebook);
+			//DB::table('checkins')->truncate();
 
 			foreach ($facebook->data as $fbcheckin) {
 
@@ -19,18 +23,36 @@ class ImportController extends BaseController {
 				$date = new DateTime;
 				$date->setTimestamp(strtotime($fbcheckin->created_time));
 
-				if (Checkin::where('date', '=', $date)->count()) continue;
+				if (!$checkin = Checkin::where('facebook_id', $fbcheckin->id)->first()) {
+					$checkin = new Checkin;
+				}
 				
-				$checkin 				= new Checkin;
 				$checkin->name 	 		= $fbcheckin->message . ' at ' . $fbcheckin->place->name;
 				$checkin->date 			= $date;
 				$checkin->latitude 		= $fbcheckin->place->location->latitude;
 				$checkin->longitude 	= $fbcheckin->place->location->longitude;
 				$checkin->source 		= 'Facebook';
+				$checkin->facebook_id	= $fbcheckin->id;
+				$checkin->created_at 	= new DateTime;
 				$checkin->updated_at 	= new DateTime;
 				$checkin->updated_by 	= 1;
 				$checkin->precedence 	= Checkin::max('precedence') + 1;
 				$checkin->save();
+				
+				//save image to database
+				$image = file_get_contents(self::mapURL($checkin->latitude, $checkin->longitude));
+				$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map', 'png', $checkin->id);
+
+				if ($checkin->map_id !== null) $images[] = $checkin->map_id;
+
+				$checkin->map_id 		= $image_props['file_id'];
+				$checkin->save();
+
+			}
+
+			if (count($images)) {
+				$images = DB::table('avalon_files')->whereIn('id', $images)->get();
+				Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
 			}
 
 			DB::table('avalon_objects')->where('id', 8)->update(array(
@@ -80,6 +102,8 @@ class ImportController extends BaseController {
 		}
 
 		$checkins = simplexml_load_string($file);
+		$images = array();
+		//dd($checkins);
 
 		//DB::table('checkins')->truncate();
 
@@ -88,20 +112,39 @@ class ImportController extends BaseController {
 			$date = new DateTime;
 			$date->setTimestamp(strtotime($placemark->published));
 
-			if (Checkin::where('date', '=', $date)->count()) continue;
-			
 			list($longitude, $latitude) = explode(',', $placemark->Point->coordinates);
 
-			$checkin 				= new Checkin;
+			if (!$checkin = Checkin::whereNull('facebook_id')
+					->where('latitude', $latitude)
+					->where('longitude', $longitude)
+					->first()) {
+				$checkin 			= new Checkin;
+			}
 			$checkin->name 	 		= $placemark->name;
 			$checkin->date 			= $date;
 			$checkin->latitude 		= $latitude;
 			$checkin->longitude 	= $longitude;
 			$checkin->source 		= 'Foursquare';
+			$checkin->created_at 	= new DateTime;
 			$checkin->updated_at 	= new DateTime;
 			$checkin->updated_by 	= 1;
 			$checkin->precedence 	= Checkin::max('precedence') + 1;
 			$checkin->save();
+			
+			//save image to database
+			$image = file_get_contents(self::mapURL($checkin->latitude, $checkin->longitude));
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map', 'png', $checkin->id);
+
+			if ($checkin->map_id !== null) $images[] = $checkin->map_id;
+
+			$checkin->map_id 		= $image_props['file_id'];
+			$checkin->save();
+
+		}
+
+		if (count($images)) {
+			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
+			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
 		}
 
 		DB::table('avalon_objects')->where('id', 8)->update(array(
@@ -476,6 +519,10 @@ class ImportController extends BaseController {
 		}
 
 		return 'youtube imported';
+	}
+
+	private function mapURL($latitude, $longitude) {
+		return 'http://maps.googleapis.com/maps/api/staticmap?center=' . $latitude . ',' . $longitude . '&zoom=14&size=640x400&sensor=false&marker';
 	}
 
 }

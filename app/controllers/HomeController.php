@@ -28,7 +28,19 @@ class HomeController extends BaseController {
 		$types['book'] = ['title'=>'Books', 'count'=>count($books)];
 
 
-		# Music
+		# Check-Ins
+		$checkins = Checkin::get();
+		foreach ($checkins as $checkin) {
+			$checkin->url = 'http://maps.google.com/?q=' . urlencode($checkin->name) . '&ll=' . $checkin->latitude . ',' . $checkin->longitude;
+			$timeline[strtotime($checkin->date)] = [
+				'type' => 'checkin',
+				'checkin' => $checkin,
+			];
+		}
+		$types['checkin'] = ['title'=>'Check-Ins', 'count'=>count($checkins)];
+
+
+		/* Music
 		$songs = Song::get();
 		foreach ($songs as $song) {
 			$timeline[strtotime($song->date)] = [
@@ -37,7 +49,7 @@ class HomeController extends BaseController {
 			];
 		}
 		$types['music'] = ['title'=>'Music', 'count'=>count($songs)];
-
+		*/
 
 		# Photos
 		$photos = Photo::get();
@@ -50,22 +62,10 @@ class HomeController extends BaseController {
 		$types['photo'] = ['title'=>'Photos', 'count'=>count($photos)];
 
 
-		# Places
-		$checkins = Checkin::get();
-		foreach ($checkins as $checkin) {
-			$checkin->url = 'http://maps.google.com/?q=' . urlencode($checkin->name) . '&ll=' . $checkin->latitude . ',' . $checkin->longitude;
-			$timeline[strtotime($checkin->date)] = [
-				'type' => 'checkin',
-				'checkin' => $checkin,
-			];
-		}
-		$types['checkin'] = ['title'=>'Places Visited', 'count'=>count($checkins)];
-
-
 		# Projects
 		$projects = Project::get();
 		foreach ($projects as $project) {
-			$project->url = self::domain($project->url);
+			$project->domain = self::domain($project->url);
 			$timeline[strtotime($project->date)] = [
 				'type' => 'project',
 				'project' => $project,
@@ -74,7 +74,7 @@ class HomeController extends BaseController {
 		$types['project'] = ['title'=>'Projects', 'count'=>count($projects)];
 
 
-		# Tweets
+		# Statuses
 		$statuses = Tweet::get();
 		foreach ($statuses as $status) {
 			$timeline[strtotime($status->date)] = [
@@ -82,7 +82,7 @@ class HomeController extends BaseController {
 				'status' => $status,
 			];
 		}
-		$types['status'] = ['title'=>'Status Updates', 'count'=>count($statuses)];
+		$types['status'] = ['title'=>'Statuses', 'count'=>count($statuses)];
 
 
 		# Videos

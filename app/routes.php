@@ -29,7 +29,7 @@ Route::group(['filter'=>'auth'], function(){
 	Route::group(array('prefix' => 'import'), function(){
 
 		$services = [
-			//'facebook'=>	'Facebook',
+			'facebook'=>	'Facebook',
 			'foursquare'=>	'Foursquare',
 			'goodreads'=>	'Goodreads',
 			'instagram'=>	'Instagram',

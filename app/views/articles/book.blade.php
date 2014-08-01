@@ -1,4 +1,4 @@
-<header><i class="glyphicon glyphicon-book"></i> Book</header>
+<header>Book</header>
 
 <a href="{{ $book->url }}"><img src="{{ $book->cover->url }}" width="{{ $book->cover->width }}" height="{{ $book->cover->height }}"></a>
 

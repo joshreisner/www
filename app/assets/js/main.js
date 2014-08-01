@@ -37,8 +37,16 @@ $(document).ready(function(){
 		filter = filter.join(",");
 	}
 
-	//open in new win
-	$("section#articles a:not(.btn)").attr("target","_blank");
+	//open in new win, prob overkill
+	$("section#articles").on("click", "a", function(e){
+		var a = new RegExp('/' + window.location.host + '/');
+		var href = $(this).attr("href");
+		if (!$(this).hasClass("btn") && href && !a.test(href)) {
+			e.preventDefault();
+			e.stopPropagation();
+			window.open(href, '_blank');
+		}
+	});
 
 	//filter
 	if ($("#filter a.inactive").size()) {
@@ -46,11 +54,17 @@ $(document).ready(function(){
 		$("li.divider").show();			
 	}
 
-	//temp init
+	//init
 	$container = $container.isotope({ 
 		itemSelector: "article",
 		layoutMode: "masonry",
 		filter: filter
+	});
+
+	//form
+	$("#contact_btn").click(function(){
+		$("#contact").slideDown();
+	    $container.isotope('reLayout');
 	});
 
 	$('section#source article').each(function(){
@@ -101,7 +115,11 @@ $(document).ready(function(){
 
 		}
 
-		$container.isotope({ filter: filter })
+		$container = $container.isotope({ 
+			itemSelector: "article",
+			layoutMode: "masonry",
+			filter: filter
+		});
 
 		if ($("#filter a.inactive").size()) {
 			$("li.all").show();

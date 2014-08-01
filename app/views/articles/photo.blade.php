@@ -1,4 +1,4 @@
-<header><i class="glyphicon glyphicon-camera"></i> Photo</header>
+<header>Photo</header>
 
 <a class="image" href="{{ $photo->url }}"><img src="{{ $photo->image->url }}" width="{{ $photo->image->width }}" height="{{ $photo->image->height }}" class="img-responsive"></a>
 

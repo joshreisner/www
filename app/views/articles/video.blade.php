@@ -1,4 +1,4 @@
-<header><i class="glyphicon glyphicon-facetime-video"></i> Video</header>
+<header>Video</header>
 
 <a class="image" href="{{ $video->url }}"><img src="{{ $video->image->url }}" width="{{ $video->image->height }}" height="{{ $video->image->height }}" class="img-responsive"><i class="glyphicon glyphicon-play"></i></a>
 

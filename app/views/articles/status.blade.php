@@ -1,4 +1,4 @@
-<header><i class="glyphicon glyphicon-comment"></i> Status Update</header>
+<header>Status</header>
 
 <p>
 	{{ $status->text }}

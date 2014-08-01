@@ -1,4 +1,4 @@
-<header><i class="glyphicon glyphicon-briefcase"></i> Project</header>
+<header>Project</header>
 
 <a class="image" href="{{ $project->url }}"><img src="{{ $project->image->url }}" width="{{ $project->image->width }}" height="{{ $project->image->height }}" class="img-responsive"></a>
 
@@ -7,6 +7,6 @@
 {{ $project->description }}
 
 <footer>
-    {{ $project->url }}
+    {{ $project->domain }}
     <time datetime=" {{ date(DATE_W3C, $time) }}">{{ date('M d, Y', $time) }}</time>
 </footer>

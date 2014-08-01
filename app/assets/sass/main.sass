@@ -50,6 +50,24 @@ body
 	font-family: 'Akkurat', Sans-Serif
 	font-size: 15px
 
+form#contact
+	display: none
+	input, textarea
+		background-color: lighten($about, 3%)
+		padding: $padding
+		width: 100%
+		border-style: solid
+		border-width: 1px 0 0
+		border-color: #ddd
+
+		&:focus
+			outline: none
+
+	textarea
+		height: 120px
+		border-bottom-width: 1px
+		resize: none
+
 section
 	margin: $margin / 2 0 0 $margin
 
@@ -57,6 +75,8 @@ section
 		color: inherit
 		cursor: pointer
 		outline: 0
+		&.btn
+			text-decoration: none
 
 	.btn
 		background-color: $smoke
@@ -116,7 +136,7 @@ section
 					border-right: 7px solid transparent
 					content: ""
 					display: inline-block
-					right: 9px
+					right: 14px
 					position: absolute
 					top: -7px
 
@@ -126,7 +146,7 @@ section
 					border-right: 6px solid transparent
 					content: ""
 					display: inline-block
-					right: 10px
+					right: 15px
 					position: absolute
 					top: -6px
 
@@ -179,8 +199,6 @@ article
 
 	header
 		padding: $padding
-		i
-			margin-right: 4px
 
 	footer
 		padding: $padding

@@ -13,7 +13,7 @@
             <h1>Josh Reisner</h1>
             <div id="filter" class="btn-group pull-right">
                 <button type="button" class="btn btn-transparent btn-lg dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-list"></i> <span class="caret"></span>
+                    <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-arrow">
                     <li class="all">
@@ -45,13 +45,15 @@
                     <a href="https://twitter.com/joshreisner">Twitter</a> and 
                     <a href="http://instagram.com/joshreisner">Instagram</a> 
                     with info I enter into <a href="https://github.com/joshreisner/avalon">a custom CMS</a>. 
-                    I made it in PHP using <a href="http://laravel.com/">Laravel</a>, 
-                    <a href="http://isotope.metafizzy.co/">Isotope</a>, and 
-                    <a href="http://getbootstrap.com/">Bootstrap</a>.
+                    The <a href="https://github.com/joshreisner/www">source code</a> is on Github.
                 </p>
+                <form id="contact">
+                	<input type="email" placeholder="Email Address">
+                	<textarea placeholder="Message"></textarea>
+                </form>
                 <p>
-                    <a class="btn btn-default" href="tel:9172848483"><i class="glyphicon glyphicon-earphone"></i></a>
-                    <a class="btn btn-default" href="mailto:josh@joshreisner.com"><i class="glyphicon glyphicon-send"></i></a>
+                    <a class="btn" href="tel:9172848483">Call</a>
+                    <a class="btn" href="mailto:josh@joshreisner.com">Email</a>
                 </p>
             </article>
         </section>

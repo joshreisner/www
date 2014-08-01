@@ -1,6 +1,9 @@
-<header><i class="glyphicon glyphicon-map-marker"></i> Place Visited</header>
+<header>Check-In</header>
 
-<a class="image" href="{{ $checkin->url }}"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ $checkin->latitude }},{{ $checkin->longitude }}&zoom=13&maptype=terrain&size=640x380&sensor=false" width="640" height="380" class="img-responsive"></a>
+<a class="image" href="{{ $checkin->url }}">
+	<img src="{{ $checkin->map->url }}" width="{{ $checkin->map->width }}" height="{{ $checkin->map->height }}" class="img-responsive">
+	<i class="glyphicon glyphicon-map-marker"></i>
+</a>
 
 <p>{{ $checkin->name }}</p>
 
