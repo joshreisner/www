@@ -504,10 +504,13 @@ class ImportController extends BaseController {
 
 		$google = OAuth::consumer('Google');
 
-		die($google->getAuthorizationUri());
-		if (!Input::has('code')) return Redirect::to($google->getAuthorizationUri());
+		if (!Input::has('code')) return Redirect::to((string)$google->getAuthorizationUri());
 
-		$token = $google->requestAccessToken(Input::get('code'));
+		try {
+			$token = $google->requestAccessToken(Input::get('code'));
+		} catch (TokenResponseException $e) {
+			dd($e);
+		}
 	
 		$result = json_decode($google->request('https://www.googleapis.com/youtube/v3/playlists'), true);
 		
