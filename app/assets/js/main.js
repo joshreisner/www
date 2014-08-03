@@ -58,6 +58,7 @@ $(document).ready(function(){
 	$container = $container.isotope({ 
 		itemSelector: "article:not(.loading)",
 		layoutMode: "masonry",
+		sortBy: 'original-order',
 		filter: filter
 	});
 
@@ -67,6 +68,7 @@ $(document).ready(function(){
 		$this.imagesLoaded(function(){
 			$this.removeClass("loading");
 			$container.isotope("insert", $this);
+			//$container.isotope( 'updateSortData', elements )
 		});
 	});
 
