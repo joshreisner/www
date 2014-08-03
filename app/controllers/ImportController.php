@@ -258,6 +258,7 @@ class ImportController extends BaseController {
 	
 	}
 
+	/* deprecating because useless
 	public function getLastFm() {
 
 		//retrieve last.fm chart infoz
@@ -266,6 +267,8 @@ class ImportController extends BaseController {
 		}
 
 		DB::table('songs')->truncate();
+
+		die($file);
 
 		//clean up JSON
 		$file = str_replace('#text', 'text', $file);
@@ -299,7 +302,7 @@ class ImportController extends BaseController {
 		));
 
 		return 'lastfm imported';
-	}
+	}*/
 
 	public function getReadability() {
 		if (!$file = file_get_contents('https://www.readability.com/joshreisner/favorites/feed')) {
@@ -337,20 +340,95 @@ class ImportController extends BaseController {
 		return 'readability imported';
 	}
 
+	/* no way to get user's reposted tracks?
 	public function getSoundCloud() {
-		$soundcloud = OAuth::consumer('SoundCloud');
+		$oauth = OAuth::consumer('SoundCloud');
 
-		if (Input::has('code')) {
-		    //callback request from SoundCloud, get token
-		    $soundcloud->requestAccessToken(Input::get('code'));
-		    $result = json_decode($soundcloud->request('/users/219516/favorites.json'), true);
-		    echo '<pre>', print_r($result);
-		    exit;
-		    return 'Your unique user id is: ' . $result['id'] . ' and your name is ' . $result['username'];
+		if (Session::has('tokens.soundcloud')) {
+
+		    $soundcloud = $oauth->request('/me');
+			$soundcloud = simplexml_load_string($soundcloud);
+			dd($soundcloud);
+
+
+		} elseif (Input::has('code')) {
+			Session::put('tokens.soundcloud', $oauth->requestAccessToken(Input::get('code')));
+			return Redirect::to(Request::url());
 		} else {
-			die($soundcloud->getAuthorizationUri());
-			return Redirect::to($soundcloud->getAuthorizationUri());
+			return link_to(Redirect::to($oauth->getAuthorizationUri()), 'click here');
 		}
+	}*/
+
+	public function getSpotify() {
+		//curl -X GET "https://api.spotify.com/v1/me/tracks" -H "Authorization: Bearer {your access token}"
+
+	    $oauth = OAuth::consumer('Spotify');
+
+		if (Session::has('tokens.spotify')) {
+
+	        $tracks = json_decode($oauth->request('/v1/me/tracks'));
+	        dd($tracks);
+
+	        /*
+			$images = array();
+
+			foreach ($checkins->data as $fbcheckin) {
+
+				$date = new DateTime;
+				$date->setTimestamp(strtotime($fbcheckin->created_time));
+
+				if (!$checkin = Checkin::where('facebook_id', $fbcheckin->id)->first()) {
+					$checkin = new Checkin;
+				}
+				
+				$checkin->name 	 		= $fbcheckin->message . ' at ' . $fbcheckin->place->name;
+				$checkin->date 			= $date;
+				$checkin->latitude 		= $fbcheckin->place->location->latitude;
+				$checkin->longitude 	= $fbcheckin->place->location->longitude;
+				$checkin->source 		= 'Facebook';
+				$checkin->facebook_id	= $fbcheckin->id;
+				$checkin->created_at 	= new DateTime;
+				$checkin->updated_at 	= new DateTime;
+				$checkin->updated_by 	= 1;
+				$checkin->precedence 	= Checkin::max('precedence') + 1;
+				$checkin->save();
+				
+				//save image to database
+				$image = file_get_contents(self::mapURL($checkin->latitude, $checkin->longitude));
+				$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map', 'png', $checkin->id);
+
+				if ($checkin->map_id !== null) $images[] = $checkin->map_id;
+
+				$checkin->map_id 		= $image_props['file_id'];
+				$checkin->save();
+
+			}
+
+			if (count($images)) {
+				$images = DB::table('avalon_files')->whereIn('id', $images)->get();
+				Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
+			}
+
+			DB::table('avalon_objects')->where('id', 8)->update(array(
+				'updated_at'=>new DateTime,
+				'updated_by'	=>1,
+				'count'		=>Checkin::count(),
+			));
+			*/
+
+			return 'Spotify imported';
+
+	    } elseif (Input::has('code')) {
+
+			Session::put('tokens.spotify', $oauth->requestAccessToken(Input::get('code')));
+			return Redirect::to(Request::url());
+
+	    } else {
+			return Redirect::to((string)$oauth->getAuthorizationUri());
+	    }
+
+	    return 'hi';
+
 	}
 
 	public function getTwitter() {

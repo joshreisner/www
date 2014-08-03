@@ -48,7 +48,7 @@ $(document).ready(function(){
 		}
 	});
 
-	//filter
+	//dropdown show all option
 	if ($("#filter a.inactive").size()) {
 		$("li.all").show();
 		$("li.divider").show();			
@@ -56,10 +56,10 @@ $(document).ready(function(){
 
 	//init
 	$container = $container.isotope({ 
-		itemSelector: "article",
+		itemSelector: "article:not(.loading)",
 		layoutMode: "masonry",
 		filter: filter
-	}).removeClass("loading");
+	});
 
 	//form
 	$("#contact_btn").click(function(){
@@ -67,10 +67,10 @@ $(document).ready(function(){
 	    $container.isotope('reLayout');
 	});
 
-	$('section#source article').each(function(){
+	$('article.loading').each(function(){
 		
-		var $this = $(this).detach().imagesLoaded(function(){
-			$this.removeClass("loading").appendTo($container);
+		var $this = $(this).imagesLoaded(function(){
+			$this.removeClass("loading");
 			$container.isotope("appended", $this);
 		});
 
@@ -116,7 +116,7 @@ $(document).ready(function(){
 		}
 
 		$container = $container.isotope({ 
-			itemSelector: "article",
+			itemSelector: "article:not(.loading)",
 			layoutMode: "masonry",
 			filter: filter
 		});
@@ -132,11 +132,7 @@ $(document).ready(function(){
 	});
 });
 
-$(window).load(function(){
-	//real filter
-	//$container.isotope({ filter: filter });
-});
-
+/*
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-80350-2']);
 _gaq.push(['_trackPageview']);
@@ -146,3 +142,4 @@ _gaq.push(['_trackPageview']);
 	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
+*/

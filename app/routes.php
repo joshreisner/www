@@ -29,13 +29,16 @@ Route::group(['filter'=>'auth'], function(){
 		Route::get('/goodreads',	'ImportController@getGoodreads');
 		Route::get('/instagram',	'ImportController@getInstagram');
 		Route::get('/instapaper',	'ImportController@getInstapaper');
-		Route::get('/lastfm',		'ImportController@getLastFm');
+		//Route::get('/lastfm',		'ImportController@getLastFm');
 		Route::get('/readability',	'ImportController@getReadability');
-		Route::get('/soundcloud',	'ImportController@getSoundcloud');
+		//Route::get('/soundcloud',	'ImportController@getSoundcloud');
+		Route::get('/spotify',		'ImportController@getSpotify');
 		Route::get('/twitter',		'ImportController@getTwitter');
 		Route::get('/vimeo',		'ImportController@getVimeo');
 		Route::get('/youtube',		'ImportController@getYouTube');
 	});
+
+
 
 });
 
