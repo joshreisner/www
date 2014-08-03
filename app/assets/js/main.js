@@ -66,7 +66,7 @@ $(document).ready(function(){
 		var $this = $(this);
 		$this.imagesLoaded(function(){
 			$this.removeClass("loading");
-			$container.isotope("appended", $this);
+			$container.isotope("insert", $this);
 		});
 	});
 
