@@ -47,13 +47,8 @@
                     with info I enter into <a href="https://github.com/joshreisner/avalon">a custom CMS</a>. 
                     The <a href="https://github.com/joshreisner/www">source code</a> is on Github.
                 </p>
-                <form id="contact">
-                	<input type="email" placeholder="Email Address">
-                	<textarea placeholder="Message"></textarea>
-                </form>
                 <p>
-                    <a class="btn" href="tel:9172848483">Call</a>
-                    <a class="btn" href="mailto:josh@joshreisner.com">Email</a>
+                    <a class="btn" data-toggle="modal" data-target="#contact">Contact</a>
                 </p>
             </article>
             @foreach ($articles as $time=>$article)
@@ -62,6 +57,7 @@
             	</article>
             @endforeach
         </section>
+        @include('contact')
         <script src="/assets/js/main.min.js"></script>
         @if (App::environment() != 'local')
         <script>

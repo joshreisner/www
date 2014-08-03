@@ -6,6 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.x",
 		"guzzle/guzzle": "dev-master",
+		"guzzlehttp/guzzle": "~4.0",
 		"artdarek/oauth-4-laravel": "dev-master",
         "aws/aws-sdk-php-laravel": "1.*",
 		"joshreisner/avalon": "*"

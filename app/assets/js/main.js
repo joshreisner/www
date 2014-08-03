@@ -61,12 +61,6 @@ $(document).ready(function(){
 		filter: filter
 	});
 
-	//form
-	$("#contact_btn").click(function(){
-		$("#contact").slideDown();
-	    $container.isotope('reLayout');
-	});
-
 	//add in elements when they're loaded
 	$('article.loading').each(function(){
 		var $this = $(this);
@@ -74,6 +68,37 @@ $(document).ready(function(){
 			$this.removeClass("loading");
 			$container.isotope("appended", $this);
 		});
+	});
+
+	//contact form
+	$("#contact form").submit(function(){
+
+		//simple validation
+		var errors = false;
+		var $email = $(this).find("input[name=email]");
+		var $message = $(this).find("textarea[name=message]");
+
+		if (!$email.val()) {
+			$email.parent().addClass("has-error");
+			errors = true;
+		} else {
+			$email.parent().removeClass("has-error");
+		}
+
+		if (!$message.val()) {
+			$message.parent().addClass("has-error");
+			errors = true;
+		} else {
+			$message.parent().removeClass("has-error");
+		}
+
+		if (!errors) {
+			$('#contact').modal('hide');
+			$.post("/contact", $(this).serializeArray());
+			$message.val("");
+		}
+
+		return false;
 	});
 
 	//handle filter menu click

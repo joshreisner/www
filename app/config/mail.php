@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => $_ENV['MAIL_USER'], 'name' => $_ENV['MAIL_NAME']),
+	'from' => array('address' => 'josh@joshreisner.com', 'name' => 'JRDC Website'),
 
 	/*
 	|--------------------------------------------------------------------------

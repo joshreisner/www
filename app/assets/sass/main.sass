@@ -50,24 +50,6 @@ body
 	font-family: 'Akkurat', Sans-Serif
 	font-size: 15px
 
-form#contact
-	display: none
-	input, textarea
-		background-color: lighten($about, 3%)
-		padding: $padding
-		width: 100%
-		border-style: solid
-		border-width: 1px 0 0
-		border-color: #ddd
-
-		&:focus
-			outline: none
-
-	textarea
-		height: 120px
-		border-bottom-width: 1px
-		resize: none
-
 section
 	margin: $margin / 2 0 0 $margin
 
@@ -217,6 +199,13 @@ article
 	&.about
 		display: block
 		background-color: $about
+		a.btn
+			background-color: $about
+			padding: 4px 10px 1px
+			&:hover
+				background-color: $black
+				border-color: $black
+				color: $about
 	&.article header
 		background-color: #eee
 		color: $black
@@ -265,6 +254,29 @@ article
 				opacity: .5
 				&:hover
 					opacity: 1
+
+#contact
+	input, textarea, button, .modal-content
+		border-radius: 0
+	textarea
+		height: 200px
+		resize: none
+	.form-group:last-child
+		margin-bottom: 0
+	.modal-header
+		background-color: $black
+		color: white
+		padding: 10px 20px 7px
+		h3
+			font-family: 'Akkurat'
+	.modal-footer
+		border-top: 0
+		padding-top: 0
+		margin-top: 0
+		button
+			background-color: $twitter
+			padding: 8px 12px 6px
+			border: 0
 
 
 // phone portrait - 1 col

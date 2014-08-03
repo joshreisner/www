@@ -22,7 +22,6 @@ Route::get('/work', function(){
 });
 
 Route::group(['filter'=>'auth'], function(){
-
 	Route::group(array('prefix' => 'import'), function(){
 		Route::get('/facebook',		'ImportController@getFacebook');
 		Route::get('/foursquare',	'ImportController@getFoursquare');
@@ -37,9 +36,14 @@ Route::group(['filter'=>'auth'], function(){
 		Route::get('/vimeo',		'ImportController@getVimeo');
 		Route::get('/youtube',		'ImportController@getYouTube');
 	});
+});
 
-
-
+Route::post('/contact', function(){
+	Mail::send('emails.message', array('content'=>nl2br(Input::get('message'))), function($message)
+	{
+	    $message->to('josh@joshreisner.com', 'Josh Reisner')->subject('JRDC Website Contact Page');
+	    $message->replyTo(Input::get('email'));
+	});
 });
 
 App::missing(function($exception) {
