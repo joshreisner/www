@@ -7,6 +7,12 @@
         <title>Josh Reisner</title>
         <link rel="canonical" href="http://joshreisner.com/">
         <link rel="stylesheet" href="/assets/css/main.min.css">
+        <link rel="icon" href="/assets/img/favicon.ico" type="image/ico">
+	    <link rel="icon" sizes="128x128" href="/assets/img/favicon-128.png" type="image/png">
+	    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/assets/img/favicon-57.png" type="image/png">
+	    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/img/favicon-114.png" type="image/png">
+	    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/img/favicon-72.png" type="image/png">
+	    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/img/favicon-144.png" type="image/png">
     </head>
     <body>
         <section id="head" role="banner">

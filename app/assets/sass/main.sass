@@ -194,11 +194,12 @@ article
 			right: 8px
 
 	&.loading
-		visibility: hidden
+		opacity: 0
 		
 	&.about
 		display: block
 		background-color: $about
+		z-index: 1000
 		a.btn
 			background-color: $about
 			padding: 4px 10px 1px
@@ -269,6 +270,9 @@ article
 		padding: 10px 20px 7px
 		h3
 			font-family: 'Akkurat'
+	.modal-content
+		border: 0
+		box-shadow: 10px 10px 0px 0px rgba(33, 33, 33, .5)
 	.modal-footer
 		border-top: 0
 		padding-top: 0
