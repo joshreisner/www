@@ -58,7 +58,7 @@ $(document).ready(function(){
 	$container = $container.isotope({ 
 		itemSelector: "article:not(.loading)",
 		layoutMode: "masonry",
-		sortBy: "data-timestamp",
+		sortBy: "timestamp",
 		filter: filter
 	});
 
