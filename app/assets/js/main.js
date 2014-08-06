@@ -56,10 +56,16 @@ $(document).ready(function(){
 
 	//init
 	$container = $container.isotope({ 
+		filter: filter,
+        getSortData: {
+			timestamp: function(element) {
+				return $(element).attr("data-timestamp");
+			},
+		},
 		itemSelector: "article:not(.loading)",
 		layoutMode: "masonry",
-		sortBy: "timestamp",
-		filter: filter
+		sortAscending: false,
+		sortBy: "timestamp"
 	});
 
 	//add in elements when they're loaded
@@ -68,13 +74,7 @@ $(document).ready(function(){
 		$this.imagesLoaded(function(){
 			$this.removeClass("loading");
 			$container.isotope("insert", $this);
-			//$container.isotope( 'updateSortData', elements )
 		});
-	});
-
-	$('#contact').on('shown.bs.modal', function(e) {
-		console.log('hi');
-		$(this).find("input[name=email]").focus();
 	});
 
 	//contact form
