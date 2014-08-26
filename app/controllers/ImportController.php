@@ -35,7 +35,7 @@ class ImportController extends BaseController {
 				
 				//save image to database
 				$image = file_get_contents(self::mapURL($checkin->latitude, $checkin->longitude));
-				$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map', 'png', $checkin->id);
+				$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map.png', $checkin->id);
 
 				if ($checkin->map_id !== null) $images[] = $checkin->map_id;
 
@@ -105,7 +105,7 @@ class ImportController extends BaseController {
 			
 			//save image to database
 			$image = file_get_contents(self::mapURL($checkin->latitude, $checkin->longitude));
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map', 'png', $checkin->id);
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map.png', $checkin->id);
 
 			if ($checkin->map_id !== null) $images[] = $checkin->map_id;
 
@@ -165,7 +165,7 @@ class ImportController extends BaseController {
 			//save image to database
 			$image = file_get_contents($goodread->book_large_image_url);
 			$path_parts = pathinfo($goodread->book_large_image_url);
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(50, $image, 'cover', $path_parts['extension'], $book->id);
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(50, $image, 'cover.' . $path_parts['extension'], $book->id);
 
 			if ($book->cover_id !== null) $images[] = $book->cover_id;
 
@@ -223,7 +223,7 @@ class ImportController extends BaseController {
 			//save image to database
 			$image = file_get_contents($pic->images->standard_resolution->url);
 			$path_parts = pathinfo($pic->images->standard_resolution->url);
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(51, $image, 'image', $path_parts['extension'], $photo->id);
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(51, $image, 'image.' . $path_parts['extension'], $photo->id);
 
 			if ($photo->image_id !== null) $images[] = $photo->image_id;
 
@@ -395,7 +395,7 @@ class ImportController extends BaseController {
 				
 				//save image to database
 				$image = file_get_contents(self::mapURL($checkin->latitude, $checkin->longitude));
-				$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map', 'png', $checkin->id);
+				$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map.png', $checkin->id);
 
 				if ($checkin->map_id !== null) $images[] = $checkin->map_id;
 
@@ -528,7 +528,7 @@ class ImportController extends BaseController {
 			//save image to database
 			$image = file_get_contents($vimeo->thumbnail_large);
 			$path_parts = pathinfo($vimeo->thumbnail_large);
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(54, $image, 'image', $path_parts['extension'], $video->id);
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(54, $image, 'image.' . $path_parts['extension'], $video->id);
 
 			if ($video->image_id !== null) $images[] = $video->image_id;
 
@@ -586,7 +586,7 @@ class ImportController extends BaseController {
 			$thumbnail = isset($youtube->snippet->thumbnails->standard->url) ? $youtube->snippet->thumbnails->standard->url : $youtube->snippet->thumbnails->high->url;
 			$image = file_get_contents($thumbnail);
 			$path_parts = pathinfo($thumbnail);
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(54, $image, 'image', $path_parts['extension'], $video->id);
+			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(54, $image, 'image.' . $path_parts['extension'], $video->id);
 
 			if ($video->image_id !== null) $images[] = $video->image_id;
 

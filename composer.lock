@@ -319,12 +319,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle3.git",
-                "reference": "4b4a8ff3ae2998227f856800b3c0879883474614"
+                "reference": "4c1b96a39933e0a4433337da874764b817bf2822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/4b4a8ff3ae2998227f856800b3c0879883474614",
-                "reference": "4b4a8ff3ae2998227f856800b3c0879883474614",
+                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/4c1b96a39933e0a4433337da874764b817bf2822",
+                "reference": "4c1b96a39933e0a4433337da874764b817bf2822",
                 "shasum": ""
             },
             "require": {
@@ -403,7 +403,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-08-13 08:01:25"
+            "time": "2014-08-22 21:56:27"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -411,12 +411,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "47ca212e985d962b3cbd67675eec54bb72d66062"
+                "reference": "10fc6b7ed468a3dd1d6de85cfa8d2fe8f7f4b7dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/47ca212e985d962b3cbd67675eec54bb72d66062",
-                "reference": "47ca212e985d962b3cbd67675eec54bb72d66062",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/10fc6b7ed468a3dd1d6de85cfa8d2fe8f7f4b7dc",
+                "reference": "10fc6b7ed468a3dd1d6de85cfa8d2fe8f7f4b7dc",
                 "shasum": ""
             },
             "require": {
@@ -468,7 +468,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-08-20 05:30:12"
+            "time": "2014-08-26 19:29:13"
         },
         {
             "name": "guzzlehttp/streams",
@@ -525,16 +525,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "2fb5e286e4210cd55151e8e8d2ce0ac2bd20fec2"
+                "reference": "28f156432e774b31a53c5fe08d164edd111f9482"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/2fb5e286e4210cd55151e8e8d2ce0ac2bd20fec2",
-                "reference": "2fb5e286e4210cd55151e8e8d2ce0ac2bd20fec2",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/28f156432e774b31a53c5fe08d164edd111f9482",
+                "reference": "28f156432e774b31a53c5fe08d164edd111f9482",
                 "shasum": ""
             },
             "require": {
@@ -577,7 +577,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2014-08-06 18:37:17"
+            "time": "2014-08-23 15:47:12"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -672,12 +672,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joshreisner/avalon.git",
-                "reference": "5c01b9d9f5b29bb0a6af1a8f7224a19809ff78d2"
+                "reference": "da4f9a44d3fc79e7bd60a54034a7c9c0b30c8b11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joshreisner/avalon/zipball/5c01b9d9f5b29bb0a6af1a8f7224a19809ff78d2",
-                "reference": "5c01b9d9f5b29bb0a6af1a8f7224a19809ff78d2",
+                "url": "https://api.github.com/repos/joshreisner/avalon/zipball/da4f9a44d3fc79e7bd60a54034a7c9c0b30c8b11",
+                "reference": "da4f9a44d3fc79e7bd60a54034a7c9c0b30c8b11",
                 "shasum": ""
             },
             "require": {
@@ -703,7 +703,7 @@
                     "email": "josh@joshreisner.com"
                 }
             ],
-            "time": "2014-08-22 07:02:51"
+            "time": "2014-08-26 21:57:32"
         },
         {
             "name": "laravel/framework",
@@ -711,12 +711,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "325115e4d8ac8392cd63d6cadf18b119c0422515"
+                "reference": "c57c8adab8a2db0939383b35c4249ec411deb928"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/325115e4d8ac8392cd63d6cadf18b119c0422515",
-                "reference": "325115e4d8ac8392cd63d6cadf18b119c0422515",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c57c8adab8a2db0939383b35c4249ec411deb928",
+                "reference": "c57c8adab8a2db0939383b35c4249ec411deb928",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-08-21 17:55:34"
+            "time": "2014-08-24 14:50:37"
         },
         {
             "name": "lusitanian/oauth",
@@ -958,16 +958,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.10.0",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "9b42a1aec56011c2ac4d75c0ddad0794762344fc"
+                "reference": "2b60366be6dcb9f9cd3e244ab25eb98eaea99551"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/9b42a1aec56011c2ac4d75c0ddad0794762344fc",
-                "reference": "9b42a1aec56011c2ac4d75c0ddad0794762344fc",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/2b60366be6dcb9f9cd3e244ab25eb98eaea99551",
+                "reference": "2b60366be6dcb9f9cd3e244ab25eb98eaea99551",
                 "shasum": ""
             },
             "require": {
@@ -1000,7 +1000,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2014-07-18 03:44:47"
+            "time": "2014-08-26 03:18:44"
         },
         {
             "name": "nikic/php-parser",
@@ -1109,12 +1109,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "7696cbf8262684b438a3631e166cf0a949544e3f"
+                "reference": "e0868df0eca69b33b9d72fe5e2f361f0a41bf317"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/7696cbf8262684b438a3631e166cf0a949544e3f",
-                "reference": "7696cbf8262684b438a3631e166cf0a949544e3f",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/e0868df0eca69b33b9d72fe5e2f361f0a41bf317",
+                "reference": "e0868df0eca69b33b9d72fe5e2f361f0a41bf317",
                 "shasum": ""
             },
             "require": {
@@ -1199,7 +1199,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2014-08-19 20:25:02"
+            "time": "2014-08-25 13:16:23"
         },
         {
             "name": "predis/predis",
@@ -1622,12 +1622,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "9cb8aaea71fabae517ca007ca4b639e96f490c5e"
+                "reference": "27499e5951ef3d5731efe4db7481f26a68d75258"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/9cb8aaea71fabae517ca007ca4b639e96f490c5e",
-                "reference": "9cb8aaea71fabae517ca007ca4b639e96f490c5e",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/27499e5951ef3d5731efe4db7481f26a68d75258",
+                "reference": "27499e5951ef3d5731efe4db7481f26a68d75258",
                 "shasum": ""
             },
             "require": {
@@ -1666,7 +1666,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2014-08-05 09:00:40"
+            "time": "2014-08-26 14:16:33"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1999,12 +1999,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "1c285e6fffaa026c8073a387f403b1052d61ed95"
+                "reference": "de58587ae3fb17fdc802893cf934bbb03e6b8eb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/1c285e6fffaa026c8073a387f403b1052d61ed95",
-                "reference": "1c285e6fffaa026c8073a387f403b1052d61ed95",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/de58587ae3fb17fdc802893cf934bbb03e6b8eb5",
+                "reference": "de58587ae3fb17fdc802893cf934bbb03e6b8eb5",
                 "shasum": ""
             },
             "require": {
@@ -2056,7 +2056,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2014-07-28 13:20:46"
+            "time": "2014-08-26 14:16:33"
         },
         {
             "name": "symfony/security-core",
@@ -2065,12 +2065,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "315ff8340602bbd1bb48ea6b0c69fd90e8aaffa1"
+                "reference": "04cffc1567f2d7b33a58e655a497e120c7b87ab9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/315ff8340602bbd1bb48ea6b0c69fd90e8aaffa1",
-                "reference": "315ff8340602bbd1bb48ea6b0c69fd90e8aaffa1",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/04cffc1567f2d7b33a58e655a497e120c7b87ab9",
+                "reference": "04cffc1567f2d7b33a58e655a497e120c7b87ab9",
                 "shasum": ""
             },
             "require": {
@@ -2118,7 +2118,7 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "http://symfony.com",
-            "time": "2014-08-06 12:45:51"
+            "time": "2014-08-26 14:16:33"
         },
         {
             "name": "symfony/translation",
