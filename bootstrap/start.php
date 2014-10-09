@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 //die(gethostname());
 $env = $app->detectEnvironment(array(
 
-	'local' => array('joshs-laptop.home', 'Joshs-Laptop.local', 'joshs-laptop.lan'),
+	'local' => array('joshs-laptop.home', 'Joshs-Laptop.local', 'Joshs-Laptop-2.local', 'Joshs-Laptop-3.local', 'joshs-laptop.lan'),
 
 ));
 
