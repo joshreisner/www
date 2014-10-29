@@ -9,6 +9,7 @@ class HomeController extends BaseController {
 		# Articles
 		$articles = Article::get();
 		foreach ($articles as $article) {
+			$article->domain = self::domain($article->url);
 			$timeline[strtotime($article->date)] = [
 				'type' => 'article',
 				'article' => $article,

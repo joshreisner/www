@@ -5,6 +5,6 @@
 <p>{{ $article->excerpt }}</p>
 
 <footer>
-    Twitter
+    {{ $article->domain }}
     <time datetime=" {{ date(DATE_W3C, $time) }}">{{ date('M d, Y', $time) }}</time>
 </footer>
