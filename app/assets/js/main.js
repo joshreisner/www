@@ -3,7 +3,6 @@
 //= include ../../../bower_components/bootstrap-sass/assets/javascripts/bootstrap.js
 //= include ../../../bower_components/jquery.cookie/jquery.cookie.js
 //= include ../../../bower_components/imagesloaded/imagesloaded.pkgd.js
-//= include ../../../bower_components/lavalamp/js/jquery.easing.1.3.js
 //= include ../../../bower_components/lavalamp/js/jquery.lavalamp.js
 
 $(document).ready(function(){
@@ -12,37 +11,29 @@ $(document).ready(function(){
 
 	function init() {
 
-		//set up some vars
-		filter		= '*'; //default
-
-		console.log('hash was ' + window.location.hash);
-
-		if (window.location.hash.length > 0) {
-			if (window.location.hash == '#projects') {
-				filter = '.about,.project';
-			} else if (window.location.hash == '#videos') {
-				filter = '.about,.video';
-			}
+		//figure out what mode we're in
+		var mode, filter; 
+		if (window.location.hash.length) {
+			mode = window.location.hash.substr(1);
 		} else if ($.cookie('filter') !== undefined) {
-			if ($.cookie('filter') == '.about,.project') {
-				filter = '.about,.project';
-				window.location.hash = 'projects';
-			} else if ($.cookie('filter') == '.about,.video') {
-				filter = '.about,.video';
-				window.location.hash = 'videos';
-			}
+			mode = $.cookie('filter');
 		}
 
-		//hash is going to be set
-		if (filter == '*') window.location.hash = 'all';
+		//check to make sure not some other value
+		if (mode == 'all') {
+			filter = '*';
+		} else if (mode == 'videos') {
+			filter = '.about, .video';
+		} else {
+			mode = 'projects';
+			filter = '.about, .project';
+		}
 
-		//set active
-		$('#filter a').removeClass('active');
-		$('#filter a[href=#' + window.location.hash.substr(1) + ']').addClass('active');
+		//set location and save cookie
+		window.location.hash = mode;
+		$.cookie('filter', mode, { expires: 365 });
 
-		//save cookie
-		$.cookie('filter', filter, { expires: 365 });
-
+		//run isotope
 		$container.isotope({ 
 			filter: filter,
 			getSortData: {
@@ -56,9 +47,10 @@ $(document).ready(function(){
 			sortBy: 'timestamp'
 		});
 
-		//update lavalamp
+		//set active nav state
+		$('#filter a').removeClass('active');
+		$('#filter a[href=#' + window.location.hash.substr(1) + ']').addClass('active');
 		$('#filter').data('active', $('#filter a.active')).lavalamp('update');
-
 	}
 
 	//open in new win, prob overkill

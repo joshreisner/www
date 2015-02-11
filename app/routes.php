@@ -14,11 +14,11 @@
 Route::get('/', 'HomeController@getIndex');
 
 Route::get('/category/work', function(){
-	return Redirect::to('/#project');
+	return Redirect::to('/#projects');
 });
 
 Route::get('/work', function(){
-	return Redirect::to('/#project');
+	return Redirect::to('/#projects');
 });
 
 Route::group(['filter'=>'auth'], function(){
