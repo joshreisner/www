@@ -14,10 +14,11 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "~3.0.2",
-    "isotope": "~2.0.0",
-    "jquery.cookie": "~1.4.1",
-    "imagesloaded": "~3.1.8",
-    "font-awesome": "~4.1.0"
+    "bootstrap-sass": "latest",
+    "isotope": "latest",
+    "jquery.cookie": "latest",
+    "imagesloaded": "latest",
+    "font-awesome": "latest",
+    "lavalamp": "latest"
   }
 }

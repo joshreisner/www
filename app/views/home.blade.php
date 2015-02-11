@@ -17,31 +17,13 @@
     <body>
         <section id="head" role="banner">
             <h1>Josh Reisner</h1>
-            <div id="filter" class="btn-group pull-right">
-                <button type="button" class="btn btn-transparent btn-lg dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-arrow">
-                    <li class="all">
-                        <a>
-                            <i class="glyphicon glyphicon-check"></i> 
-                            <i class="glyphicon glyphicon-unchecked"></i> 
-                            Show All
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    @foreach ($types as $class=>$type)
-                    <li class="{{ $class }}">
-                        <a class="clearfix">
-                            <i class="pull-left glyphicon glyphicon-check"></i> 
-                            <i class="pull-left glyphicon glyphicon-unchecked"></i> 
-                            <span class="pull-left">{{ $type['title'] }}</span>
-                            <span class="badge pull-right">{{ $type['count'] }}</span>
-                        </a>
-                    </li>
-                    @endforeach
-                </ul>                
-            </div>
+	        <nav id="filter">
+	        	<a href="#projects">Projects</a>
+	        	<span>&middot;</span>
+	        	<a href="#videos">Videos</a>
+	        	<span>&middot;</span>
+	        	<a href="#all">All</a>
+	        </nav>
         </section>
         <section id="articles">
             <article class="about" data-timestamp="{{ time() + 100000 }}">

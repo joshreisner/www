@@ -1,166 +1,132 @@
 //= include ../../../bower_components/jquery/dist/jquery.js
 //= include ../../../bower_components/isotope/dist/isotope.pkgd.js
-//= include ../../../bower_components/bootstrap-sass/dist/js/bootstrap.js
+//= include ../../../bower_components/bootstrap-sass/assets/javascripts/bootstrap.js
 //= include ../../../bower_components/jquery.cookie/jquery.cookie.js
 //= include ../../../bower_components/imagesloaded/imagesloaded.pkgd.js
+//= include ../../../bower_components/lavalamp/js/jquery.easing.1.3.js
+//= include ../../../bower_components/lavalamp/js/jquery.lavalamp.js
 
 $(document).ready(function(){
 
-	$container = $("section#articles");
+	$container = $('section#articles');
 
-	//set up some vars
-	limit 		= 25;
-	filter		= "*"; //default
+	function init() {
 
-	//get current filter and set up dropdown filter menu
-	$("li.all").hide();
-	$("li.divider").hide();
+		//set up some vars
+		filter		= '*'; //default
 
-	if (window.location.hash.length > 1) {
-		filter = ".about,." + window.location.hash.substr(1);
-		$.cookie('filter', filter, { expires: 365 });
-		$("#filter li:not(.all) a").addClass("inactive");
-		$("#filter li" + filter).find("a").removeClass("inactive");
-	} else if ($.cookie('filter') !== undefined) {
+		console.log('hash was ' + window.location.hash);
 
-		//deactivate filter items
-		filter = $.cookie('filter').split(",");
-		$("#filter li:not(.all) a").each(function(){
-			if (filter.indexOf("." + $(this).parent().attr("class")) == -1) {
-				$(this).addClass("inactive");
+		if (window.location.hash.length > 0) {
+			if (window.location.hash == '#projects') {
+				filter = '.about,.project';
+			} else if (window.location.hash == '#videos') {
+				filter = '.about,.video';
 			}
+		} else if ($.cookie('filter') !== undefined) {
+			if ($.cookie('filter') == '.about,.project') {
+				filter = '.about,.project';
+				window.location.hash = 'projects';
+			} else if ($.cookie('filter') == '.about,.video') {
+				filter = '.about,.video';
+				window.location.hash = 'videos';
+			}
+		}
+
+		//hash is going to be set
+		if (filter == '*') window.location.hash = 'all';
+
+		//set active
+		$('#filter a').removeClass('active');
+		$('#filter a[href=#' + window.location.hash.substr(1) + ']').addClass('active');
+
+		//save cookie
+		$.cookie('filter', filter, { expires: 365 });
+
+		$container.isotope({ 
+			filter: filter,
+			getSortData: {
+				timestamp: function(element) {
+					return $(element).attr('data-timestamp');
+				},
+			},
+			itemSelector: 'article:not(.loading)',
+			layoutMode: 'masonry',
+			sortAscending: false,
+			sortBy: 'timestamp'
 		});
 
-		if (filter.length == 1) window.location.hash = filter[0].substr(1);
+		//update lavalamp
+		$('#filter').data('active', $('#filter a.active')).lavalamp('update');
 
-		//save filter string
-		filter = filter.join(",");
 	}
 
 	//open in new win, prob overkill
-	$("section#articles").on("click", "a", function(e){
+	$container.on('click', 'a', function(e){
 		var a = new RegExp('/' + window.location.host + '/');
-		var href = $(this).attr("href");
-		if (!$(this).hasClass("btn") && href && !a.test(href)) {
+		var href = $(this).attr('href');
+		if (!$(this).hasClass('btn') && href && !a.test(href)) {
 			e.preventDefault();
 			e.stopPropagation();
 			window.open(href, '_blank');
 		}
 	});
 
-	//dropdown show all option
-	if ($("#filter a.inactive").size()) {
-		$("li.all").show();
-		$("li.divider").show();			
-	}
-
-	//init
-	$container = $container.isotope({ 
-		filter: filter,
-        getSortData: {
-			timestamp: function(element) {
-				return $(element).attr("data-timestamp");
-			},
-		},
-		itemSelector: "article:not(.loading)",
-		layoutMode: "masonry",
-		sortAscending: false,
-		sortBy: "timestamp"
-	});
-
 	//add in elements when they're loaded
 	$('article.loading').each(function(){
 		var $this = $(this);
 		$this.imagesLoaded(function(){
-			$this.removeClass("loading");
-			$container.isotope("insert", $this);
+			$this.removeClass('loading');
+			$container.isotope('insert', $this);
 		});
 	});
 
+	//navigation
+	$('#filter').on('click', 'a', function(e){
+		e.preventDefault();
+		window.location.hash = $(this).attr('href').substr(1);
+		init();
+	});
+
+	document.onreadystatechange = function() {
+		if (document.readyState === 'complete') {
+			$('#filter').lavalamp({duration: 200});
+		}
+	};
+
+
+	//moving donw here
+	init();
+
 	//contact form
-	$("#contact form").submit(function(){
+	$('#contact form').submit(function(){
 
 		//simple validation
 		var errors = false;
-		var $email = $(this).find("input[name=email]");
-		var $message = $(this).find("textarea[name=message]");
+		var $email = $(this).find('input[name=email]');
+		var $message = $(this).find('textarea[name=message]');
 
 		if (!$email.val()) {
-			$email.parent().addClass("has-error");
+			$email.parent().addClass('has-error');
 			errors = true;
 		} else {
-			$email.parent().removeClass("has-error");
+			$email.parent().removeClass('has-error');
 		}
 
 		if (!$message.val()) {
-			$message.parent().addClass("has-error");
+			$message.parent().addClass('has-error');
 			errors = true;
 		} else {
-			$message.parent().removeClass("has-error");
+			$message.parent().removeClass('has-error');
 		}
 
 		if (!errors) {
 			$('#contact').modal('hide');
-			$.post("/contact", $(this).serializeArray());
-			$message.val("");
+			$.post('/contact', $(this).serializeArray());
+			$message.val('');
 		}
 
 		return false;
 	});
 
-	//handle filter menu click
-	$("#filter").on("click", "a", function(e) {
-
-		if ($(this).parent().hasClass("all")) {
-			filter = "*";
-			$.removeCookie('filter');
-			window.location.hash = '';
-			$("#filter a.inactive").removeClass("inactive");
-		} else {
-			if (e.altKey) {
-				//option is down, show this one only
-				$("#filter a").addClass("inactive");
-				$(this).removeClass("inactive");
-			} else {
-				$(this).toggleClass("inactive");
-
-				//check to make sure there are any still active
-				if (!$("#filter a:not(.inactive)").size()) {
-					$("#filter a").removeClass("inactive");
-				}
-			}
-
-			//build filter string
-			filter = new Array;
-			filter[filter.length] = '.about';
-			$("#filter a:not(.inactive)").each(function(){
-				filter[filter.length] = "." + $(this).parent().attr("class");
-			});
-			if (filter.length == 2) {
-				window.location.hash = filter[1].substr(1);
-			} else if (window.location.hash.length) {
-				window.location.hash = "";
-			}
-			filter = filter.join(",");
-
-			//save filter to query
-			$.cookie('filter', filter, { expires: 365 });
-
-		}
-
-		$container = $container.isotope({ 
-			itemSelector: "article:not(.loading)",
-			layoutMode: "masonry",
-			filter: filter
-		});
-
-		if ($("#filter a.inactive").size()) {
-			$("li.all").show();
-			$("li.divider").show();			
-		} else {
-			$("li.all").hide();
-			$("li.divider").hide();			
-		}
-
-	});
 });
