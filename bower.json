@@ -19,6 +19,7 @@
     "jquery.cookie": "latest",
     "imagesloaded": "latest",
     "font-awesome": "latest",
-    "lavalamp": "latest"
+    "lavalamp": "latest",
+    "swipebox": "latest"
   }
 }

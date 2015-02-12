@@ -4,6 +4,7 @@
 //= include ../../../bower_components/jquery.cookie/jquery.cookie.js
 //= include ../../../bower_components/imagesloaded/imagesloaded.pkgd.js
 //= include ../../../bower_components/lavalamp/js/jquery.lavalamp.js
+//= include ../../../bower_components/swipebox/src/js/jquery.swipebox.js
 
 $(document).ready(function(){
 
@@ -57,11 +58,13 @@ $(document).ready(function(){
 	$container.on('click', 'a', function(e){
 		var a = new RegExp('/' + window.location.host + '/');
 		var href = $(this).attr('href');
+		/*
 		if (!$(this).hasClass('btn') && href && !a.test(href)) {
 			e.preventDefault();
 			e.stopPropagation();
 			window.open(href, '_blank');
 		}
+		*/
 	});
 
 	//add in elements when they're loaded
@@ -86,6 +89,8 @@ $(document).ready(function(){
 		}
 	};
 
+	//video swipebox
+	$('.swipebox').swipebox();
 
 	//moving donw here
 	init();
