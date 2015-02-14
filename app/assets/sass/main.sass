@@ -67,32 +67,28 @@ section
 	
 	&#head
 		overflow: auto
+		text-align: center
 
 		h1
 			margin: 0
 			font-size: 50px
 			font-family: inherit
-			float: left
 
 		#filter
-			float: right
 			margin-right: $margin
+			overflow: auto
 			a
 				color: $black
-				display: block
-				float: left
 				&:first-child
 					margin-right: 0
 				&:hover, &:active, &:focus
 					text-decoration: none
 			span
-				float: left
 				margin: 0 10px
 				color: #aaa
 
 			.lavalamp-object
 				border-bottom: 1px solid $black
-
 
 article
 	background-color: white
@@ -241,14 +237,16 @@ article
 		section
 			&#head
 				h1
-					font-size: 30px
-					line-height: 50px
+					font-size: 34px
+					line-height: 46px
 			&#articles
+				margin-top: 10px
 				article
 					width: 100% - $margin
 					margin-bottom: $margin * 2
 
 // phone landscape - 1 col
+//@media (min-width: $screen-sm-min)
 @media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : landscape)
 	body
 		section
@@ -257,6 +255,7 @@ article
 					width: 50% - $margin
 
 // tablet portrait - 2 col
+//@media (min-width: $screen-md-min)
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait)
 	body
 		section
@@ -265,6 +264,7 @@ article
 					width: 50% - $margin
 
 // tablet landscape - 3 col
+//@media (min-width: $screen-lg-min)
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape)
 	body
 		section

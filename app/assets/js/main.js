@@ -88,6 +88,10 @@ $(document).ready(function(){
 			$('#filter').lavalamp({duration: 200});
 		}
 	};
+	
+	$(window).resize(function(){
+		$('#filter').lavalamp({duration: 200});
+	});
 
 	//video swipebox
 	$('.swipebox').swipebox();
