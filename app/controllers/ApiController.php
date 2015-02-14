@@ -1,9 +1,8 @@
 <?php
 
-class ImportController extends BaseController {
+class ApiController extends BaseController {
 
-
-	public function getFacebook() {
+	public function facebook() {
 
 	    $oauth = OAuth::consumer('Facebook');
 
@@ -67,7 +66,7 @@ class ImportController extends BaseController {
 	    }
 	}
 
-	public function getFoursquare() {
+	public function foursquare() {
 
 		if (!$file = file_get_contents('https://feeds.foursquare.com/history/' . Config::get('api.foursquare') . '.kml')) {
 			trigger_error('Foursquare API call did not work!');
@@ -128,33 +127,33 @@ class ImportController extends BaseController {
 		return 'foursquare imported';
 	}
 
-	public function getGoodreads() {
+	public function goodreads() {
 		if (!$file = file_get_contents('https://www.goodreads.com/review/list_rss/9112494?key=a9d74013bd7f71963fa627b54e49f3a3856b1108&shelf=%23READ%23')) {
 			trigger_error('Goodreads API call did not work!');
 		}
 
 		$goodreads = simplexml_load_string($file);
+
 		//dd($goodreads);
 
-		//DB::table('books')->truncate();
+		DB::table('books')->truncate();
 		//DB::table('avalon_files')->truncate();
 
 		$precedence = 1;
 		$images = array();
 
 		foreach ($goodreads->channel->item as $goodread) {
-
+			
 			$date = new DateTime;
 			$date->setTimestamp(strtotime($goodread->user_read_at));
 
-			if (!$book = Book::where('goodreads_id', $goodread->book_id)->first()) {
-				$book = new Book;
-			}
+			$book = Book::firstOrNew(['goodreads_id'=>$goodread->book_id]);
 
 			$book->title 		= $goodread->title;
 			$book->author 	 	= $goodread->author_name;
 			$book->published 	= $goodread->book_published;
 			$book->url 			= $goodread->link;
+			$book->slug			= Slug::make($goodread->title);
 			$book->goodreads_id = $goodread->book_id;
 			$book->date 		= $date;
 			$book->updated_at 	= new DateTime;
@@ -189,7 +188,7 @@ class ImportController extends BaseController {
 	}
 
 
-	public function getInstagram() {
+	public function instagram() {
 
 		if (!$file = file_get_contents('https://api.instagram.com/v1/users/6676862/media/recent/?access_token=' . Config::get('api.instagram.token'))) {
 			trigger_error('Instagram API call did not work!');
@@ -246,7 +245,7 @@ class ImportController extends BaseController {
 		return 'instagram imported';
 	}
 
-	public function getInstapaper() {
+	public function instapaper() {
 		//retrieve last.fm chart infoz
 		if (!$file = file_get_contents('http://www.instapaper.com/starred/rss/490270/Qy2IMb0Z4tO6Ij2QgOssRcvWg')) {
 			trigger_error('Instapaper API call did not work!');
@@ -258,53 +257,7 @@ class ImportController extends BaseController {
 	
 	}
 
-	/* deprecating because useless
-	public function getLastFm() {
-
-		//retrieve last.fm chart infoz
-		if (!$file = file_get_contents('http://ws.audioscrobbler.com/2.0/?method=user.getLovedTracks&user=joshreisner&api_key=' . Config::get('api.lastfm') . '&period=7day&format=json')) {
-			trigger_error('Last.fm API call did not work!');
-		}
-
-		DB::table('songs')->truncate();
-
-		die($file);
-
-		//clean up JSON
-		$file = str_replace('#text', 'text', $file);
-		$file = str_replace('@attr', 'attr', $file);
-
-		$tracks = json_decode($file);
-		$precedence = 1;
-		foreach ($tracks->lovedtracks->track as $track) {
-
-			if (!isset($track->image)) continue;
-
-			$date = new DateTime;
-			$date->setTimestamp($track->date->uts);
-
-			$song 				= new Song;
-			$song->song 		= $track->name;
-			$song->url 			= $track->url;
-			$song->artist 		= $track->artist->name;
-			$song->date 		= $date;
-			$song->img 			= $track->image[3]->text;
-			$song->updated_at 	= new DateTime;
-			$song->updated_by 	= 1;
-			$song->precedence 	= $precedence++;
-			$song->save();
-		}
-
-		DB::table('avalon_objects')->where('id', 2)->update(array(
-			'updated_at'=>new DateTime,
-			'updated_by'=>1,
-			'count'=>--$precedence,
-		));
-
-		return 'lastfm imported';
-	}*/
-
-	public function getReadability() {
+	public function readability() {
 		if (!$file = file_get_contents('https://www.readability.com/joshreisner/favorites/feed')) {
 			trigger_error('Readability API call did not work!');
 		}
@@ -340,98 +293,7 @@ class ImportController extends BaseController {
 		return 'readability imported';
 	}
 
-	/* no way to get user's reposted tracks?
-	public function getSoundCloud() {
-		$oauth = OAuth::consumer('SoundCloud');
-
-		if (Session::has('tokens.soundcloud')) {
-
-		    $soundcloud = $oauth->request('/me');
-			$soundcloud = simplexml_load_string($soundcloud);
-			dd($soundcloud);
-
-
-		} elseif (Input::has('code')) {
-			Session::put('tokens.soundcloud', $oauth->requestAccessToken(Input::get('code')));
-			return Redirect::to(Request::url());
-		} else {
-			return link_to(Redirect::to($oauth->getAuthorizationUri()), 'click here');
-		}
-	}*/
-
-	public function getSpotify() {
-		//curl -X GET "https://api.spotify.com/v1/me/tracks" -H "Authorization: Bearer {your access token}"
-
-	    $oauth = OAuth::consumer('Spotify');
-
-		if (Session::has('tokens.spotify')) {
-
-	        $tracks = json_decode($oauth->request('/v1/me/tracks'));
-	        dd($tracks);
-
-	        /*
-			$images = array();
-
-			foreach ($checkins->data as $fbcheckin) {
-
-				$date = new DateTime;
-				$date->setTimestamp(strtotime($fbcheckin->created_time));
-
-				if (!$checkin = Checkin::where('facebook_id', $fbcheckin->id)->first()) {
-					$checkin = new Checkin;
-				}
-				
-				$checkin->name 	 		= $fbcheckin->message . ' at ' . $fbcheckin->place->name;
-				$checkin->date 			= $date;
-				$checkin->latitude 		= $fbcheckin->place->location->latitude;
-				$checkin->longitude 	= $fbcheckin->place->location->longitude;
-				$checkin->source 		= 'Facebook';
-				$checkin->facebook_id	= $fbcheckin->id;
-				$checkin->created_at 	= new DateTime;
-				$checkin->updated_at 	= new DateTime;
-				$checkin->updated_by 	= 1;
-				$checkin->precedence 	= Checkin::max('precedence') + 1;
-				$checkin->save();
-				
-				//save image to database
-				$image = file_get_contents(self::mapURL($checkin->latitude, $checkin->longitude));
-				$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map.png', $checkin->id);
-
-				if ($checkin->map_id !== null) $images[] = $checkin->map_id;
-
-				$checkin->map_id 		= $image_props['file_id'];
-				$checkin->save();
-
-			}
-
-			if (count($images)) {
-				$images = DB::table('avalon_files')->whereIn('id', $images)->get();
-				Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
-			}
-
-			DB::table('avalon_objects')->where('id', 8)->update(array(
-				'updated_at'=>new DateTime,
-				'updated_by'	=>1,
-				'count'		=>Checkin::count(),
-			));
-			*/
-
-			return 'Spotify imported';
-
-	    } elseif (Input::has('code')) {
-
-			Session::put('tokens.spotify', $oauth->requestAccessToken(Input::get('code')));
-			return Redirect::to(Request::url());
-
-	    } else {
-			return Redirect::to((string)$oauth->getAuthorizationUri());
-	    }
-
-	    return 'hi';
-
-	}
-
-	public function getTwitter() {
+	public function twitter() {
 
 		$client = new \Guzzle\Service\Client('https://api.twitter.com/1.1');
 
@@ -492,7 +354,7 @@ class ImportController extends BaseController {
 		return 'twitter imported';
 	}
 
-	public function getVimeo() {
+	public function vimeo() {
 		if (!$file = file_get_contents('http://vimeo.com/api/v2/joshreisner/likes.json')) {
 			trigger_error('Vimeo API call did not work!');
 		}
@@ -549,83 +411,6 @@ class ImportController extends BaseController {
 		));
 
 		return 'Vimeo imported';
-	}
-
-	public function getYouTube() {
-
-		$ids = $images = array();
-		$precedence = 1;
-
-		//collect list of ids, since a snippet search gets crappy info
-		$videos = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=LL-9bKpIX-Be9VQ6k96ijDwQ&maxResults=50&key=' . Config::get('api.google.key')));
-		foreach ($videos->items as $video) $ids[] = $video->contentDetails->videoId;
-
-		//run actual request
-		$video_info = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' . urlencode(implode(',', $ids)) . '&key=' . Config::get('api.google.key')));
-
-		foreach ($video_info->items as $youtube) {
-
-			$date = new DateTime;
-			$date->setTimestamp(strtotime($youtube->snippet->publishedAt));
-
-			if (!$video = Video::where('youtube_id', $youtube->id)->first()) {
-				$video 			= new Video;
-			}
-			$video->title 	 	= $youtube->snippet->title;
-			$video->url 		= 'http://www.youtube.com/watch?v=' . $youtube->id;
-			$video->date 		= $date;
-			$video->author 		= $youtube->snippet->channelTitle;
-			$video->youtube_id	= $youtube->id;
-			$video->updated_at 	= new DateTime;
-			$video->updated_by 	= 1;
-			$video->precedence 	= $precedence++;
-			$video->source 	 	= 'YouTube';
-			$video->save();
-
-			//save image to database (standard > high for some reason)
-			$thumbnail = isset($youtube->snippet->thumbnails->standard->url) ? $youtube->snippet->thumbnails->standard->url : $youtube->snippet->thumbnails->high->url;
-			$image = file_get_contents($thumbnail);
-			$path_parts = pathinfo($thumbnail);
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(54, $image, 'image.' . $path_parts['extension'], $video->id);
-
-			if ($video->image_id !== null) $images[] = $video->image_id;
-
-			$video->image_id 		= $image_props['file_id'];
-			$video->save();
-
-		}
-
-		if (count($images)) {
-			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
-			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
-		}
-
-		DB::table('avalon_objects')->where('id', 7)->update(array(
-			'updated_at'	=>new DateTime,
-			'updated_by'	=>1,
-			'count'		=>--$precedence,
-		));
-
-		return 'YouTube imported';
-
-		/*
-		$oauth = OAuth::consumer('Google');
-
-	    if (Session::has('tokens.google')) {
-			$youtube = json_decode($oauth->request('/youtube/v3/channels?part=contentDetails&mine=true'));
-			
-			dd($youtube);
-
-	    } elseif (Input::has('code')) {
-
-			Session::put('tokens.google', $oauth->requestAccessToken(Input::get('code')));
-			return Redirect::to(Request::url());
-
-	    } else {
-			return Redirect::to((string)$oauth->getAuthorizationUri());
-	    }
-	    */
-
 	}
 
 	private function mapURL($latitude, $longitude) {

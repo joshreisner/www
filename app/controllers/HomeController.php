@@ -2,9 +2,9 @@
 
 class HomeController extends BaseController {
 
-	public function getIndex() {
+	public function index() {
 
-		$timeline = $types = [];
+		$timeline = [];
 
 		# Articles
 		$articles = Article::get();
@@ -15,7 +15,6 @@ class HomeController extends BaseController {
 				'article' => $article,
 			];
 		}
-		$types['article'] = ['title'=>'Articles', 'count'=>count($articles)];
 
 
 		# Books
@@ -26,7 +25,6 @@ class HomeController extends BaseController {
 				'book' => $book,
 			];
 		}
-		$types['book'] = ['title'=>'Books', 'count'=>count($books)];
 
 
 		# Check-Ins
@@ -38,19 +36,7 @@ class HomeController extends BaseController {
 				'checkin' => $checkin,
 			];
 		}
-		$types['checkin'] = ['title'=>'Check-Ins', 'count'=>count($checkins)];
 
-
-		/* Music
-		$songs = Song::get();
-		foreach ($songs as $song) {
-			$timeline[strtotime($song->date)] = [
-				'type' => 'music',
-				'music' => $song,
-			];
-		}
-		$types['music'] = ['title'=>'Music', 'count'=>count($songs)];
-		*/
 
 		# Photos
 		$photos = Photo::get();
@@ -60,7 +46,6 @@ class HomeController extends BaseController {
 				'photo' => $photo,
 			];
 		}
-		$types['photo'] = ['title'=>'Photos', 'count'=>count($photos)];
 
 
 		# Projects
@@ -72,7 +57,6 @@ class HomeController extends BaseController {
 				'project' => $project,
 			];
 		}
-		$types['project'] = ['title'=>'Projects', 'count'=>count($projects)];
 
 
 		# Statuses
@@ -83,7 +67,6 @@ class HomeController extends BaseController {
 				'status' => $status,
 			];
 		}
-		$types['status'] = ['title'=>'Statuses', 'count'=>count($statuses)];
 
 
 		# Videos
@@ -94,13 +77,11 @@ class HomeController extends BaseController {
 				'video' => $video,
 			];
 		}
-		$types['video'] = ['title'=>'Videos', 'count'=>count($videos)];
 
 		krsort($timeline);
 
 		return View::make('home', [
 			'articles' => $timeline,
-			'types' => $types,
 		]);
 	}
 

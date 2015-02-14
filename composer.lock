@@ -60,12 +60,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c9c3c1f5397c136555784bf1e61f294f43d2d63f"
+                "reference": "470ca90e2d511f64f082c569864f22f2c18fdc38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c9c3c1f5397c136555784bf1e61f294f43d2d63f",
-                "reference": "c9c3c1f5397c136555784bf1e61f294f43d2d63f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/470ca90e2d511f64f082c569864f22f2c18fdc38",
+                "reference": "470ca90e2d511f64f082c569864f22f2c18fdc38",
                 "shasum": ""
             },
             "require": {
@@ -119,7 +119,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-02-10 23:54:02"
+            "time": "2015-02-12 20:56:39"
         },
         {
             "name": "aws/aws-sdk-php-laravel",
@@ -1188,12 +1188,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6525df276373292542e63305b7b95d5f79257971"
+                "reference": "3359de6d6cd322e8a1b251c2f8d9dd42a3e4e232"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6525df276373292542e63305b7b95d5f79257971",
-                "reference": "6525df276373292542e63305b7b95d5f79257971",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/3359de6d6cd322e8a1b251c2f8d9dd42a3e4e232",
+                "reference": "3359de6d6cd322e8a1b251c2f8d9dd42a3e4e232",
                 "shasum": ""
             },
             "require": {
@@ -1295,7 +1295,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-02-11 16:35:44"
+            "time": "2015-02-11 20:37:15"
         },
         {
             "name": "lusitanian/oauth",

@@ -11,7 +11,7 @@
 	font-style: normal
 
 $dark  : #333
-$light : #999
+$light : #aaa
 $white : #fff
 
 body
@@ -99,14 +99,19 @@ body
 			a.btn-default
 				background-color: $dark
 				color: $white
-				border-color: $white
-				border-radius: 0
+				border: 0
 				line-height: 1.5
 				i
 					line-height: 1.3
 					margin-right: 2px
 				&:hover
 					background-color: $light
+					
+		.btn-default
+			background-color: $light
+			border: 1px solid $light
+			&:hover
+				color: $white
 
 		.alert-warning
 			background-color: #eee
@@ -114,6 +119,7 @@ body
 			border-radius: 0
 			padding: 100px 15px
 			text-align: center
+			color: inherit
 
 @media (min-width: 480px)
 
