@@ -1,6 +1,6 @@
 <header>Video</header>
 
-<a class="image swipebox" href="{{ $video->url }}" title="{{ $video->title }}">
+<a class="image swipebox" rel="videos" href="{{ $video->url }}" title="{{ $video->title }}">
 	<img src="{{ $video->image->url }}" width="{{ $video->image->height }}" height="{{ $video->image->height }}" class="img-responsive" alt="{{ $video->title }}">
 	<i class="glyphicon glyphicon-play"></i>
 </a>

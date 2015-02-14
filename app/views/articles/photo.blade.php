@@ -1,6 +1,6 @@
 <header>Photo</header>
 
-<a class="image" href="{{ $photo->url }}"><img src="{{ $photo->image->url }}" width="{{ $photo->image->width }}" height="{{ $photo->image->height }}" class="img-responsive"></a>
+<a class="image swipebox" href="{{ $photo->image->url }}" title="{{ $photo->caption or $photo->location }}" rel="images"><img src="{{ $photo->image->url }}" width="{{ $photo->image->width }}" height="{{ $photo->image->height }}" class="img-responsive"></a>
 
 @if ($photo->location)
 <p>{{ $photo->location }}</p>

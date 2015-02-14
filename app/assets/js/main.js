@@ -30,9 +30,11 @@ $(document).ready(function(){
 			filter = '.about, .project';
 		}
 
-		//set location and save cookie
-		window.location.hash = mode;
-		$.cookie('filter', mode, { expires: 365 });
+		//set location if necessary
+		if (window.location.hash != mode) window.location.hash = mode;
+		
+		//save cookie if necessary
+		if ($.cookie('filter') != mode) $.cookie('filter', mode, { expires: 365 });
 
 		//run isotope
 		$container.isotope({ 
@@ -50,22 +52,9 @@ $(document).ready(function(){
 
 		//set active nav state
 		$('#filter a').removeClass('active');
-		$('#filter a[href=#' + window.location.hash.substr(1) + ']').addClass('active');
+		$('#filter a[href=#' + mode + ']').addClass('active');
 		$('#filter').data('active', $('#filter a.active')).lavalamp('update');
 	}
-
-	//open in new win, prob overkill
-	$container.on('click', 'a', function(e){
-		var a = new RegExp('/' + window.location.host + '/');
-		var href = $(this).attr('href');
-		/*
-		if (!$(this).hasClass('btn') && href && !a.test(href)) {
-			e.preventDefault();
-			e.stopPropagation();
-			window.open(href, '_blank');
-		}
-		*/
-	});
 
 	//add in elements when they're loaded
 	$('article.loading').each(function(){
@@ -83,20 +72,20 @@ $(document).ready(function(){
 		init();
 	});
 
+	//wait for custom fonts to load before adding lavalamp
 	document.onreadystatechange = function() {
 		if (document.readyState === 'complete') {
 			$('#filter').lavalamp({duration: 200});
+			$(window).resize(function(){
+				$('#filter').lavalamp('update');
+			});
 		}
 	};
-	
-	$(window).resize(function(){
-		$('#filter').lavalamp('update');
-	});
 
 	//video swipebox
-	$('.swipebox').swipebox();
+	$('.swipebox').swipebox({loopAtEnd:true});
 
-	//moving donw here
+	//start up
 	init();
 
 	//contact form
