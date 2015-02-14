@@ -90,7 +90,7 @@ $(document).ready(function(){
 	};
 	
 	$(window).resize(function(){
-		$('#filter').lavalamp({duration: 200});
+		$('#filter').lavalamp('update');
 	});
 
 	//video swipebox
