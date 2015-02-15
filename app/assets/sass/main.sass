@@ -100,7 +100,7 @@ article
 	a
 		text-decoration: underline
 		&:hover
-			color: $gray
+			color: $black
 		&.image
 			display: block
 			position: relative
@@ -129,6 +129,10 @@ article
 		font-size: 16px
 		a
 			text-decoration: none
+		small
+			font-size: inherit
+			color: inherit
+			font-family: 'Akkurat'
 
 	header
 		padding: $padding
@@ -189,11 +193,15 @@ article
 			box-shadow: 3px 3px 0px 0px white
 			max-width: 100px
 			height: auto
+		
 		footer
 			clear: left
 			background-color: $book_light
 			color: $book_dark
 			border-top: 0
+			
+		i.glyphicon-star-empty
+			opacity: .3
 
 	&:hover
 		header

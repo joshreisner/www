@@ -47,7 +47,7 @@
         </section>
         @include('contact')
         <script src="/assets/js/main.min.js"></script>
-        @if (App::environment() != 'local')
+        @if (App::environment('production'))
         <script>
 	        var _gaq = _gaq || [];
 			_gaq.push(['_setAccount', 'UA-80350-2']);

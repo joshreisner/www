@@ -155,6 +155,7 @@ class ApiController extends BaseController {
 			$book->url 			= $goodread->link;
 			$book->slug			= Slug::make($goodread->title);
 			$book->goodreads_id = $goodread->book_id;
+			$book->rating		= $goodread->user_rating;
 			$book->date 		= $date;
 			$book->updated_at 	= new DateTime;
 			$book->updated_by 	= 1;

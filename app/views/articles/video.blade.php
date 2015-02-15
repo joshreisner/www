@@ -5,7 +5,7 @@
 	<i class="glyphicon glyphicon-play"></i>
 </a>
 
-<p><a href="{{ $video->url }}">{{ $video->title }}</a> by {{ $video->author }}</p>
+<h4><a href="{{ $video->url }}">{{ $video->title }}</a> <small>by {{ $video->author }}</small></h4>
 
 <footer>
     {{ $video->source }}
