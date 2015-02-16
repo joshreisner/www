@@ -1148,12 +1148,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joshreisner/avalon.git",
-                "reference": "9bcd6aba5563e61fc5443a45ab8010c09f06e333"
+                "reference": "8e1e5b094a7e0c407db7b5a9a6c60d0e86da3649"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joshreisner/avalon/zipball/9bcd6aba5563e61fc5443a45ab8010c09f06e333",
-                "reference": "9bcd6aba5563e61fc5443a45ab8010c09f06e333",
+                "url": "https://api.github.com/repos/joshreisner/avalon/zipball/8e1e5b094a7e0c407db7b5a9a6c60d0e86da3649",
+                "reference": "8e1e5b094a7e0c407db7b5a9a6c60d0e86da3649",
                 "shasum": ""
             },
             "require": {
@@ -1180,7 +1180,7 @@
                     "email": "josh@joshreisner.com"
                 }
             ],
-            "time": "2015-02-16 09:12:14"
+            "time": "2015-02-16 09:56:07"
         },
         {
             "name": "laravel/framework",
@@ -2209,12 +2209,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "177e0a8e29fab3f0556f7a973b5a42935e42a4d7"
+                "reference": "cb5db1cf2440ceb68760ef0e70f9d1d4ba135444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/177e0a8e29fab3f0556f7a973b5a42935e42a4d7",
-                "reference": "177e0a8e29fab3f0556f7a973b5a42935e42a4d7",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/cb5db1cf2440ceb68760ef0e70f9d1d4ba135444",
+                "reference": "cb5db1cf2440ceb68760ef0e70f9d1d4ba135444",
                 "shasum": ""
             },
             "require": {
@@ -2247,7 +2247,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2015-02-11 07:17:51"
+            "time": "2015-02-16 09:13:25"
         },
         {
             "name": "symfony/finder",
