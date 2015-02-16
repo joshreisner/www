@@ -465,12 +465,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "56360cc13bfd13893731c6c4d1d82005a61d7694"
+                "reference": "f1004b8b336465fafd498ee6539cc2502d16f98f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/56360cc13bfd13893731c6c4d1d82005a61d7694",
-                "reference": "56360cc13bfd13893731c6c4d1d82005a61d7694",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/f1004b8b336465fafd498ee6539cc2502d16f98f",
+                "reference": "f1004b8b336465fafd498ee6539cc2502d16f98f",
                 "shasum": ""
             },
             "require": {
@@ -530,7 +530,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-01-23 18:43:22"
+            "time": "2015-02-16 02:14:17"
         },
         {
             "name": "doctrine/dbal",
@@ -1148,12 +1148,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joshreisner/avalon.git",
-                "reference": "8ffae13d33b4b3b77c20279087ebf89b5c00306e"
+                "reference": "9bcd6aba5563e61fc5443a45ab8010c09f06e333"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joshreisner/avalon/zipball/8ffae13d33b4b3b77c20279087ebf89b5c00306e",
-                "reference": "8ffae13d33b4b3b77c20279087ebf89b5c00306e",
+                "url": "https://api.github.com/repos/joshreisner/avalon/zipball/9bcd6aba5563e61fc5443a45ab8010c09f06e333",
+                "reference": "9bcd6aba5563e61fc5443a45ab8010c09f06e333",
                 "shasum": ""
             },
             "require": {
@@ -1180,7 +1180,7 @@
                     "email": "josh@joshreisner.com"
                 }
             ],
-            "time": "2015-02-03 17:52:55"
+            "time": "2015-02-16 09:12:14"
         },
         {
             "name": "laravel/framework",
