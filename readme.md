@@ -14,4 +14,4 @@ and gets data from the following APIs with varying degrees of success:
 * Vimeo
 * YouTube
 
-All the site's models are provided by [Avalon](https://github.com/joshreisner/avalon), a CMS I'm working on.
+All the site's models are provided by [Center](https://github.com/left-right/center), a CMS I'm working on.

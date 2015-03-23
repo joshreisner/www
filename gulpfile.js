@@ -1,53 +1,22 @@
-var gulp 		= require('gulp');
-var gutil 		= require('gulp-util');
-var notify 		= require('gulp-notify');
-var sass 		= require('gulp-ruby-sass');
-var autoprefix 	= require('gulp-autoprefixer');
-var minifyCSS 	= require('gulp-minify-css');
-var rename		= require('gulp-rename');
-var include		= require('gulp-include');
-var uglify		= require('gulp-uglify');
+var elixir = require('laravel-elixir');
 
-var sassDir		= 'app/assets/sass';
-var jsDir		= 'app/assets/js';
-var outputDir	= 'public/assets';
-
-gulp.task('main-css', function(){
-	return gulp.src(sassDir + '/main.sass')
-		.pipe(sass())
-		.on('error', handleError)
-		.pipe(autoprefix('last 3 version'))
-		.pipe(minifyCSS({keepSpecialComments:0}))
-        .pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest(outputDir + '/css'));
+elixir(function(mix) {
+	mix.rubySass([
+		'main.sass'
+	], 'public/assets/css')
+	.rubySass([
+		'center.sass'
+	], 'public/assets/css')
+	.scripts([
+		'../../bower_components/jquery/dist/jquery.js',
+		'../../bower_components/isotope/dist/isotope.pkgd.js',
+		'../../bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
+		'../../bower_components/jquery.cookie/jquery.cookie.js',
+		'../../bower_components/imagesloaded/imagesloaded.pkgd.js',
+		'../../bower_components/lavalamp/js/jquery.lavalamp.js',
+		'../../bower_components/swipebox/src/js/jquery.swipebox.js',
+        '../assets/js/main.js'
+    ], 'public/assets/js')
+    .copy('../bower_components/bootstrap-sass/assets/fonts/bootstrap', 'public/assets/fonts/bootstrap')
+	.copy('resources/assets/fonts', 'public/assets/fonts');
 });
-
-gulp.task('avalon-css', function(){
-	return gulp.src(sassDir + '/avalon.sass')
-		.pipe(sass())
-		.on('error', handleError)
-		.pipe(autoprefix('last 3 version'))
-		.pipe(minifyCSS({keepSpecialComments:0}))
-        .pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest(outputDir + '/css'));
-});
-
-gulp.task('main-js', function(){
-	return gulp.src(jsDir + '/main.js')
-		.pipe(include())
-		.pipe(uglify())
-        .pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest(outputDir + '/js'));
-});
-
-gulp.task('watch', function(){
-	gulp.watch(sassDir + '/**/*.sass', ['main-css', 'avalon-css']);
-	gulp.watch(jsDir + '/**/*.js', ['main-js']);
-});
-
-gulp.task('default', ['main-css', 'avalon-css', 'main-js', 'watch']);
-
-function handleError(err) {
-	gulp.src(sassDir + '/main.sass').pipe(notify(err));
-	this.emit('end');
-}
