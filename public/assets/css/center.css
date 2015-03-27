@@ -12,13 +12,19 @@ body {
   font-family: "Akkurat", Sans-Serif;
   font-size: 15px;
   background-color: #fffffe; }
+  body label {
+    font-family: "AkkuratBold";
+    font-weight: normal; }
+  body .btn {
+    padding: 7px 12px 5px; }
   body .btn:focus, body .btn-primary:focus {
     outline: none; }
   body .string {
     color: inherit; }
   body input.btn-primary {
     background-color: #333;
-    border-color: #333; }
+    border-color: #333;
+    font-family: "AkkuratBold"; }
     body input.btn-primary:hover, body input.btn-primary:active, body input.btn-primary:focus {
       background-color: #aaa;
       border-color: #aaa; }
@@ -33,6 +39,7 @@ body {
   body .form-control, body .btn {
     border-radius: 0; }
   body.login div.modal div.modal-content {
+    margin-top: 25%;
     border-radius: 0;
     box-shadow: 6px 6px 0px 0px #aaa; }
     body.login div.modal div.modal-content div.modal-header {
@@ -42,7 +49,8 @@ body {
       body.login div.modal div.modal-content div.modal-header h2, body.login div.modal div.modal-content div.modal-header h3 {
         line-height: 1; }
       body.login div.modal div.modal-content div.modal-header h2 {
-        font-size: 34px; }
+        font-size: 34px;
+        font-family: "AkkuratBold"; }
     body.login div.modal div.modal-content div.modal-body div.alert {
       margin: -21px -20px 20px;
       border-width: 0 0 1px 0;

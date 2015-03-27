@@ -32,11 +32,11 @@ Route::group(['before'=>'auth', 'prefix'=>'import'], function(){
 });
 
 Route::post('/contact', function(){
-	Mail::send('emails.message', ['content'=>nl2br(Input::get('message'))], function($message)
+	Mail::send('emails.message', ['content'=>nl2br(Request::input('message'))], function($message)
 	{
 	    $message
 	    	->to('josh@joshreisner.com', 'Josh Reisner')
-	    	->subject('JRDC Website Contact Page')
-			->replyTo(Input::get('email'));
+	    	->subject('JRDC Website Contact Form')
+			->replyTo(Request::input('email'));
 	});
 });
