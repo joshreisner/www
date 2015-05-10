@@ -3,7 +3,7 @@
 return [
 	'keep_clean',
 	'list' => ['name', 'source', 'date', 'updated_at'],
-	'model' => 'Checkin',
+	'order_by' => ['date' => 'desc'],
 	'fields' => [
 		'name' => 'string',
 		'source' => 'string',

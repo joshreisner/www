@@ -3,7 +3,7 @@
 return [
 	'keep_clean',
 	'list' => ['image_id', 'location', 'date', 'updated_at'],
-	'model' => 'Photo',
+	'order_by' => ['date' => 'desc'],
 	'fields' => [
 		'image_id' => [
 			'type' => 'image',

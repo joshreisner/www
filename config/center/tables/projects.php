@@ -2,8 +2,8 @@
 
 return [
 	'keep_clean',
-	'list' => ['title', 'date', 'updated_at'],
-	'model' => 'Project',
+	'list' => ['image_id', 'title', 'date', 'updated_at'],
+	'order_by' => ['date' => 'desc'],
 	'fields' => [
 		'image_id' => [
 			'type' => 'image',

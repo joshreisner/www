@@ -4,7 +4,7 @@ return [
 	'search' => ['title', 'author'],
 	'keep_clean',
 	'list' => ['cover_id', 'title', 'date'],
-	'model' => 'Book',
+	'order_by' => ['date' => 'desc'],
 	'fields' => [
 		'title' => [
 			'type' => 'string',

@@ -4,7 +4,6 @@ return [
 	'keep_clean',
 	'list' => ['image_id', 'title', 'date', 'updated_at'],
 	'order_by' => ['date' => 'desc'],
-	'model' => 'Video',
 	'fields' => [
 		'image_id' => [
 			'type' => 'image',

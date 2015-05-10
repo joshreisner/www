@@ -3,7 +3,7 @@
 return [
 	'keep_clean',
 	'list' => ['text', 'date', 'updated_at'],
-	'model' => 'Tweet',
+	'order_by' => ['date' => 'desc'],
 	'fields' => [
 		'text' => 'text required',
 		'date' => 'datetime',
