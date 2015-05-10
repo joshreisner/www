@@ -1,6 +1,8 @@
 <header>Photo</header>
 
+@if (isset($photo->image->url))
 <a class="image swipebox" href="{{ $photo->image->url }}" title="{{ $photo->caption or $photo->location }}" rel="images"><img src="{{ $photo->image->url }}" width="{{ $photo->image->width }}" height="{{ $photo->image->height }}" class="img-responsive"></a>
+@endif
 
 @if ($photo->location)
 <p>{{ $photo->location }}</p>

@@ -1,6 +1,8 @@
 <header>Book</header>
 
+@if (isset($book->cover->url))
 <a href="{{ $book->url }}"><img src="{{ $book->cover->url }}" width="{{ $book->cover->width }}" height="{{ $book->cover->height }}"></a>
+@endif
 
 <h4>
 	<a href="{{ $book->url }}">{{ $book->title }}</a>

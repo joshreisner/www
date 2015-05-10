@@ -1,9 +1,11 @@
 <header>Video</header>
 
+@if (isset($video->image->url))
 <a class="image swipebox" rel="videos" href="{{ $video->url }}" title="{{ $video->title }}">
 	<img src="{{ $video->image->url }}" width="{{ $video->image->height }}" height="{{ $video->image->height }}" class="img-responsive" alt="{{ $video->title }}">
 	<i class="glyphicon glyphicon-play"></i>
 </a>
+@endif
 
 <h4><a href="{{ $video->url }}">{{ $video->title }}</a> <small>by {{ $video->author }}</small></h4>
 
