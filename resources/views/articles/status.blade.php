@@ -1,7 +1,7 @@
 <header>Status</header>
 
 <p>
-	{{ $status->text }}
+	{!! $status->text !!}
 </p>
 
 <footer>
