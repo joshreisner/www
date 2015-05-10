@@ -5,7 +5,7 @@ return [
 	'fields' => [
 		'title' => 'Title',	
 		'updated_at' => 'Updated',
-		'cover' => 'Cover',
+		'cover_id' => 'Cover',
 		'published' => 'Published',
 		'rating' => 'Rating',
 		'author' => 'Author',

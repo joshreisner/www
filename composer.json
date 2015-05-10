@@ -8,6 +8,7 @@
 		"laravel/framework": "5.0.*",
 		"illuminate/html": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
+        "guzzlehttp/oauth-subscriber": "0.1.*",
 		"left-right/center": "dev-master"
 	},
 	"require-dev": {
@@ -17,6 +18,12 @@
 	"autoload": {
 		"classmap": [
 			"database"
+		],
+		"files": [
+			"vendor/left-right/center/src/middleware/Permissions.php",
+			"vendor/left-right/center/src/console/Refresh.php",
+			"vendor/left-right/center/src/controllers/RowController.php",
+			"vendor/left-right/center/src/controllers/LoginController.php"
 		],
 		"psr-4": {
 			"App\\": "app/"

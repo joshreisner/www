@@ -1,5 +1,21 @@
 <?php namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Subscriber\Oauth\Oauth1;
+use LeftRight\Center\Models\Article;
+use LeftRight\Center\Models\Book;
+use LeftRight\Center\Models\Checkin;
+use LeftRight\Center\Models\Photo;
+use LeftRight\Center\Models\Tweet;
+use LeftRight\Center\Models\Video;
+use LeftRight\Center\Libraries\Slug;
+use LeftRight\Center\CenterServiceProvider;
+use DateTime;
+use DB;
+use Redirect;
+use Request;
+use Session;
+
 class ApiController extends Controller {	
 	public function facebook() {
 
@@ -28,12 +44,10 @@ class ApiController extends Controller {
 				$checkin->created_at 	= new DateTime;
 				$checkin->updated_at 	= new DateTime;
 				$checkin->updated_by 	= 1;
-				$checkin->precedence 	= Checkin::max('precedence') + 1;
 				$checkin->save();
 				
 				//save image to database
-				$image = file_get_contents(self::mapURL($checkin->latitude, $checkin->longitude));
-				$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map.png', $checkin->id);
+				$image_props = CenterServiceProvider::saveImage('checkins', 'image_id', self::mapURL($checkin->latitude, $checkin->longitude), $checkin->id);
 
 				if ($checkin->map_id !== null) $images[] = $checkin->map_id;
 
@@ -44,14 +58,8 @@ class ApiController extends Controller {
 
 			if (count($images)) {
 				$images = DB::table('avalon_files')->whereIn('id', $images)->get();
-				Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
+				CenterServiceProvider::cleanupFiles($images);
 			}
-
-			DB::table('avalon_objects')->where('id', 8)->update(array(
-				'updated_at'=>new DateTime,
-				'updated_by'	=>1,
-				'count'		=>Checkin::count(),
-			));
 
 			return 'Facebook imported';
 
@@ -67,12 +75,12 @@ class ApiController extends Controller {
 
 	public function foursquare() {
 
-		if (!$file = file_get_contents('https://feeds.foursquare.com/history/' . Config::get('api.foursquare') . '.kml')) {
+		if (!$file = file_get_contents('https://feeds.foursquare.com/history/' . env('FOURSQUARE') . '.kml')) {
 			trigger_error('Foursquare API call did not work!');
 		}
 
 		$checkins = simplexml_load_string($file);
-		$images = array();
+
 		//dd($checkins);
 
 		//DB::table('checkins')->truncate();
@@ -84,26 +92,23 @@ class ApiController extends Controller {
 
 			list($longitude, $latitude) = explode(',', $placemark->Point->coordinates);
 
-			if (!$checkin = Checkin::whereNull('facebook_id')
-					->where('latitude', $latitude)
-					->where('longitude', $longitude)
-					->first()) {
-				$checkin 			= new Checkin;
-			}
+			$checkin = Checkin::firstOrNew([
+				'facebook_id' => null,
+				'latitude'    => $latitude,
+				'longitude'   => $longitude,
+			]);
+			
 			$checkin->name 	 		= $placemark->name;
 			$checkin->date 			= $date;
 			$checkin->latitude 		= $latitude;
 			$checkin->longitude 	= $longitude;
 			$checkin->source 		= 'Foursquare';
-			$checkin->created_at 	= new DateTime;
 			$checkin->updated_at 	= new DateTime;
 			$checkin->updated_by 	= 1;
-			$checkin->precedence 	= Checkin::max('precedence') + 1;
 			$checkin->save();
 			
 			//save image to database
-			$image = file_get_contents(self::mapURL($checkin->latitude, $checkin->longitude));
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(57, $image, 'map.png', $checkin->id);
+			$image_props = CenterServiceProvider::saveImage('checkins', 'map_id', self::mapURL($checkin->latitude, $checkin->longitude), $checkin->id);
 
 			if ($checkin->map_id !== null) $images[] = $checkin->map_id;
 
@@ -111,17 +116,6 @@ class ApiController extends Controller {
 			$checkin->save();
 
 		}
-
-		if (count($images)) {
-			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
-			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
-		}
-
-		DB::table('avalon_objects')->where('id', 8)->update(array(
-			'updated_at'	=>new DateTime,
-			'updated_by'	=>1,
-			'count'			=>Checkin::count(),
-		));
 
 		return 'foursquare imported';
 	}
@@ -151,20 +145,18 @@ class ApiController extends Controller {
 			$book->title 		= $goodread->title;
 			$book->author 	 	= $goodread->author_name;
 			$book->published 	= $goodread->book_published;
-			$book->url 			= $goodread->link;
-			$book->slug			= Slug::make($goodread->title);
+			//$book->url 			= $goodread->link;
+			//$book->slug			= Slug::make($goodread->title);
 			$book->goodreads_id = $goodread->book_id;
 			$book->rating		= $goodread->user_rating;
 			$book->date 		= $date;
 			$book->updated_at 	= new DateTime;
 			$book->updated_by 	= 1;
-			$book->precedence 	= $precedence++;
+			//$book->precedence 	= $precedence++;
 			$book->save(); //to ensure there's an id?
 
 			//save image to database
-			$image = file_get_contents($goodread->book_large_image_url);
-			$path_parts = pathinfo($goodread->book_large_image_url);
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(50, $image, 'cover.' . $path_parts['extension'], $book->id);
+			$image_props = CenterServiceProvider::saveImage('books', 'cover_id', $goodread->book_large_image_url, $book->id);
 
 			if ($book->cover_id !== null) $images[] = $book->cover_id;
 
@@ -174,15 +166,9 @@ class ApiController extends Controller {
 		}
 
 		if (count($images)) {
-			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
-			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
+			$images = DB::table(config('center.db.files'))->whereIn('id', $images)->get();
+			CenterServiceProvider::cleanupFiles($images);
 		}
-
-		DB::table('avalon_objects')->where('id', 10)->update(array(
-			'updated_at'	=>new DateTime,
-			'updated_by'	=>1,
-			'count'			=>--$precedence,
-		));
 
 		return 'goodreads imported';
 	}
@@ -190,57 +176,38 @@ class ApiController extends Controller {
 
 	public function instagram() {
 
-		if (!$file = file_get_contents('https://api.instagram.com/v1/users/6676862/media/recent/?access_token=' . Config::get('api.instagram.token'))) {
+		if (!$file = file_get_contents('https://api.instagram.com/v1/users/6676862/media/recent/?access_token=' . env('INSTAGRAM'))) {
 			trigger_error('Instagram API call did not work!');
 		}
 
 		//DB::table('photos')->truncate();
 
 		$photos = json_decode($file);
-		$images = array();
 
 		//dd($photos);
 
-		$precedence = 1;
 		foreach ($photos->data as $pic) {
 			$date = new DateTime;
 			$date->setTimestamp($pic->created_time);
 
-			if (!$photo = Photo::where('instagram_id', $pic->id)->first()) {
-				$photo = new Photo;
-			}
+			$photo = Photo::firstOrNew(['instagram_id'=>$pic->id]);
 			$photo->caption			= (empty($pic->caption->text)) ? null : $pic->caption->text;
 			$photo->location		= (empty($pic->location->name)) ? null : $pic->location->name;
 			$photo->url 			= $pic->link;
 			$photo->date 			= $date;
 			$photo->updated_at		= new DateTime;
 			$photo->updated_by		= 1;
-			$photo->precedence		= $precedence++;
 			$photo->instagram_id	= $pic->id;
 			$photo->save();
 
 			//save image to database
-			$image = file_get_contents($pic->images->standard_resolution->url);
-			$path_parts = pathinfo($pic->images->standard_resolution->url);
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(51, $image, 'image.' . $path_parts['extension'], $photo->id);
+			$image_props = CenterServiceProvider::saveImage('photos', 'image_id', $pic->images->standard_resolution->url, $photo->id);
 
 			if ($photo->image_id !== null) $images[] = $photo->image_id;
 
 			$photo->image_id 		= $image_props['file_id'];
 			$photo->save();
-
 		}
-
-		if (count($images)) {
-			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
-			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
-		}
-
-		DB::table('avalon_objects')->where('id', 4)->update(array(
-			'updated_at'	=>new DateTime,
-			'updated_by'	=>1,
-			'count'			=>--$precedence,
-		));
 
 		return 'instagram imported';
 	}
@@ -280,44 +247,35 @@ class ApiController extends Controller {
 			$article->url 		 	= substr($rdbl->link, 36);
 			$article->updated_at 	= new DateTime;
 			$article->updated_by 	= 1;
-			$article->precedence 	= $precedence++;
 			$article->save();
 		}
-
-		DB::table('avalon_objects')->where('id', 9)->update(array(
-			'updated_at'	=>new DateTime,
-			'updated_by'	=>1,
-			'count'		=>--$precedence,
-		));
 
 		return 'readability imported';
 	}
 
 	public function twitter() {
 
-		$client = new \Guzzle\Service\Client('https://api.twitter.com/1.1');
+		$client = new Client(['base_url' => 'https://api.twitter.com/1.1/']);
+		
+		$oauth = new Oauth1([
+		    'consumer_key'    => env('TWITTER_CONSUMER_KEY'),
+		    'consumer_secret' => env('TWITTER_CONSUMER_SECRET'),
+		    'token'           => env('TWITTER_ACCESS_TOKEN'),
+		    'token_secret'    => env('TWITTER_ACCESS_TOKEN_SECRET'),
+		]);
+		
+		$client->getEmitter()->attach($oauth);
 
-		$auth = new \Guzzle\Plugin\Oauth\OauthPlugin(array(
-			'consumer_key' 		=> Config::get('api.twitter.consumer_key'),
-			'consumer_secret' 	=> Config::get('api.twitter.consumer_secret'),
-			'token' 			=> Config::get('api.twitter.access_token'),
-			'token_secret'		=> Config::get('api.twitter.access_token_secret'),
-		));
-
-		$client->addSubscriber($auth);
-
-		$response = $client->get('statuses/user_timeline.json?username=joshreisner&exclude_replies=true')->send();
+		$response = $client->get('statuses/user_timeline.json?username=joshreisner&exclude_replies=true', ['auth' => 'oauth']);
 
 		$tweets = $response->json();
 		
 		DB::table('tweets')->truncate();
 
-		$precedence = 1;
-
 		foreach ($tweets as $tweet) {
 			$tweet = (object)$tweet;
 
-			echo '<pre>', print_r($tweet);		
+			//echo '<pre>', print_r($tweet);		
 
 			if (!empty($tweet->entities['urls'])) {
 				foreach ($tweet->entities['urls'] as $url) {
@@ -341,15 +299,8 @@ class ApiController extends Controller {
 			$status->date 			= $date;
 			$status->updated_at 	= new DateTime;
 			$status->updated_by 	= 1;
-			$status->precedence 	= $precedence++;
 			$status->save();
 		}
-
-		DB::table('avalon_objects')->where('id', 6)->update(array(
-			'updated_at'	=>new DateTime,
-			'updated_by'	=>1,
-			'count'			=>--$precedence,
-		));
 
 		return 'twitter imported';
 	}
@@ -359,7 +310,7 @@ class ApiController extends Controller {
 			trigger_error('Vimeo API call did not work!');
 		}
 
-		//DB::table('videos')->truncate();
+		DB::table('videos')->truncate();
 
 		$precedence = 1;
 
@@ -373,9 +324,7 @@ class ApiController extends Controller {
 			$date = new DateTime;
 			$date->setTimestamp(strtotime($vimeo->liked_on));
 
-			if (!$video = Video::where('vimeo_id', $vimeo->id)->first()) {
-				$video 			= new Video;
-			}
+			$video = Video::firstOrNew(['vimeo_id'=>$vimeo->id]);
 			$video->title 	 	= $vimeo->title;
 			$video->url 		= $vimeo->url;
 			$video->date 		= $date;
@@ -383,32 +332,17 @@ class ApiController extends Controller {
 			$video->vimeo_id	= $vimeo->id;
 			$video->updated_at 	= new DateTime;
 			$video->updated_by 	= 1;
-			$video->precedence 	= $precedence++;
 			$video->source 	 	= 'Vimeo';
 			$video->save();
 
 			//save image to database
-			$image = file_get_contents($vimeo->thumbnail_large);
-			$path_parts = pathinfo($vimeo->thumbnail_large);
-			$image_props = Joshreisner\Avalon\AvalonServiceProvider::saveImage(54, $image, 'image.' . $path_parts['extension'], $video->id);
+			$image_props = CenterServiceProvider::saveImage('videos', 'image_id', $vimeo->thumbnail_large, $video->id);
 
 			if ($video->image_id !== null) $images[] = $video->image_id;
 
 			$video->image_id 		= $image_props['file_id'];
 			$video->save();
-
 		}
-
-		if (count($images)) {
-			$images = DB::table('avalon_files')->whereIn('id', $images)->get();
-			Joshreisner\Avalon\AvalonServiceProvider::cleanupFiles($images);
-		}
-
-		DB::table('avalon_objects')->where('id', 7)->update(array(
-			'updated_at'	=>new DateTime,
-			'updated_by'	=>1,
-			'count'		=>--$precedence,
-		));
 
 		return 'Vimeo imported';
 	}

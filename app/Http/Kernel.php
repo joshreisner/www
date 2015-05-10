@@ -16,6 +16,7 @@ class Kernel extends HttpKernel {
 		'Illuminate\Session\Middleware\StartSession',
 		'Illuminate\View\Middleware\ShareErrorsFromSession',
 		'App\Http\Middleware\VerifyCsrfToken',
+		'LeftRight\Center\Middleware\Permissions',
 	];
 
 	/**
@@ -28,8 +29,6 @@ class Kernel extends HttpKernel {
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
 		'user' => 'LeftRight\Center\Middleware\User',
-		'admin' => 'LeftRight\Center\Middleware\Admin',
-		'programmer' => 'LeftRight\Center\Middleware\Programmer',
 	];
 
 }
