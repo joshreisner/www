@@ -10,7 +10,7 @@ Route::get('/work', function(){
 	return Redirect::to('/#projects', 301);
 });
 
-Route::group(['before'=>'auth', 'prefix'=>'import'], function(){
+Route::group(['middleware'=>'auth', 'prefix'=>'import'], function(){
 	$services = [
 		'facebook'		=>'Facebook',
 		'foursquare'	=>'FourSquare',
