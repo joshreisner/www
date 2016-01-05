@@ -235,6 +235,8 @@ class ApiController extends Controller {
 
 		$readability = simplexml_load_string($file);
 
+		//dd($readability);
+
 		foreach ($readability->channel->item as $rdbl) {
 
 			$date = new DateTime;
