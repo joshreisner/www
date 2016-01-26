@@ -23,6 +23,7 @@
 			"vendor/left-right/center/src/middleware/Permissions.php",
 			"vendor/left-right/center/src/console/Refresh.php",
 			"vendor/left-right/center/src/controllers/RowController.php",
+			"vendor/left-right/center/src/controllers/TableController.php",
 			"vendor/left-right/center/src/controllers/LoginController.php"
 		],
 		"psr-4": {
