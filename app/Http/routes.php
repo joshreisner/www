@@ -40,3 +40,7 @@ Route::post('/contact', function(){
 			->replyTo(Request::input('email'));
 	});
 });
+
+Route::get('test/error', function(){
+	trigger_error('test error!');
+});

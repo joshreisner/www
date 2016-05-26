@@ -147,7 +147,8 @@ return [
 
 		'LeftRight\Center\CenterServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
-		'Maatwebsite\Excel\ExcelServiceProvider',
+		Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
+		
 	],
 
 	/*
@@ -198,7 +199,7 @@ return [
 
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
-		'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
+		'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
 
 	],
 
