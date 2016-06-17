@@ -32,6 +32,13 @@ Route::group(['middleware'=>'auth', 'prefix'=>'import'], function(){
 });
 
 Route::post('/contact', function(){
+    $validator = Validator::make(Request::all(), [
+        'email' => 'required|email',
+        'message' => 'required',
+    ]);
+    
+	if ($validator->fails()) return;
+	
 	Mail::send('emails.message', ['content'=>nl2br(Request::input('message'))], function($message)
 	{
 	    $message
