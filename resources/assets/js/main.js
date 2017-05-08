@@ -44,8 +44,7 @@ $(document).ready(function(){
 
 		//set active nav state
 		$('#filter a').removeClass('active');
-		$('#filter a[href=#' + mode + ']').addClass('active');
-		$('#filter').data('active', $('#filter a.active')).lavalamp('update');
+		$('#filter a[href="#' + mode + '"]').addClass('active');
 	}
 
 	//add in elements when they're loaded
@@ -61,21 +60,13 @@ $(document).ready(function(){
 	$('#filter').on('click', 'a', function(e){
 		e.preventDefault();
 		window.location.hash = $(this).attr('href').substr(1);
+		$('#filter a').removeClass('active');
+		$(this).addClass('active');
 		init();
 	});
 
-	//wait for custom fonts to load before adding lavalamp
-	document.onreadystatechange = function() {
-		if (document.readyState === 'complete') {
-			$('#filter').lavalamp({duration: 200});
-			$(window).resize(function(){
-				$('#filter').lavalamp('update');
-			});
-		}
-	};
-
 	//video swipebox
-	$('.swipebox').swipebox({loopAtEnd:true});
+	//$('.swipebox').swipebox({loopAtEnd:true});
 
 	//start up
 	init();
@@ -104,7 +95,7 @@ $(document).ready(function(){
 
 		if (!errors) {
 			$('#contact').modal('hide');
-			$.post('/contact', $(this).serializeArray());
+			$.post('/contact-form', $(this).serializeArray());
 			$message.val('');
 		}
 

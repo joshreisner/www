@@ -5,7 +5,7 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h3 class="modal-title">Contact</h3>
 			</div>
-			{!! Form::open(['method'=>'post', 'url'=>'/contact']) !!}
+			{!! Form::open(['method'=>'post']) !!}
 				<div class="modal-body">
 					<div class="form-group">
 						<input type="email" name="email" class="form-control" placeholder="Email Address">

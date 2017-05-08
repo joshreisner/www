@@ -75,20 +75,17 @@ section
 			font-family: inherit
 
 		#filter
-			margin-right: $margin
+			//margin-right: $margin
 			overflow: auto
 			a
 				color: $black
 				&:first-child
 					margin-right: 0
-				&:hover, &:active, &:focus
-					text-decoration: none
+				&.active
+					text-decoration: underline
 			span
 				margin: 0 10px
 				color: #aaa
-
-			.lavalamp-object
-				border-bottom: 1px solid $black
 
 article
 	background-color: white

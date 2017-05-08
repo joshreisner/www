@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.0.*",
+		"laravel/framework": "5.1.*",
 		"illuminate/html": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
         "guzzlehttp/oauth-subscriber": "0.1.*",
@@ -21,7 +21,6 @@
 			"database"
 		],
 		"files": [
-            "vendor/left-right/center/src/middleware/Permissions.php", 
             "vendor/left-right/center/src/console/Refresh.php" 
 		],
 		"psr-4": {

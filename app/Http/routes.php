@@ -31,7 +31,7 @@ Route::group(['middleware'=>'auth', 'prefix'=>'import'], function(){
 	});
 });
 
-Route::post('/contact', function(){
+Route::post('/contact-form', function(){
     $validator = Validator::make(Request::all(), [
         'email' => 'required|email',
         'message' => 'required',
