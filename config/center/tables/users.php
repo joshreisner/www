@@ -20,7 +20,6 @@ return [
 			'type' => 'datetime',
 			'hidden',
 		],
-		'permissions', 
 		'updated_at',
 		'updated_by',
 		'deleted_at',
