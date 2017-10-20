@@ -7,8 +7,8 @@
 	"require": {
 		"laravel/framework": "5.1.*",
 		"illuminate/html": "dev-master",
-		"guzzlehttp/guzzle": "~4.0",
-        "guzzlehttp/oauth-subscriber": "0.1.*",
+		"guzzlehttp/guzzle": "~6.0",
+        "guzzlehttp/oauth-subscriber": "0.3.*",
 		"left-right/center": "dev-master",
 		"sentry/sentry-laravel": "^0.8.0"		
 	},
