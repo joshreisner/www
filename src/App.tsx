@@ -2,7 +2,7 @@ import React from "react";
 
 export default function App() {
   return (
-    <div className="flex h-screen bg-gradient-to-br from-blue-50 to-blue-200 p-5 md:p-10 items-center">
+    <div className="flex h-screen p-5 md:p-10 items-center">
       <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex space-x-4">
         <div className="flex-shrink-0">
           <img
